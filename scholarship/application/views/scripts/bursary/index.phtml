@@ -1,0 +1,54 @@
+<div id="view-content">
+	<h3>奖学金列表</h3>
+	<div class="col-md-12">
+		<div class="table-responsive">
+    		<table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>名称</th>
+                  <th>名额</th>
+                  <th>学年</th>
+                  <th>开始时间</th>
+                  <th>结束时间</th>
+                  <th>发放时间</th>
+                  <th>流程</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+              foreach ($this->bursary_list as $index=>$scholarship) {
+                  $index ++;
+                  echo 
+                    "<tr>
+                      <th scope=\"row\">{$index}</th>
+                      <td><a href=\"{$this->baseUrl("/default/bursary/view/id/" . $scholarship['scholarship_id'])}\">{$scholarship['scholarship_name']}</a></td>
+                      <td><a href=\"{$this->baseUrl('/default/bursary/distribute/id/' . $scholarship['scholarship_id'])}\" title=\"名额分配\">{$scholarship['num']}</a></td>
+                      <td>{$scholarship['scholarship_year']}</td>
+                      <td>{$scholarship['start_time']}</td>  
+                      <td>{$scholarship['end_time']}</td>  
+                      <td>{$scholarship['pay_time']}</td> 
+                      <td><a href=\"{$this->baseUrl("/default/bursary/flow/id/" . $scholarship["scholarship_id"])}\">查看流程</a></td> 
+                      <td><a href=\"{$this->baseUrl("/default/bursary/apply/id/" . $scholarship["scholarship_id"])}\">申请</a></td> 
+                    </tr>";
+              }
+                ?>
+              </tbody>
+            </table>
+		</div>
+	</div>
+</div>
+
+<?php 
+$this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/dist/css/bootstrap-dialog.min.css"));
+$this->headScript()->appendFile($this->baseUrl("/plugins/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"));
+$this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
+$this->headScript()->appendScript("
+    
+    var Public = new PublicClass();
+
+
+", $type = 'text/javascript');
+
+?>

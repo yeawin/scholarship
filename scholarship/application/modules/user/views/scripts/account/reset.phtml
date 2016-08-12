@@ -1,0 +1,29 @@
+<div id="view-content">
+	<div class="row">
+		<h3>查询结果</h3>
+		<div class="col-md-12">
+			<p class="col-md-6">学工号：<?php echo $this->user_info["stu_id"];?></p>
+			<p class="col-md-6">姓名：<?php echo $this->user_info["stu_name"];?></p>
+			<p class="col-md-6">学院：<?php echo $this->user_info["dept_name"];?></p>
+			<p class="col-md-6">年级：<?php echo $this->user_info["stu_grade"];?></p>
+		</div>
+		<hr class="col-md-12">
+		<h3>密码重置</h3>
+		<div class="col-md-12">
+			<form role="form" class="form form-horizontal" method="post" action="<?php echo $this->baseUrl("/user/account/reset-ok");?>">
+              <div class="form-group">
+                <label for="InputPassword1">新密码</label>
+                <input type="password" class="form-control" name="n_pwd" id="InputPassword1" required placeholder="新密码">
+              </div>
+               <div class="form-group">
+                <label for="InputPassword2">确认新密码</label>
+                <input type="password" class="form-control" name="n_pwd_" id="InputPassword2" required placeholder="确认新密码">
+              </div>
+               <div class="form-group">
+              	 <input type="hidden"name="user_id" value="<?php echo $this->user_info["stu_id"];?>">
+                  <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+			</form>
+		</div>
+	</div>
+</div>

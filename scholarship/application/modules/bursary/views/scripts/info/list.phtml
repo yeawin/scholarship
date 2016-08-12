@@ -1,0 +1,86 @@
+<div id="view-content">
+	<h3>奖学金列表</h3>
+	<div class="col-md-12">
+		<div class="table-responsive">
+    		<table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>名称</th>
+                  <th>名额</th>
+                  <th>学年</th>
+                  <th>开始时间</th>
+                  <th>结束时间</th>
+                  <th>是否隐藏</th>
+                  <th>是否开始</th>
+                  <th>是否过期</th>
+                  <th>发放时间</th>
+                  <th>流程</th>
+                  <th>编辑</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+              foreach ($this->scholarship_list as $index=>$scholarship) {
+                  $index ++;
+                  echo 
+                    "<tr>
+                      <th scope=\"row\">{$index}</th>
+                      <td>{$scholarship['scholarship_name']}</td>
+                      <td><a href=\"{$this->baseUrl('/bursary/dept/list/id/' . $scholarship['scholarship_id'])}\" title=\"名额分配\">{$scholarship['num']}</a></td>
+                      <td>{$scholarship['scholarship_year']}</td>
+                      <td>{$scholarship['start_time']}</td>  
+                      <td>{$scholarship['end_time']}</td>  
+                      <td>{$scholarship['is_visible']}</td>  
+                      <td>{$scholarship['is_start']}</td> 
+                      <td>{$scholarship['is_expired']}</td> 
+                      <td>{$scholarship['pay_time']}</td> 
+                      <td><a href=\"{$this->baseUrl("/bursary/flow/list/id/" . $scholarship["scholarship_id"])}\">查看流程</a></td> 
+                      <td><a href=\"{$this->baseUrl("/bursary/info/edit/id/" . $scholarship["scholarship_id"])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>修改</a><a href=\"javascript:delete_confirm('{$scholarship["scholarship_id"]}');\" class=\"btn btn-danger btn-xs\"><i class=\"glyphicon glyphicon-trash\"></i>删除</a></td>
+                    </tr>";
+              }
+                ?>
+              </tbody>
+            </table>
+		</div>
+		<div>
+		 <a class="btn btn-success" href="<?php echo $this->baseUrl("/bursary/info/add")?>"><i class="glyphicon glyphicon-plus"></i><b>添加</b></a>
+		</div>
+	</div>
+</div>
+
+<?php 
+$this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/dist/css/bootstrap-dialog.min.css"));
+$this->headScript()->appendFile($this->baseUrl("/plugins/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"));
+$this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
+$this->headScript()->appendScript("
+    
+    var Public = new PublicClass();
+    function delete_confirm(code)
+    {
+        BootstrapDialog.show({
+    		title: '警告',
+    	    message: '<h3>删除不可撤销</h3>',
+    	    type: BootstrapDialog.TYPE_WARNING,
+    	    closable: true,
+    	    closeByBackdrop: false,
+    	    closeByKeyboard: false,
+    	    buttons: [{
+                label: '确定',
+    	        cssClass: 'btn-warning',
+    	        action: function(dialogRef){
+                    window.location.href = Public.getBaseUrl('/bursary/info/del/id/' + code);
+    	        }
+    	    },{
+    	        label: '取消',
+    	        cssClass: 'btn-default',
+    	        action: function(dialogRef){
+    	            dialogRef.close();
+    	        }
+    	    }]
+	    });
+    }
+
+", $type = 'text/javascript');
+
+?>

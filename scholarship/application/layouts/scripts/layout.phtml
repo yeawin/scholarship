@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Dashboard Template for Bootstrap</title>
+	<?php echo $this->headTitle();?>
+    <!-- Bootstrap core CSS -->
+    <link href="<?php echo $this->baseUrl("/plugins/bootstrap/css/bootstrap.min.css");?>" rel="stylesheet">
+    <?php echo $this->headLink();?>
+	<!-- <link href="<?php echo $this->baseUrl("/plugins/DataTables/jquery.dataTables.css");?>" rel="stylesheet">
+	<link href="<?php echo $this->baseUrl("/plugins/DataTables/extensions/ColVis/css/dataTables.colVis.css");?>" rel="stylesheet">
+	<link href="<?php echo $this->baseUrl("/plugins/DataTables/extensions/TableTools/css/dataTables.tableTools.css");?>" rel="stylesheet">
+	 -->
+
+    <!-- Custom styles for this template -->
+        <link href="<?php echo $this->baseUrl("/static/css/style.css");?>" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">奖学金申报</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="<?php echo $this->baseUrl("/default/bursary/index");?>">奖学金 <span class="sr-only">(current)</span></a></li>
+            <li><a href="<?php echo $this->baseUrl("/default/condition/index");?>">我的条件</a></li>
+
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="<?php echo $this->baseUrl("/student/type/list");?>">学生类型</a></li>
+            <li><a href="<?php echo $this->baseUrl("/student/info/list");?>">学生信息</a></li>
+            <li><a href="<?php echo $this->baseUrl("/student/condition/list");?>">资格审查</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="<?php echo $this->baseUrl("/bursary/type/list");?>">奖学金类型</a></li>
+            <li><a href="<?php echo $this->baseUrl("/bursary/info/list");?>">奖学金信息</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+          	<li><a href="<?php echo $this->baseUrl("/tuition/info/list");?>">学费管理</a></li>
+            <li><a href="<?php echo $this->baseUrl("/tuition/charging/list");?>">扣费系统</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+          	<li><a href="<?php echo $this->baseUrl("/user/auth/list");?>">权限管理</a></li>
+          	<li><a href="<?php echo $this->baseUrl("/default/account/reset");?>">密码修改</a></li>
+          	<li><a href="<?php echo $this->baseUrl("/user/account/search");?>">密码重置</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <?php echo $this->layout()->content;?>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+	<script src="<?php echo $this->baseUrl("/plugins/jquery/jquery-1.11.2.min.js");?>"></script>
+    <script src="<?php echo $this->baseUrl("/plugins/bootstrap/js/bootstrap.min.js");?>"></script>
+    <?php echo $this->headScript();?>
+   <!--  
+    <script src="<?php echo $this->baseUrl("/plugins/DataTables/jquery.dataTables.js");?>"></script>
+    <script src="<?php echo $this->baseUrl("/plugins/DataTables/extensions/ColVis/js/dataTables.colVis.min.js");?>"></script>
+    <script src="<?php echo $this->baseUrl("/plugins/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js");?>"></script>
+    <script>
+    $(function(){
+    	createDataTable();
+    });
+    function createDataTable() {
+    	$('#datatable').DataTable({
+    		"dom": 'lCfrtip',
+    		"order": [],
+    		"colVis": {
+    			"buttonText": "Columns",
+    			"overlayFade": 0,
+    			"align": "right"
+    		},
+    		"language": {
+    			"lengthMenu": '_MENU_ entries per page',
+    			"search": '<i class="fa fa-search"></i>',
+    			"paginate": {
+    				"previous": '<i class="fa fa-angle-left"></i>',
+    				"next": '<i class="fa fa-angle-right"></i>'
+    			}
+    		},
+    		"iDisplayLength": -1,
+    		"aLengthMenu": [[10, 20, 30, 50, 100, -1], [10, 20, 30,  50, 100, "All"]],
+    	});
+
+    	$('#datatable_question tbody').on('click', 'tr', function() {
+    		$(this).toggleClass('selected');
+    	});
+    };
+
+    </script>
+    
+    -->
+  </body>
+</html>

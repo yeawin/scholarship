@@ -1,0 +1,72 @@
+<?php
+
+class Application_Model_Tuitioninfo extends Zend_Db_Table_Abstract
+{
+
+    protected $_primary = "tuition_id";
+    
+    protected $_name = "tb_tuition_info";
+     
+    protected $_tuition_id;
+    
+    public function __construct ()
+    {
+        parent::__construct();
+    }
+    
+    public function get_tuition_list()
+    {
+        $select = $this->select()->setIntegrityCheck(false);
+        $select->from(array("t"=>$this->_name));
+        $select->joinLeft(array("d"=>"tb_dept_info"), "t.dept_code = d.dept_code", array("dept_name", "dept_full_name", "parent_code", "deptcode04"));
+        $select->joinLeft(array("s"=>"tb_stu_type"), "t.stu_type = s.stu_type_code");
+        $select->order("t.grade asc");
+        $result = $this->fetchAll($select);
+        if ($result) {
+            $result = $result->toArray();
+        }
+        return $result;
+    }
+    
+    public function get_tuition_record($tuition_id)
+    {
+        $select = $this->select();
+        $select->from(array("t"=>$this->_name));
+        $select->where("tuition_id = ?", $tuition_id);
+        $result = $this->fetchRow($select);
+        if ($result) {
+            $result = $result->toArray();
+        }
+        return $result;
+    }
+    
+    public function is_tuition_exist($tuition_id)
+    {
+        $select = $this->select();
+        $select->from($this->_name);
+        $select->where("tuition_id = ?", $tuition_id);
+        $result = $this->fetchAll($select);
+        return (count($result) > 0);
+    }
+    
+    public function insert_record($data)
+    {
+        return $this->insert($data);
+    }
+    
+    public function update_record($data, $tuition_id)
+    {
+        $db = $this->getDefaultAdapter();
+        $where = $db->quoteInto("tuition_id = ?", $tuition_id);
+        return $this->update($data, $where);
+    }
+    
+    public function delete_record($tuition_id)
+    {
+        $db = $this->getDefaultAdapter();
+        $where = $db->quoteInto("tuition_id = ?", $tuition_id);
+        return $this->delete($where);
+    }
+
+}
+

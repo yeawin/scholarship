@@ -1,0 +1,72 @@
+<div id="view-content">
+	<h3>奖学金添加</h3>
+	<div class="col-md-12">
+		<form role="form" class="form form-horizontal" method="post" action="<?php echo $this->baseUrl("/bursary/info/add-ok");?>">
+			<div class="form-group">
+				<label for="college_name">奖学金名称</label>
+				<input type="text" class="form-control" name="scholarship_name" required>
+			</div>
+			<div class="form-group">
+				<label for="college_name">奖学金名额</label>
+				<input type="text" class="form-control" name="num" required>
+			</div>
+			<div class="form-group">
+				<label for="dept_code">奖学金类型</label>
+    			<select class="form-control" name="scholarship_type_code">
+    				<option value="">请选择</option>
+    				<?php 
+    				    $scholarship_type_list = $this->scholar_type_list;
+    				    $len = count($scholarship_type_list);
+    				    for($i = 0; $i < $len; $i ++) {
+    				        echo "<option value=\"{$scholarship_type_list[$i]["scholarship_type_code"]}\">{$scholarship_type_list[$i]["scholarship_type_name"]}</option>";
+    				    }
+    				?>
+    			</select>
+    		</div>
+			<div class="form-group">
+				<label for="college_name">奖学金学年</label>
+				<input type="text" class="form-control" name="scholarship_year" maxlength="4" required>
+			</div>
+			<div class="form-group">
+				<label for="college_name">开始时间</label>
+				<input type="text" class="form-control" name="start_time">
+			</div>
+			<div class="form-group">
+				<label for="college_name">结束时间</label>
+				<input type="text" class="form-control" name="end_time">
+			</div>
+			<div class="form-group">
+				<label for="college_name">是否可见</label>
+				<label class="radio-inline">
+                  <input type="radio" name="is_visible" id="is_visible0" value="0" checked>否
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="is_visible" id="is_visible1" value="1">是
+                </label>
+			</div>
+			<div class="form-group">
+				<label for="college_name">是否开始</label>
+				<label class="radio-inline">
+                  <input type="radio" name="is_start" id="is_start0" value="0" checked>否
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="is_start" id="is_start1" value="1">是
+                </label>
+			</div>
+			<div class="form-group">
+				<label for="college_name">是否过期</label>
+				<label class="radio-inline">
+                  <input type="radio" name="is_expired" id="is_expired0" value="0" checked>否
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="is_expired" id="is_expired1" value="1">是
+                </label>
+			</div>
+			<div class="form-group">
+				<label for="college_name">发放时间</label>
+				<input type="text" class="form-control" name="pay_time">
+			</div>
+			<button type="submit" class="btn btn-primary">提交</button>
+		</form>
+	</div>
+</div>

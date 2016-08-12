@@ -1,0 +1,47 @@
+<div id="view-content">
+	<h3>学生条件修改</h3>
+	<div class="col-md-12">
+		<form role="form" class="form form-horizontal" method="post" action="<?php echo $this->baseUrl("/student/condition/edit-ok");?>">
+			<div class="form-group">
+				<label for="college_name">学号</label>
+				<input type="text" class="form-control" name="stu_id" readonly value="<?php echo $this->condition["stu_no"];?>">
+			</div>
+			<div class="form-group">
+				<label for="college_name">姓名</label>
+				<input type="text" class="form-control" name="stu_name" readonly value="<?php echo $this->condition["stu_name"];?>">
+			</div>
+
+
+			<div class="form-group">
+				<label for="college_name">入学年级</label>
+				<input type="text" class="form-control" name="stu_grade" maxlength="4" readonly value="<?php echo $this->condition["stu_grade"];?>">
+			</div>
+			<div class="form-group">
+				<label for="dept_code">所属学院</label>
+    			<input type="text" class="form-control" name="dept_name" readonly value="<?php echo $this->condition["dept_name"];?>">
+			</div>
+			<div class="form-group">
+				<label for="dept_code">学生类型</label>
+    			<input type="text" class="form-control" name="stu_type_name" readonly value="<?php echo $this->condition["stu_type_name"];?>">
+    		</div>
+    		<div class="form-group">
+				<label for="dept_code">逃课次数</label>
+    			<input type="text" class="form-control" name="escape_time" required value="<?php echo $this->condition["escape_time"];?>">
+    		</div>
+    		<div class="form-group">
+				<label for="dept_code">成绩排名</label>
+    			<input type="text" class="form-control" name="course_grade" required value="<?php echo $this->condition["course_grade"];?>">
+    		</div>
+    		<div class="form-group">
+				<label for="dept_code">挂科门数</label>
+    			<input type="text" class="form-control" name="course_no_passed" required value="<?php echo $this->condition["course_no_passed"];?>">
+    		</div>
+    		<div class="form-group">
+				<label for="dept_code">违纪情况</label>
+    			<input type="text" class="form-control" name="discipline" required value="<?php echo $this->condition["discipline"];?>">
+    		</div>
+    		<input type="hidden" name="stu_id" required value="<?php echo $this->condition["stu_no"];?>">
+			<button type="submit" class="btn btn-primary">提交</button>
+		</form>
+	</div>
+</div>

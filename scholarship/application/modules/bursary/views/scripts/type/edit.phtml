@@ -1,0 +1,14 @@
+<div id="view-content">
+	<h3>奖学金类型修改</h3>
+	<div class="col-md-12">
+		<form role="form" class="form form-horizontal" method="post" action="<?php echo $this->baseUrl("/bursary/type/edit-ok");?>">
+			<div class="form-group">
+				<label for="college_name">类型名称</label>
+				<input type="text" class="form-control" name="scholarship_type_name" value="<?php echo $this->scholarship_type["scholarship_type_name"];?>" required>
+				<p class="help-block">如：国家级、校级、企业奖学金</p>
+			</div>
+			<input type="hidden" value="<?php echo $this->scholarship_type["scholarship_type_code"];?>" name ="scholarship_type_code">
+			<button type="submit" class="btn btn-primary">提交</button>
+		</form>
+	</div>
+</div>

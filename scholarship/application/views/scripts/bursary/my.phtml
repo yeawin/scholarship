@@ -1,0 +1,80 @@
+<div id="view-content">
+	<h3>我的奖学金</h3>
+	<div class="col-md-12">
+		<div class="table-responsive">
+    		<table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>奖学金名</th>
+                  <th>申请时间</th>
+                  <th>当前状态</th>
+                  <th>编辑</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+              foreach ($this->bursary_list as $index=>$bursary) {
+                  $index ++;
+                  $status = "";
+                  if ("1" === $bursary["is_paid"]) {
+                      $operate = "<span class=\"text-success\">查看</span>";
+                      $status = "<span class=\"text-success\">已发放</span>";
+                  } else if ("1" == $bursary["is_pass"]) {
+                      $operate = "<span class=\"text-info\">查看</span>";
+                      $status = "<span class=\"text-info\">已审核</span>";
+                  } else if ("0" == $bursary["is_pass"]) {
+                      $operate = "<span class=\"text-warning\"><a href=\"javascript:trash_apply('{$bursary['apply_id']}')\">取消</a></span>";
+                      $status = "<span class=\"text-warning\">待审核</span>";
+                  }
+                  
+                  echo 
+                    "<tr>
+                      <td>{$index}</td>
+                      <td><a href=\"{$this->baseUrl("/default/bursary/view/id/".$bursary['scholarship_id'])}\">{$bursary['scholarship_name']}</a></td>
+                      <td>{$bursary['apply_time']}</td>
+                      <td>{$status}</td>
+                      <td>{$operate}</td>
+                    </tr>";
+              }
+                ?>
+              </tbody>
+            </table>
+		</div>
+	</div>
+</div>
+
+<?php 
+$this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/dist/css/bootstrap-dialog.min.css"));
+$this->headScript()->appendFile($this->baseUrl("/plugins/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"));
+$this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
+$this->headScript()->appendScript("
+
+    var Public = new PublicClass();
+    function trash_apply(id)
+    {
+        BootstrapDialog.show({
+    		title: '警告',
+    	    message: '<h3>删除不可撤销</h3>',
+    	    type: BootstrapDialog.TYPE_WARNING,
+    	    closable: true,
+    	    closeByBackdrop: false,
+    	    closeByKeyboard: false,
+    	    buttons: [{
+                label: '确定',
+    	        cssClass: 'btn-warning',
+    	        action: function(dialogRef){
+                    window.location.href = Public.getBaseUrl('/default/bursary/del/id/' + id);
+    	        }
+    	    },{
+    	        label: '取消',
+    	        cssClass: 'btn-default',
+    	        action: function(dialogRef){
+    	            dialogRef.close();
+    	        }
+    	    }]
+	    });
+    }
+
+", $type = 'text/javascript');
+?>

@@ -1,0 +1,89 @@
+<div id="view-content">
+	<h3>学生列表</h3>
+	<div class="col-md-12">
+		<div class="table-responsive">
+    		<table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>学号</th>
+                  <th>姓名</th>
+                  <th>性别</th>
+                  <th>院系</th>
+                  <th>类型</th>
+                  <th>年级</th>
+<!--                   <th>是否挂科</th> -->
+<!--                   <th>翘课次数</th> -->
+<!--                   <th>成绩排名</th> -->
+<!--                   <th>是否有不良记录</th> -->
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+              foreach ($this->stu_list as $index=>$stu) {
+                  $index ++;
+                  if ("1" === $stu["stu_sex"]) {
+                      $stu_sex = "男" ;
+                  } else {
+                      $stu_sex = "女";
+                  }
+                  echo 
+                    "<tr>
+                      <th scope=\"row\">{$index}</th>
+                      <td>{$stu["stu_no"]}</td>
+                      <td>{$stu["stu_name"]}</td>
+                      <td>{$stu_sex}</td>
+                      <td>{$stu["dept_name"]}</td>  
+                      <td>{$stu["stu_type_name"]}</td>  
+                      <td>{$stu["stu_grade"]}</td>  
+                     <!--   <td>{$stu["course_grade"]}</td>   -->
+                     <!--   <td>{$stu["escape_time"]}</td>   -->
+                     <!--   <td>{$stu["course_no_passed"]}</td> -->
+                     <!--   <td>{$stu["discipline"]}</td> -->
+                    </tr>";
+              }
+                ?>
+              </tbody>
+            </table>
+		</div>
+		<div>
+		 <a class="btn btn-success" href="<?php echo $this->baseUrl("/student/info/add")?>"><i class="glyphicon glyphicon-plus"></i><b>添加</b></a>
+		</div>
+	</div>
+</div>
+
+<?php 
+$this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/dist/css/bootstrap-dialog.min.css"));
+$this->headScript()->appendFile($this->baseUrl("/plugins/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"));
+$this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
+$this->headScript()->appendScript("
+    
+    var Public = new PublicClass();
+    function delete_confirm(code)
+    {
+        BootstrapDialog.show({
+    		title: '警告',
+    	    message: '<h3>删除不可撤销</h3>',
+    	    type: BootstrapDialog.TYPE_WARNING,
+    	    closable: true,
+    	    closeByBackdrop: false,
+    	    closeByKeyboard: false,
+    	    buttons: [{
+                label: '确定',
+    	        cssClass: 'btn-warning',
+    	        action: function(dialogRef){
+                    window.location.href = Public.getBaseUrl('/student/info/del/code/' + code);
+    	        }
+    	    },{
+    	        label: '取消',
+    	        cssClass: 'btn-default',
+    	        action: function(dialogRef){
+    	            dialogRef.close();
+    	        }
+    	    }]
+	    });
+    }
+
+", $type = 'text/javascript');
+
+?>

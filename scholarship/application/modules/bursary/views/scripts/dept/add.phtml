@@ -1,0 +1,45 @@
+<div id="view-content">
+	<h3><b><?php echo $this->scholarshipinfo["scholarship_name"];?></b>名额分布添加</h3>
+	<div class="col-md-12">
+		<form role="form" class="form form-horizontal" method="post" action="<?php echo $this->baseUrl("/bursary/dept/add-ok");?>">
+			<div class="form-group">
+				<label for="college_name">奖学金名称</label>
+				<input type="text" class="form-control" value="<?php echo $this->scholarshipinfo["scholarship_name"];?>" readonly>
+			</div>
+			<div class="form-group">
+				<label for="dept_code">所属学院</label>
+    			<select class="form-control" name="dept_code">
+    			<option>请选择</option>
+    			<?php 
+    			$dept_list = $this->dept_list;
+    			$parent_code = null;
+    			$len = count($dept_list);
+    			for ($i = 0; $i < $len; $i ++) {
+    			    if ($dept_list[$i]["parent_code"] !== $parent_code) {
+    			        $parent_code = $dept_list[$i]["parent_code"];
+    			        echo "<optgroup label=\"{$dept_list[$i]["dept_name"]}\"><option value=\"{$dept_list[$i]["dept_code"]}\">{$dept_list[$i]["dept_name"]}</option>";
+    			    } else {
+    			        echo "<option value=\"{$dept_list[$i]["dept_code"]}\">{$dept_list[$i]["dept_name"]}</option>";
+    			        if ($i + 1 == $len) {
+    			            echo "</optgroup>";
+    			        } else if ($parent_code != $dept_list[$i + 1]["parent_code"]) {
+    			            echo "</optgroup>";
+    			        }
+    			    }
+    			}
+    			?>
+                </select>
+			</div>
+			<div class="form-group">
+				<label for="college_name">院系名额</label>
+				<input type="text" class="form-control" name="scholarship_dept_num" required>
+			</div>
+			<div class="form-group">
+				<label for="college_name">奖学金学年</label>
+				<input type="text" class="form-control" name="scholarship_year" maxlength="4" required>
+			</div>
+			<input type="hidden" name="scholarship_id" value="<?php echo $this->scholarshipinfo["scholarship_id"];?>">
+			<button type="submit" class="btn btn-primary">提交</button>
+		</form>
+	</div>
+</div>

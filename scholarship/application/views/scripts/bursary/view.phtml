@@ -1,0 +1,62 @@
+<div id="view-content">
+	<div class="row">
+		<div class="col-md-6">
+			<h3>当前进度</h3>
+			<div class="table-responsive">
+        		<table class="table table-bordered table-condensed">
+                  <thead>
+                    <tr>
+                      <th>流程顺序</th>
+                      <th>流程名称</th>
+                      <th>上级流程</th>
+                      <th>审核人</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php 
+                  foreach ($this->flow_list as $index=>$flow) {
+                      $index ++;
+                      echo 
+                        "<tr>
+                          <td>{$flow['flow_order']}</td>
+                          <td>{$flow['flow_name']}</td>
+                          <td>{$flow['parent_flow_name']}</td>
+                          <td>{$flow['check_role_id']}</td>
+                        </tr>";
+                  }
+                    ?>
+                  </tbody>
+                </table>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<h3>审核流程</h3>
+			<div class="table-responsive">
+        		<table class="table table-bordered table-condensed">
+                  <thead>
+                    <tr>
+                      <th>流程顺序</th>
+                      <th>流程名称</th>
+                      <th>上级流程</th>
+                      <th>审核人</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php 
+                  foreach ($this->flow_list as $index=>$flow) {
+                      $index ++;
+                      echo 
+                        "<tr>
+                          <td>{$flow['flow_order']}</td>
+                          <td>{$flow['flow_name']}</td>
+                          <td>{$flow['parent_flow_name']}</td>
+                          <td>{$flow['check_role_id']}</td>
+                        </tr>";
+                  }
+                    ?>
+                  </tbody>
+                </table>
+			</div>
+		</div>
+	</div>
+</div>
