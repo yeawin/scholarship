@@ -1,4 +1,82 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Fee</b> and script/action name <b>list</b></p>
+<div id="view-content" class="row">
+	
+	<div class="col-md-12">
+	<h3>欠费列表</h3>
+		<div class="table-responsive">
+    		<table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>学号</th>
+                  <th>学年度</th>
+                  <th>学费</th>
+                  <th>学杂费</th>
+                  <th>住宿费</th>
+                  <th>核对时间</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+              foreach ($this->deduct_list as $index=>$deduct) {
+                  $deduct_tuition_1 = number_format(floatval($deduct["deduct_tuition_1"]), 2);
+                  $deduct_tuition_2 = number_format(floatval($deduct["deduct_tuition_2"]), 2);
+                  $deduct_tuition_3 = number_format(floatval($deduct["deduct_tuition_3"]), 2);
+                  $i = $index + 1;
+                  echo "
+		        <tr>
+                  <th scope=\"row\">{$i}</th>
+                  <td>{$deduct["stu_id"]}</td>
+                  <td>{$deduct["deduct_year"]}</td>
+                  <td class=\"text-danger\">{$deduct_tuition_1}</td>
+                  <td class=\"text-danger\">{$deduct_tuition_2}</td>
+                  <td class=\"text-danger\">{$deduct_tuition_3}</td>
+                  <td>{$deduct["check_datetime"]}</td>
+                  <td><a href=\"{$this->baseUrl("/tuition/charging/detail/id/" . $deduct["stu_id"])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>查看流水</a></td>
+                </tr>";
+              }
+                ?>
+              </tbody>
+            </table>
+		</div>
+		<div>
+		<!-- <a class="btn btn-success" href="<?php echo $this->baseUrl("/tuition/info/add")?>"><i class="glyphicon glyphicon-plus"></i><b>添加</b></a> -->
+		</div>
+	</div>
 </div>
+
+<?php 
+$this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/dist/css/bootstrap-dialog.min.css"));
+$this->headScript()->appendFile($this->baseUrl("/plugins/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"));
+$this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
+$this->headScript()->appendScript("
+    
+    var Public = new PublicClass();
+    function delete_confirm(code)
+    {
+        BootstrapDialog.show({
+    		title: '警告',
+    	    message: '<h3>删除不可撤销</h3>',
+    	    type: BootstrapDialog.TYPE_WARNING,
+    	    closable: true,
+    	    closeByBackdrop: false,
+    	    closeByKeyboard: false,
+    	    buttons: [{
+                label: '确定',
+    	        cssClass: 'btn-warning',
+    	        action: function(dialogRef){
+                    window.location.href = Public.getBaseUrl('/tuition/info/del/id/' + code);
+    	        }
+    	    },{
+    	        label: '取消',
+    	        cssClass: 'btn-default',
+    	        action: function(dialogRef){
+    	            dialogRef.close();
+    	        }
+    	    }]
+	    });
+    }
+
+", $type = 'text/javascript');
+
+?>
