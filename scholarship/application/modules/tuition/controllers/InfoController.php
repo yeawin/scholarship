@@ -24,7 +24,7 @@ class Tuition_InfoController extends Zend_Controller_Action
     public function addAction()
     {
         // action body
-        $Dept = new Application_Model_College();
+        $Dept = new Application_Model_Deptinfo();
         $parent_code = STUDENT_DEPT;
         $dept_list = $Dept->get_dept_list($parent_code);
         $this->view->dept_list = $dept_list;
@@ -113,7 +113,9 @@ class Tuition_InfoController extends Zend_Controller_Action
             $data["grade"] = $Params["grade"];
             $data["year"] = $Params["year"];
             $data["stu_type"] = $Params["stu_type"];
-            $data["amount"] = floatval($Params["amount"]);
+            $data["tuition_1"] = floatval($Params["tuition_1"]);
+            $data["tuition_2"] = floatval($Params["tuition_2"]);
+            $data["tuition_3"] = floatval($Params["tuition_3"]);
             $auth = Zend_Auth::getInstance();
             $identity = $auth->getIdentity();
             $data["user_id"] = isset($identity->user_id) ? $identity->user_id : "admin";

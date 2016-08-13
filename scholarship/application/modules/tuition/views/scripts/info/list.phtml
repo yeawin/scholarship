@@ -11,6 +11,8 @@
                   <th>院系（专业）</th>
                   <th>学生类型</th>
                   <th>学费</th>
+                  <th>学杂费</th>
+                  <th>住宿费</th>
                   <th>编辑</th>
                 </tr>
               </thead>
@@ -18,7 +20,9 @@
               <?php 
               foreach ($this->tuition_list as $index=>$tuition) {
                   $index ++;
-                  $amount = number_format(floatval($tuition["amount"]), 2);
+                  $tuition_1 = number_format(floatval($tuition["tuition_1"]), 2);
+                  $tuition_2 = number_format(floatval($tuition["tuition_2"]), 2);
+                  $tuition_3 = number_format(floatval($tuition["tuition_3"]), 2);
                   echo "
 		        <tr>
                   <th scope=\"row\">{$index}</th>
@@ -26,8 +30,10 @@
                   <td>{$tuition["year"]}</td>
                   <td>{$tuition["dept_name"]}</td>
                   <td>{$tuition["stu_type_name"]}</td>
-                  <td>{$amount}</td>
-                   <td><a href=\"{$this->baseUrl("/tuition/info/edit/id/" . $tuition["tuition_id"])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>修改</a><a href=\"javascript:delete_confirm('{$tuition["tuition_id"]}');\" class=\"btn btn-danger btn-xs\"><i class=\"glyphicon glyphicon-trash\"></i>删除</a></td>
+                  <td>{$tuition_1}</td>
+                  <td>{$tuition_2}</td>
+                  <td>{$tuition_3}</td>
+                  <td><a href=\"{$this->baseUrl("/tuition/info/edit/id/" . $tuition["tuition_id"])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>修改</a><a href=\"javascript:delete_confirm('{$tuition["tuition_id"]}');\" class=\"btn btn-danger btn-xs\"><i class=\"glyphicon glyphicon-trash\"></i>删除</a></td>
                 </tr>";
               }
                 ?>

@@ -380,6 +380,12 @@
               <actionMethod actionName="index"/>
               <actionMethod actionName="list"/>
             </controllerFile>
+            <controllerFile controllerName="Expense">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+            <controllerFile controllerName="Fee">
+              <actionMethod actionName="index"/>
+            </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
           <layoutsDirectory enabled="false">
@@ -415,6 +421,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Charging">
                 <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Expense">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Fee">
+                <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
