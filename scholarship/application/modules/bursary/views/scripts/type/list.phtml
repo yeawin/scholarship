@@ -6,7 +6,6 @@
               <thead>
                 <tr>
                   <th>序号</th>
-                  <th>奖学金类型编码</th>
                   <th>奖学金名称</th>
                   <th>编辑</th>
                 </tr>
@@ -20,7 +19,6 @@
                   echo 
                     "<tr>
                       <th scope=\"row\">{$index}</th>
-                      <td>{$scholarship_type_code}</td>
                       <td>{$scholarship_type_name}</td>
                       <td><a href=\"{$this->baseUrl("/bursary/type/edit/code/" . $scholarship_type_code)}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>修改</a><a href=\"javascript:delete_confirm('{$scholarship_type_code}');\" class=\"btn btn-danger btn-xs\"><i class=\"glyphicon glyphicon-trash\"></i>删除</a></td>
                     </tr>";

@@ -58,6 +58,7 @@
         <modelFile modelName="Bursaryapply"/>
         <modelFile modelName="Bursaryreview\"/>
         <modelFile modelName="Bursaryreview"/>
+        <modelFile modelName="Tuitiondeduct"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="course">
@@ -385,6 +386,7 @@
             </controllerFile>
             <controllerFile controllerName="Fee">
               <actionMethod actionName="index"/>
+              <actionMethod actionName="list"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -427,6 +429,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Fee">
                 <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Fee">
+                <viewScriptFile forActionName="list"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
