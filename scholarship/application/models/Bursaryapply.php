@@ -32,10 +32,8 @@ class Application_Model_Bursaryapply extends Zend_Db_Table_Abstract
         }
         if (null !== $order_array) {
             $select->order($order_array);
-//             foreach ($order_array as $key=>$value) {
-//                 $select->order("{$key} {$value}");
-//             }
         }
+//         echo $select->__toString();exit();
         $result = $this->fetchAll($select);
         if ($result) {
             $result = $result->toArray();
@@ -43,13 +41,13 @@ class Application_Model_Bursaryapply extends Zend_Db_Table_Abstract
         return $result;
     }
     
-    public function get_apply_record($array = null)
+    public function get_apply_record($where_array = null)
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("a"=>$this->_name));
         $select->joinLeft(array("i"=>"tb_scholarship_info"), "a.scholarship_id = i.scholarship_id");
-        if (null !== $array) {
-            foreach ($array as $key=>$value) {
+        if (null !== $where_array) {
+            foreach ($where_array as $key=>$value) {
                 $select->where("{$key} = ?", $value);
             }
         }
@@ -57,7 +55,6 @@ class Application_Model_Bursaryapply extends Zend_Db_Table_Abstract
         if ($result) {
             $result = $result->toArray();
         }
-    
         return $result;
     }
     
