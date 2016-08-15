@@ -1,6 +1,6 @@
 <?php
 /**
- * 奖学金的审核
+ * 奖学金的审核进度
  * @author Administrator
  *
  */

@@ -18,15 +18,23 @@ class Application_Model_Bursaryapply extends Zend_Db_Table_Abstract
         parent::__construct();
     }
 
-    public function get_apply_list($array = null)
+    public function get_apply_list($where_array = null, $order_array = null)
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("a"=>$this->_name));
         $select->joinLeft(array("i"=>"tb_scholarship_info"), "a.scholarship_id = i.scholarship_id");
-        if (null !== $array) {
-            foreach ($array as $key=>$value) {
+        $select->joinLeft(array("s"=>"tb_stu_info"), "a.stu_id = s.stu_id");
+        $select->joinLeft(array("d"=>"tb_dept_info"), "s.dept_code = d.dept_code");
+        if (null !== $where_array) {
+            foreach ($where_array as $key=>$value) {
                 $select->where("{$key} = ?", $value);
             }
+        }
+        if (null !== $order_array) {
+            $select->order($order_array);
+//             foreach ($order_array as $key=>$value) {
+//                 $select->order("{$key} {$value}");
+//             }
         }
         $result = $this->fetchAll($select);
         if ($result) {
