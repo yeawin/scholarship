@@ -61,6 +61,9 @@
                       echo isset($this->progress["prev"]["flow_name"]) ? $this->progress["prev"]["flow_name"] : "无";
                       ?></td>
                   <td>
+                  <?php 
+                      echo isset($this->progress["current"]["flow_name"]) ? $this->progress["current"]["flow_name"] : "";
+                      ?>
                   	<a href="<?php echo $this->baseUrl("/bursary/check/review/id/" . $this->apply_id . "/pass/1/");?>" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-ok"></i>通过</a>
         			<a href="<?php echo $this->baseUrl("/bursary/check/review/id/" . $this->apply_id . "/pass/0/"); ?>" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>驳回</a>
         		  </td>

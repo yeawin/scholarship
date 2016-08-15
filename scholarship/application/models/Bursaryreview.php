@@ -55,7 +55,7 @@ class Application_Model_Bursaryreview extends Zend_Db_Table_Abstract
         $select->from(array("r"=>$this->_name));//审核表
         $select->joinLeft(array("a"=>"tb_scholarship_apply"), "a.apply_id = r.apply_id");//申请表
         $select->joinLeft(array("f"=>"tb_scholarship_flow"), "f.flow_id = r.flow_id", array("flow_id", "flow_name", "parent_id", "flow_order", ));//流程表
-//         $select->order("f.flow_order desc");
+        $select->order("f.flow_order desc");
         $select->where("r.apply_id = ?", $apply_id);
         $result = $this->fetchRow($select);
         if ($result) {

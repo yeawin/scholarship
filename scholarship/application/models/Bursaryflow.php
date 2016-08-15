@@ -72,9 +72,9 @@ class Application_Model_Bursaryflow extends Zend_Db_Table_Abstract
     /**
      * 下一步流程信息
      * @param unknown $scholarship_id 奖学金id
-     * @param unknown $flow_order 步骤顺序
+     * @param unknown $parent_id 上级步骤
      */
-    public function get_next_flow($parent_id)
+    public function get_next_flow($scholarship_id, $parent_id)
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("f"=>$this->_name));
@@ -82,7 +82,7 @@ class Application_Model_Bursaryflow extends Zend_Db_Table_Abstract
 //         $select->joinLeft(array("i"=>"tb_scholarship_info"), "i.scholarship_id = f.scholarship_id");
 //         $select->joinLeft(array("t"=>"tb_scholarship_type"), "i.scholarship_type_code = t.scholarship_type_code");
     
-//         $select->where("f.scholarship_id = ?", $scholarship_id);
+        $select->where("f.scholarship_id = ?", $scholarship_id);
         $select->where("f.parent_id = ?", $parent_id);
         $result = $this->fetchRow($select);
         if ($result) {
