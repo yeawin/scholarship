@@ -33,9 +33,6 @@
               </tbody>
             </table>
 		</div>
-		<div>
-		 <a class="btn btn-success" href="<?php echo $this->baseUrl("/bursary/dept/add/id/" . $this->scholarshipinfo["scholarship_id"])?>"><i class="glyphicon glyphicon-plus"></i><b>添加</b></a>
-		</div>
 	</div>
 </div>
 
@@ -43,34 +40,34 @@
 $this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/dist/css/bootstrap-dialog.min.css"));
 $this->headScript()->appendFile($this->baseUrl("/plugins/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"));
 $this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
-$this->headScript()->appendScript("
+// $this->headScript()->appendScript("
     
-    var Public = new PublicClass();
-    function delete_confirm(code)
-    {
-        BootstrapDialog.show({
-    		title: '警告',
-    	    message: '<h3>删除不可撤销</h3>',
-    	    type: BootstrapDialog.TYPE_WARNING,
-    	    closable: true,
-    	    closeByBackdrop: false,
-    	    closeByKeyboard: false,
-    	    buttons: [{
-                label: '确定',
-    	        cssClass: 'btn-warning',
-    	        action: function(dialogRef){
-                    window.location.href = Public.getBaseUrl('/bursary/dept/del/id/' + code);
-    	        }
-    	    },{
-    	        label: '取消',
-    	        cssClass: 'btn-default',
-    	        action: function(dialogRef){
-    	            dialogRef.close();
-    	        }
-    	    }]
-	    });
-    }
+//     var Public = new PublicClass();
+//     function delete_confirm(code)
+//     {
+//         BootstrapDialog.show({
+//     		title: '警告',
+//     	    message: '<h3>删除不可撤销</h3>',
+//     	    type: BootstrapDialog.TYPE_WARNING,
+//     	    closable: true,
+//     	    closeByBackdrop: false,
+//     	    closeByKeyboard: false,
+//     	    buttons: [{
+//                 label: '确定',
+//     	        cssClass: 'btn-warning',
+//     	        action: function(dialogRef){
+//                     window.location.href = Public.getBaseUrl('/bursary/dept/del/id/' + code);
+//     	        }
+//     	    },{
+//     	        label: '取消',
+//     	        cssClass: 'btn-default',
+//     	        action: function(dialogRef){
+//     	            dialogRef.close();
+//     	        }
+//     	    }]
+// 	    });
+//     }
 
-", $type = 'text/javascript');
+// ", $type = 'text/javascript');
 
 ?>

@@ -15,7 +15,6 @@
                   <th>翘课次数</th>
                   <th>是否挂科</th>
                   <th>是否有不良记录</th>
-                  <th>操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -38,15 +37,41 @@
                       <td>{$stu_con["escape_time"]}</td>  
                       <td>{$stu_con["course_no_passed"]}</td>
                       <td>{$stu_con["discipline"]}</td>
-                      <td>
-                        <a href=\"{$this->baseUrl("/student/condition/edit/stu_id/" . $stu_con["stu_no"])}\" class=\"btn btn-success btn-xs\"><i class=\"glyphicon glyphicon-ok\"></i>通过</a>
-                        <a href=\"{$this->baseUrl("/student/condition/edit/stu_id/" . $stu_con["stu_no"])}\" class=\"btn btn-danger btn-xs\"><i class=\"glyphicon glyphicon-remove\"></i>驳回</a>
-                      </td>
                     </tr>";
 
                 ?>
               </tbody>
             </table>
+		</div>
+		<hr class="col-md-12">
+		<h3>审核状态</h3>
+		<div class="table-responsive">
+			<table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>上一步</th>
+                  <th>当前</th>
+                  <th>下一步</th>
+                  
+                 </tr>
+              </thead>
+              <tbody>
+              	<tr>
+                  <td><?php 
+                      echo isset($this->progress["prev"]["flow_name"]) ? $this->progress["prev"]["flow_name"] : "无";
+                      ?></td>
+                  <td>
+                  	<a href="<?php echo $this->baseUrl("/bursary/check/review/id/" . $this->apply_id . "/pass/1/");?>" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-ok"></i>通过</a>
+        			<a href="<?php echo $this->baseUrl("/bursary/check/review/id/" . $this->apply_id . "/pass/0/"); ?>" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>驳回</a>
+        		  </td>
+                  <td>
+                  <?php 
+                      echo isset($this->progress["next"]["flow_name"]) ? $this->progress["next"]["flow_name"] : "无";
+                      ?>
+                  </td>
+                </tr>
+              </tbody>
+        	</table>
 		</div>
 		<hr class="col-md-12">
 		<h3>该生历史奖学金列表</h3>

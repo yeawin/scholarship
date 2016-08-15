@@ -259,6 +259,7 @@
               <actionMethod actionName="index"/>
               <actionMethod actionName="list"/>
               <actionMethod actionName="view"/>
+              <actionMethod actionName="review"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -373,6 +374,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Check">
                 <viewScriptFile forActionName="view"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Check">
+                <viewScriptFile forActionName="review"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
