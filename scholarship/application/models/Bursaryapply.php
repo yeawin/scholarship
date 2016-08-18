@@ -41,6 +41,37 @@ class Application_Model_Bursaryapply extends Zend_Db_Table_Abstract
         return $result;
     }
     
+    /**
+     * 申请奖学金的进度
+     * @param unknown $where_array
+     * @param unknown $order_array
+     * @return Zend_Db_Table_Rowset_Abstract
+     */
+    public function get_apply_checked_progress($where_array = null, $order_array = null)
+    {
+        $select = $this->select()->setIntegrityCheck(false);
+        $select->from(array("f"=>"tb_scholarship_flow"), array("flow_id", "flow_name", "scholarship_id", "check_role_id", "parent_id", "flow_order"));//流程信息
+        $select->joinLeft(array("r"=>"tb_scholarship_review"), "r.flow_id = f.flow_id", array("review_id", "review_time", "review_pass", "reviewer"));//审核信息
+        $select->joinLeft(array("a"=>"tb_scholarship_apply"), "a.scholarship_id = f.scholarship_id", array("apply_id", "stu_id", "apply_time", "is_pass", "is_paid"));   //申请信息
+//         $select->joinLeft(array("i"=>"tb_scholarship_info"), "a.scholarship_id = i.scholarship_id");
+        
+        
+        if (null !== $where_array) {
+            foreach ($where_array as $key=>$value) {
+                $select->where("{$key} = ?", $value);
+            }
+        }
+        if (null !== $order_array) {
+            $select->order($order_array);
+        }
+        //         echo $select->__toString();exit();
+        $result = $this->fetchAll($select);
+        if ($result) {
+            $result = $result->toArray();
+        }
+        return $result;
+    }
+    
     public function get_apply_record($where_array = null)
     {
         $select = $this->select()->setIntegrityCheck(false);

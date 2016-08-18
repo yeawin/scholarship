@@ -19,11 +19,11 @@ class Application_Model_Bursaryreview extends Zend_Db_Table_Abstract
     }
 
     /**
-     * 查看审核列表
+     * 查看已经审核列表
      * @param unknown $array
      * @return Zend_Db_Table_Rowset_Abstract
      */
-    public function get_review_list($where_array = null, $order_array = null)
+    public function get_reviewed_list($where_array = null, $order_array = null)
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("r"=>$this->_name));

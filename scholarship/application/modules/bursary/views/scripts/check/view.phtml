@@ -45,37 +45,38 @@
 		</div>
 		<hr class="col-md-12">
 		<h3>审核状态</h3>
-		<div class="table-responsive">
-			<table class="table table-bordered table-condensed">
-              <thead>
-                <tr>
-                  <th>上一步</th>
-                  <th>当前</th>
-                  <th>下一步</th>
-                  
-                 </tr>
-              </thead>
-              <tbody>
-              	<tr>
-                  <td><?php 
-                      echo isset($this->progress["prev"]["flow_name"]) ? $this->progress["prev"]["flow_name"] : "无";
-                      ?></td>
-                  <td>
-                  <?php 
-                      echo isset($this->progress["current"]["flow_name"]) ? $this->progress["current"]["flow_name"] : "";
-                      ?>
-                  	<a href="<?php echo $this->baseUrl("/bursary/check/review/id/" . $this->apply_id . "/pass/1/");?>" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-ok"></i>通过</a>
-        			<a href="<?php echo $this->baseUrl("/bursary/check/review/id/" . $this->apply_id . "/pass/0/"); ?>" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>驳回</a>
-        		  </td>
-                  <td>
-                  <?php 
-                      echo isset($this->progress["next"]["flow_name"]) ? $this->progress["next"]["flow_name"] : "无";
-                      ?>
-                  </td>
-                </tr>
-              </tbody>
-        	</table>
-		</div>
+		<ol>
+		<?php 
+		$vote  = true;     //是否需要表决
+		$rejected = false;    //是否被否决
+		foreach ($this->progress as $progress) {
+		    if (null === $progress["review_id"]) {
+		        //还没有表决
+		        echo "<li>" . $progress["flow_name"] . "<i class=\"glyphicon glyphicon-time text-warning\"></i>&nbsp;" ;
+		        if (!$rejected && $vote) {
+		            echo "<a class=\"btn btn-xs btn-success\" href=\"" . $this->baseUrl("/bursary/check/review/id/" . $this->apply_id . "/pass/1/") . "\">同意</a>";
+		            echo "<a class=\"btn btn-xs btn-danger\" href=\"" . $this->baseUrl("/bursary/check/review/id/" . $this->apply_id . "/pass/0/") . "\">不同意</a>";
+		            $vote = false;
+		        }
+                "</li>";
+		    } else {
+		        if ('1' === $progress["review_pass"]) {
+		            echo "<li>" . $progress["flow_name"] . "<i class=\"glyphicon glyphicon-ok text-success\"></i></li>";
+		        } else if ('0' === $progress["review_pass"]) {
+		            $rejected = true;
+		            echo "<li>" . $progress["flow_name"] . "<i class=\"glyphicon glyphicon-remove text-danger\"></i></li>";
+		        } else {
+		            echo "<li>" . $progress["flow_name"] . "</li>";
+		        }
+
+		    }
+
+		    
+		}
+		?>
+			
+		</ol>
+		
 		<hr class="col-md-12">
 		<h3>该生历史奖学金列表</h3>
 		<div class="table-responsive">
