@@ -51,8 +51,7 @@ $this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/di
 $this->headScript()->appendFile($this->baseUrl("/plugins/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"));
 $this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
 $this->headScript()->appendScript("
-    
-    var Public = new PublicClass();
+
     function delete_confirm(code)
     {
         BootstrapDialog.show({
@@ -66,7 +65,7 @@ $this->headScript()->appendScript("
                 label: '确定',
     	        cssClass: 'btn-warning',
     	        action: function(dialogRef){
-                    window.location.href = Public.getBaseUrl('/tuition/info/del/id/' + code);
+                    window.location.href = \"". $this->baseUrl('/tuition/info/del/id/') . "\"+ code;
     	        }
     	    },{
     	        label: '取消',

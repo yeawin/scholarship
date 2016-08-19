@@ -265,6 +265,7 @@
               <actionMethod actionName="index"/>
               <actionMethod actionName="list"/>
               <actionMethod actionName="applicant"/>
+              <actionMethod actionName="grant"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -392,6 +393,9 @@
               <viewControllerScriptsDirectory forControllerName="Pay">
                 <viewScriptFile forActionName="applicant"/>
               </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Pay">
+                <viewScriptFile forActionName="grant"/>
+              </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
             <viewFiltersDirectory/>
@@ -419,6 +423,7 @@
             <controllerFile controllerName="Fee">
               <actionMethod actionName="index"/>
               <actionMethod actionName="list"/>
+              <actionMethod actionName="reflesh"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -464,6 +469,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Fee">
                 <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Fee">
+                <viewScriptFile forActionName="reflesh"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

@@ -22,8 +22,16 @@ class Tuition_FeeController extends Zend_Controller_Action
         $this->view->deduct_list = $deduct_list;
     }
 
+    public function refleshAction()
+    {
+        // action body
+        
+    }
+
 
 }
+
+
 
 
 
