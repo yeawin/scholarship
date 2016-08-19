@@ -27,7 +27,7 @@ class Application_Model_Bursaryapply extends Zend_Db_Table_Abstract
         $select->joinLeft(array("d"=>"tb_dept_info"), "s.dept_code = d.dept_code");
         if (null !== $where_array) {
             foreach ($where_array as $key=>$value) {
-                $select->where("{$key} = ?", $value);
+                $select->where("{$key}=?", $value);
             }
         }
         if (null !== $order_array) {

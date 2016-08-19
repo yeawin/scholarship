@@ -1,0 +1,55 @@
+<div id="view-content" class="row">
+	<div class="col-md-12">
+		<h3><b><?php echo $this->scholarship["scholarship_name"]?></b>申请人列表</h3>
+		<div class="table-responsive">
+    		<table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>学院</th>
+                  <th>学生学号</th>
+                  <th>学生姓名</th>
+                  <th>学生年级</th>
+                  <th>奖学金名</th>
+                  <th>是否发放</th>
+                  <th>编辑</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+              foreach ($this->apply_list as $index=>$apply) {
+                  $index ++;
+                  $pay_info = "";
+                  $link = "";
+                  if ('1' === $apply['is_paid']) {
+                      $pay_info = "<span class=\"text-success\">已发放</apan>";
+                      $link = $this->baseUrl("/tuition/charging/list/id/" . $apply['apply_id']);
+                  } else {
+                      $pay_info = "<span class=\"text-warnig\">未发放</apan>";
+                      $link = $this->baseUrl("/bursary/check/view/id/" . $apply['apply_id']);
+                  }
+                  echo 
+                    "<tr>
+                      <th scope=\"row\">{$index}</th>
+                      <td>{$apply['dept_name']}</td>
+                      <td>{$apply['stu_id']}</td>
+                      <td>{$apply['stu_name']}</td>
+                      <td>{$apply['stu_grade']}</td>
+                      <td>{$apply['scholarship_name']}</td>
+                      <td>{$pay_info}</td>
+                      <td><a href=\"{$link}\"><i class=\"glyphicon glyphicon-eye-open\"></i>查看<a/></td>
+                    </tr>";
+              }
+                ?>
+              </tbody>
+            </table>
+		</div>
+	</div>
+</div>
+
+<?php 
+$this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/dist/css/bootstrap-dialog.min.css"));
+$this->headScript()->appendFile($this->baseUrl("/plugins/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"));
+$this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
+
+?>

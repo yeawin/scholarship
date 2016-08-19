@@ -261,6 +261,11 @@
               <actionMethod actionName="view"/>
               <actionMethod actionName="review"/>
             </controllerFile>
+            <controllerFile controllerName="Pay">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="list"/>
+              <actionMethod actionName="applicant"/>
+            </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
           <layoutsDirectory enabled="false">
@@ -377,6 +382,15 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Check">
                 <viewScriptFile forActionName="review"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Pay">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Pay">
+                <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Pay">
+                <viewScriptFile forActionName="applicant"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
