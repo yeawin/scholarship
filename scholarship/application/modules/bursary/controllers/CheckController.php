@@ -53,7 +53,7 @@ class Bursary_CheckController extends Zend_Controller_Action
         $Review = new Application_Model_Bursaryreview();
         $where_array = array("r.apply_id"=>$apply_id);
         $order_array = array("f.flow_order DESC");
-        $reviewed_list = $Review->get_reviewed_list($where_array, $order_array);
+//         $reviewed_list = $Review->get_reviewed_list($where_array, $order_array);
         
         $where_array = array("a.apply_id"=>$apply_id);
         $order_array = array("f.flow_order ASC");
@@ -98,36 +98,58 @@ class Bursary_CheckController extends Zend_Controller_Action
         $pass = $Params["pass"];
         
         //申请的奖学金的相关信息
-        $Apply = new Application_Model_Bursaryapply();
-        $where_array = array("a.apply_id"=>$apply_id);
-        $apply_record = $Apply->get_apply_record($where_array);
-        $scholarship_id = $apply_record["scholarship_id"];
+//         $Apply = new Application_Model_Bursaryapply();
+//         $where_array = array("a.apply_id"=>$apply_id);
+//         $apply_record = $Apply->get_apply_record($where_array);
+//         $scholarship_id = $apply_record["scholarship_id"];
         
-        $Review = new Application_Model_Bursaryreview();
         $where_array = array("r.apply_id"=>$apply_id);
+        $where_array = array("a.apply_id"=>$apply_id);
+        $order_array = array("f.flow_order ASC");
+        $Apply = new Application_Model_Bursaryapply();
+        $flow_checked_progress = $Apply->get_apply_checked_progress($where_array, $order_array);
+        $flow_id = $flow_checked_progress[0]["flow_id"];
+        $len = count($flow_checked_progress);
+        $finished = false;
+        for ($i = 0; $i < $len; $i ++) {
+            if (($i + 1) >= $len) $finished = true;
+            if (null === $flow_checked_progress[$i]["review_id"]) {
+                $flow_id = $flow_checked_progress[$i]["flow_id"];
+                break;
+            }
+                
+        }
+//         echo $flow_id; var_dump($flow_checked_progress);exit(0);
 //         $order_array = array("f.flow_order");
-        $reviewed_list = $Review->get_reviewed_list($where_array);
-        $prev_progress = $Review->get_prev_progress($apply_id);
-        $parent_flow_id = isset($prev_progress["flow_id"]) ? $prev_progress["flow_id"] : '';  //当前步骤
-        $Flow = new Application_Model_Bursaryflow();
-        $flow_current = $Flow->get_next_flow($scholarship_id, $parent_flow_id);
+//         $reviewed_list = $Review->get_reviewed_list($where_array);
+//         echo $flow_id;
+//         var_dump($flow_checked_progress);exit();
+//         $prev_progress = $Review->get_prev_progress($apply_id);
+//         $parent_flow_id = isset($prev_progress["flow_id"]) ? $prev_progress["flow_id"] : '';  //当前步骤
+//         $Flow = new Application_Model_Bursaryflow();
+//         $flow_current = $Flow->get_next_flow($scholarship_id, $parent_flow_id);
         
+        //审核当前流程
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
         $user_id = $identity->user_id;
         date_default_timezone_set("PRC");
         $data["review_id"] = md5(rand() + microtime());
-        $data["flow_id"] = $flow_current["flow_id"];
+        $data["flow_id"] = $flow_id;
         $data["apply_id"] = $apply_id;
         $data["review_time"] = date('Y-m-d H:i:s', time());
         $data["review_pass"] = $pass;
         $data["reviewer"] = $user_id;
-//         var_dump($data);exit();
+        $Review = new Application_Model_Bursaryreview();
         $Review->insert_record($data);
+        
+        if ($finished) {
+            //流程结束了，更新申请记录表状态
+            $Apply = new Application_Model_Bursaryapply();
+            $Apply->update_record(array("is_pass"=>'1'), $apply_id);
+        }
         $this->redirect("/bursary/check/list");
-//         $Flow = new Application_Model_Bursaryflow();
-//         $Flow->get_flow_record($scholarship_id, $flow_order_current);
-//         var_dump($data);
+
     }
 
 
