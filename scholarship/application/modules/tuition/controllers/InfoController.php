@@ -50,17 +50,15 @@ class Tuition_InfoController extends Zend_Controller_Action
             $this->view->message = "所属学院不能为空";
             return false;
         }
-        if (!(isset($Params["amount"]) && "" !== $Params["amount"])) {
-            $this->view->message = "学费金额不能为空";
-            return false;
-        }
         try {
             $data["tuition_id"] = md5(microtime());
             $data["dept_code"] = $Params["dept_code"];
             $data["grade"] = $Params["grade"];
             $data["year"] = $Params["year"];
             $data["stu_type"] = $Params["stu_type"];
-            $data["amount"] = floatval($Params["amount"]);
+            $data["tuition_1"] = floatval($Params["tuition_1"]);
+            $data["tuition_2"] = floatval($Params["tuition_2"]);
+            $data["tuition_3"] = floatval($Params["tuition_3"]);
             $auth = Zend_Auth::getInstance();
             $identity = $auth->getIdentity();
             $data["user_id"] = isset($identity->user_id) ? $identity->user_id : "admin";

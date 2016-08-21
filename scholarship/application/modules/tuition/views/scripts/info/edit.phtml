@@ -51,15 +51,15 @@
     		</div>
     		<div class="form-group">
     			<label for="dept_code">学费金额</label>
-    			<input type="text" name="tuition_1" class="form-control" value="<?php echo $this->tuition["tuition_1"];?>">
+    			<input type="text" name="tuition_1" class="form-control" value="<?php echo $this->tuition["tuition_1"];?>" required>
     		</div>
     		<div class="form-group">
     			<label for="dept_code">学杂费金额</label>
-    			<input type="text" name="tuition_2" class="form-control" value="<?php echo $this->tuition["tuition_2"];?>">
+    			<input type="text" name="tuition_2" class="form-control" value="<?php echo $this->tuition["tuition_2"];?>" required>
     		</div>
     		<div class="form-group">
     			<label for="dept_code">住宿费金额</label>
-    			<input type="text" name="tuition_3" class="form-control" value="<?php echo $this->tuition["tuition_3"];?>">
+    			<input type="text" name="tuition_3" class="form-control" value="<?php echo $this->tuition["tuition_3"];?>" required>
     		</div>
     		<input type="hidden" name="tuition_id" value="<?php echo $this->tuition["tuition_id"];?>">
 			<button type="submit" class="btn btn-primary">提交</button>
