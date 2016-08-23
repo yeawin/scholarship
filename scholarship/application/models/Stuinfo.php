@@ -14,15 +14,15 @@ class Application_Model_Stuinfo extends Zend_Db_Table_Abstract
         parent::__construct();
     }
 
-    public function get_stu_list($array = null)
+    public function get_stu_list($where_array = null)
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("i"=>$this->_name), array("stu_no"=>"stu_id", "stu_name", "stu_sex", "stu_type", "stu_grade"))->setIntegrityCheck(false);
         $select->joinLeft(array("c"=>"tb_stu_conditions"), "i.stu_id = c.stu_id");
         $select->joinLeft(array("t"=>"tb_stu_type"), "i.stu_type = t.stu_type_code");
         $select->joinLeft(array("d"=>"tb_dept_info"), "i.dept_code = d.dept_code", array("dept_name", "dept_full_name", "parent_code", "deptcode04"));
-        if (null !== $array) {
-            foreach ($array as $key=>$value) {
+        if (null !== $where_array) {
+            foreach ($where_array as $key=>$value) {
                 $select->where("{$key} = ?", $value);
             }
         }

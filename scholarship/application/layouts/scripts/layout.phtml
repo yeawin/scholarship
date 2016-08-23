@@ -78,6 +78,7 @@
           	<li><a href="<?php echo $this->baseUrl("/tuition/info/list");?>">费用管理</a></li>
           	<li><a href="<?php echo $this->baseUrl("/tuition/fee/list");?>">欠费管理</a></li>
             <li><a href="<?php echo $this->baseUrl("/tuition/charging/list");?>">扣费管理</a></li>
+            <li><a href="<?php echo $this->baseUrl("/tuition/bank/list");?>">银行卡管理</a></li>
           </ul>
           <ul class="nav nav-sidebar">
           	<li><a href="<?php echo $this->baseUrl("/user/auth/list");?>">权限管理</a></li>
@@ -96,42 +97,6 @@
 	<script src="<?php echo $this->baseUrl("/plugins/jquery/jquery-1.11.2.min.js");?>"></script>
     <script src="<?php echo $this->baseUrl("/plugins/bootstrap/js/bootstrap.min.js");?>"></script>
     <?php echo $this->headScript();?>
-   <!--  
-    <script src="<?php echo $this->baseUrl("/plugins/DataTables/jquery.dataTables.js");?>"></script>
-    <script src="<?php echo $this->baseUrl("/plugins/DataTables/extensions/ColVis/js/dataTables.colVis.min.js");?>"></script>
-    <script src="<?php echo $this->baseUrl("/plugins/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js");?>"></script>
-    <script>
-    $(function(){
-    	createDataTable();
-    });
-    function createDataTable() {
-    	$('#datatable').DataTable({
-    		"dom": 'lCfrtip',
-    		"order": [],
-    		"colVis": {
-    			"buttonText": "Columns",
-    			"overlayFade": 0,
-    			"align": "right"
-    		},
-    		"language": {
-    			"lengthMenu": '_MENU_ entries per page',
-    			"search": '<i class="fa fa-search"></i>',
-    			"paginate": {
-    				"previous": '<i class="fa fa-angle-left"></i>',
-    				"next": '<i class="fa fa-angle-right"></i>'
-    			}
-    		},
-    		"iDisplayLength": -1,
-    		"aLengthMenu": [[10, 20, 30, 50, 100, -1], [10, 20, 30,  50, 100, "All"]],
-    	});
-
-    	$('#datatable_question tbody').on('click', 'tr', function() {
-    		$(this).toggleClass('selected');
-    	});
-    };
-
-    </script>
-    
-    -->
+   
   </body>
 </html>

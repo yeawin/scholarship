@@ -1,0 +1,26 @@
+<div id="view-content">
+	<h3>学生银行卡修改</h3>
+	<div class="col-md-12">
+		<form role="form" class="form form-horizontal" method="post" action="<?php echo $this->baseUrl("/tuition/bank/edit-ok");?>">
+			<div class="form-group">
+				<label for="college_name">学号</label>
+				<input type="text" class="form-control" name="stu_id" readonly value="<?php echo $this->stu_bank_info["stu_no"];?>">
+			</div>
+			<div class="form-group">
+				<label for="college_name">姓名</label>
+				<input type="text" class="form-control" name="stu_name" readonly value="<?php echo $this->stu_bank_info["stu_name"];?>">
+			</div>
+			<div class="form-group">
+				<label for="dept_code">所属学院</label>
+    			<input type="text" class="form-control" name="dept_name" readonly value="<?php echo $this->stu_bank_info["dept_name"];?>">
+			</div>
+			<div class="form-group">
+				<label for="dept_code">卡号</label>
+    			<input type="text" class="form-control" name="cardno" value="<?php echo $this->stu_bank_info["cardno"];?>">
+    		</div>
+    		
+    		<input type="hidden" name="stu_id" required value="<?php echo $this->stu_bank_info["stu_no"];?>">
+			<button type="submit" class="btn btn-primary">提交</button>
+		</form>
+	</div>
+</div>
