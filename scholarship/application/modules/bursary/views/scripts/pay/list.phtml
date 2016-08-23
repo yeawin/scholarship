@@ -22,7 +22,7 @@
                   $index ++;
                   $pay_info = $scholarship['pay_time'];
                   if (null === $scholarship['pay_time']) {
-                      $pay_info = "<a class=\"btn btn-xs btn-primary\" href=\"" . $this->baseUrl("/bursary/pay/grant/") . "\">发放</a>";
+                      $pay_info = "<a class=\"btn btn-xs btn-primary\" href=\"" . $this->baseUrl("/bursary/pay/grant/id/" . $scholarship['scholarship_id']) . "\">发放</a>";
                   } 
                   echo 
                     "<tr>
