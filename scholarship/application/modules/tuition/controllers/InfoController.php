@@ -63,8 +63,13 @@ class Tuition_InfoController extends Zend_Controller_Action
             $identity = $auth->getIdentity();
             $data["user_id"] = isset($identity->user_id) ? $identity->user_id : "admin";
             $Tuition = new Application_Model_Tuitioninfo();
-            $Tuition->insert_record($data);
-            $this->redirect("/tuition/info/list");
+            if ($Tuition->is_tuition_exist(null, $data["grade"], $data["year"], $data["stu_type"])) {
+                $Tuition->insert_record($data);
+                $this->redirect("/tuition/info/list");
+            } else {
+                $this->view->message = "存在" . $data["grade"] . "级该类型学生的" . $data["year"] . "学费记录";
+                return false;
+            }
         } catch (Exception $e) {
             $this->view->message = $e->getMessage(); 
         }
@@ -76,7 +81,7 @@ class Tuition_InfoController extends Zend_Controller_Action
         // action body
         $Params = $this->getAllParams();
         if (!(isset($Params["id"]) && "" !== $Params["id"])) {
-            $this->view->message = "参数id不能为空";
+            die("参数id不能为空");
         }
         try {
             //学费记录
@@ -147,8 +152,37 @@ class Tuition_InfoController extends Zend_Controller_Action
          
     }
 
+    public function copyAction()
+    {
+        // 复制一个
+        $Params = $this->getAllParams();
+        if (!(isset($Params["id"]) && "" !== $Params["id"])) {
+            die("参数id不能为空");
+        }
+        try {
+            //学费记录
+            $Tuition = new Application_Model_Tuitioninfo();
+            $tuition = $Tuition->get_tuition_record($Params["id"]);
+            $this->view->tuition = $tuition;
+//             var_dump($tuition);exit();
+            //院系列表
+            $Dept = new Application_Model_Deptinfo();
+            $parent_code = STUDENT_DEPT;
+            $dept_list = $Dept->get_dept_list($parent_code);
+            $this->view->dept_list = $dept_list;
+            //学生类型列表
+            $Stutype = new Application_Model_Stutype();
+            $stu_type_list = $Stutype->get_stu_type_list();
+            $this->view->stu_type_list = $stu_type_list;
+        } catch (Exception $e) {
+            throwException($e);
+        }
+    }
+
 
 }
+
+
 
 
 
