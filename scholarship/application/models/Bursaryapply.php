@@ -26,8 +26,8 @@ class Application_Model_Bursaryapply extends Zend_Db_Table_Abstract
         $select->joinLeft(array("s"=>"tb_stu_info"), "a.stu_id = s.stu_id");
         $select->joinLeft(array("d"=>"tb_dept_info"), "s.dept_code = d.dept_code");
         if (null !== $where_array) {
-            foreach ($where_array as $key=>$value) {
-                $select->where("{$key}=?", $value);
+            foreach ($where_array as $where) {
+                $select->where($where);
             }
         }
         if (null !== $order_array) {
@@ -51,7 +51,7 @@ class Application_Model_Bursaryapply extends Zend_Db_Table_Abstract
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("f"=>"tb_scholarship_flow"), array("flow_id", "flow_name", "scholarship_id", "check_role_id", "parent_id", "flow_order"));//流程信息
-        $select->joinLeft(array("r"=>"tb_scholarship_review"), "r.flow_id = f.flow_id", array("review_id", "review_time", "review_pass", "reviewer"));//审核信息
+        $select->joinLeft(array("r"=>"tb_scholarship_review"), "r.flow_id = f.flow_id", array("review_id", "review_time", "review_pass", "reviewer", "review_apply_id"=>"apply_id"));//审核信息
         $select->joinLeft(array("a"=>"tb_scholarship_apply"), "a.scholarship_id = f.scholarship_id", array("apply_id", "stu_id", "apply_time", "is_pass", "is_paid"));   //申请信息
 //         $select->joinLeft(array("i"=>"tb_scholarship_info"), "a.scholarship_id = i.scholarship_id");
         
@@ -64,7 +64,7 @@ class Application_Model_Bursaryapply extends Zend_Db_Table_Abstract
         if (null !== $order_array) {
             $select->order($order_array);
         }
-        //         echo $select->__toString();exit();
+//                 echo $select->__toString();
         $result = $this->fetchAll($select);
         if ($result) {
             $result = $result->toArray();

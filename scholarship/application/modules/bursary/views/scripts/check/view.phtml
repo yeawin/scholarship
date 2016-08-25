@@ -48,7 +48,7 @@
 		<ol>
 		<?php 
 		$vote  = true;     //是否需要表决
-		$rejected = false;    //是否被否决
+		$rejected = false; //是否被否决
 		foreach ($this->progress as $progress) {
 		    if (null === $progress["review_id"]) {
 		        //还没有表决
@@ -94,13 +94,36 @@
                   </thead>
                   <tbody>
            <?php 
+//            var_dump($this->apply_list);
               foreach ($this->apply_list as $index=>$apply) {
-                  if ($this->apply_id === $apply["apply_id"]) continue;
+                  if ($this->apply_id === $apply["apply_id"]) {
+                      $class="bg-success";
+                  } else {
+                      $class = "";
+                  }
                   $index ++;
-                  $is_pass = ($apply['is_pass']  == 0) ? "<span class=\"text-danger\"><i class=\"glyphicon glyphicon-remove\"></i>未通过</span>" : "<span class=\"text-success\"><i class=\"glyphicon glyphicon-ok\"></i>已通过</span>";
-                  $is_paid = ($apply['is_paid']  == 0) ? "<span class=\"text-danger\"><i class=\"glyphicon glyphicon-remove\"></i>未发放</span>" : "<span class=\"text-success\"><i class=\"glyphicon glyphicon-ok\"></i>已发放</span>";
+                  if ($apply['is_pass']  === '0') {
+                      $is_pass = "<span class=\"text-danger\"><i class=\"glyphicon glyphicon-remove\"></i>未通过</span>";
+                  } else if ($apply['is_pass']  === '1') {
+                      $is_pass = "<span class=\"text-success\"><i class=\"glyphicon glyphicon-ok\"></i>已通过</span>";
+                  } else {
+                      $is_pass = "<span class=\"text-info\"><i class=\"glyphicon glyphicon-refresh\"></i>待审核</span>";
+                  }
+                  
+                  //发放状态
+                  if (null === $apply['is_paid']) {
+                      $is_paid = "";
+                  } else if ($apply['is_paid']  === '0') {
+                      $is_paid = "<span class=\"text-info\"><i class=\"glyphicon glyphicon-hourglass\"></i>待发放</span>";
+                  } else if ($apply['is_paid']  === '1') {
+                      $is_paid = "<span class=\"text-success\"><i class=\"glyphicon glyphicon-ok\"></i>已发放</span>";
+                  } else if ($apply['is_paid']  === '2'){
+                      $is_paid = "<span class=\"text-danger\"><i class=\"glyphicon glyphicon-remove\"></i>不发放</span>";
+                  }
+//                   $is_pass = ($apply['is_pass']  === '2') ? "<span class=\"text-danger\"><i class=\"glyphicon glyphicon-remove\"></i>未通过</span>" : "<span class=\"text-success\"><i class=\"glyphicon glyphicon-ok\"></i>已通过</span>";
+//                   $is_paid = ($apply['is_paid']  === '0') ? "<span class=\"text-danger\"><i class=\"glyphicon glyphicon-remove\"></i>未发放</span>" : "<span class=\"text-success\"><i class=\"glyphicon glyphicon-ok\"></i>已发放</span>";
                   echo 
-                    "<tr>
+                    "<tr class=\"{$class}\">
                       <th scope=\"row\">{$index}</th>
                       <td>{$apply['scholarship_year']}</td>
                       <td>{$apply['scholarship_name']}</td>

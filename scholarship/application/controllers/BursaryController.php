@@ -150,8 +150,8 @@ class BursaryController extends Zend_Controller_Action
                 $data["stu_id"] = $user_id;
                 date_default_timezone_set("PRC");
                 $data["apply_time"] = date("Y-m-d H:i:s");
-                $data["is_pass"] = 0;
-                $data["is_paid"] = 0;
+//                 $data["is_pass"] = 0;
+//                 $data["is_paid"] = 0;
                 $BursaryApply->insert_record($data);
             }
             $this->redirect("/default/bursary/my");
