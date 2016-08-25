@@ -14,7 +14,7 @@ class Application_Model_Tuitioninfo extends Zend_Db_Table_Abstract
         parent::__construct();
     }
     
-    public function get_tuition_list()
+    public function get_tuition_list($where_array = null)
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("t"=>$this->_name));
@@ -23,6 +23,12 @@ class Application_Model_Tuitioninfo extends Zend_Db_Table_Abstract
         $select->order("d.dept_name asc");
         $select->order("t.grade asc");
         $select->order("t.year desc");
+       if (null !== $where_array) {
+            foreach ($where_array as $key=>$value) {
+                $select->where("{$key} = ?", $value);
+            }
+        }
+
         $result = $this->fetchAll($select);
         if ($result) {
             $result = $result->toArray();
