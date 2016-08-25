@@ -17,7 +17,12 @@ class Student_InfoController extends Zend_Controller_Action
     {
         // action body
         $Stuinfo = new Application_Model_Stuinfo();
-        $stu_list = $Stuinfo->get_stu_list();
+        $where_array = null;
+        $order_array = array(
+            "dept_name"=>"ASC",
+            "stu_grade"=>"ASC",
+        );
+        $stu_list = $Stuinfo->get_stu_list($where_array, $order_array);
         $this->view->stu_list = $stu_list;
     }
 

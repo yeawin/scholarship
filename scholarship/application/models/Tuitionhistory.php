@@ -14,13 +14,18 @@ class Application_Model_Tuitionhistory extends Zend_Db_Table_Abstract
         parent::__construct();
     }
     
-    public function get_history_list()
+    public function get_history_list($where_array = null)
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("h"=>$this->_name));
         $select->joinLeft(array("i"=>"tb_tuition_info"), "i.tuition_id = h.tuition_id");
         $select->joinLeft(array("s"=>"tb_stu_info"), "s.stu_id = h.stu_id");
         $select->order("h.datetime desc");
+        if (null !== $where_array) {
+            foreach ($where_array as $key=>$value) {
+                $select->where("{$key} = ?", $value);
+            }
+        }
         $result = $this->fetchAll($select);
         if ($result) {
             $result = $result->toArray();

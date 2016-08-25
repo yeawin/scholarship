@@ -8,30 +8,45 @@
                 <tr>
                   <th>序号</th>
                   <th>学号</th>
-                  <th>学年度</th>
-                  <th>学费</th>
-                  <th>学杂费</th>
-                  <th>住宿费</th>
-                  <th>核对时间</th>
+                  <th>姓名</th>
+                  <th>学院</th>
+                  <th>年级</th>
+                  <th>欠费项目</th>
                   <th>操作</th>
                 </tr>
               </thead>
               <tbody>
               <?php 
               foreach ($this->deduct_list as $index=>$deduct) {
-                  $deduct_tuition_1 = number_format(floatval($deduct["deduct_tuition_1"]), 2);
-                  $deduct_tuition_2 = number_format(floatval($deduct["deduct_tuition_2"]), 2);
-                  $deduct_tuition_3 = number_format(floatval($deduct["deduct_tuition_3"]), 2);
+                  $str = "<ul>";
+                  foreach ($deduct as $key=>$value) {
+                      $is_exist = strripos($key, "tuition", 0);
+                      if (false !== $is_exist) {
+                          if (floatval($value > 0.0)) {
+                              $flag = strripos($key, "_");
+                              $year = substr($key, $flag + 1, 1);
+                              $type = substr($key, $flag + 2, 1);
+                              $str .= "<li>第" . $year ."年";
+                              switch ($type) {
+                                  case '1': $str .= "学费"; break;
+                                  case '2': $str .= "学杂费"; break;
+                                  case '3': $str .= "住宿费"; break;
+                              }
+                              $str .= " ￥ " . floatval($value) . "元";
+                          }
+                      }
+
+                  }
+                  $str .= "</ul>";
                   $i = $index + 1;
                   echo "
 		        <tr>
                   <th scope=\"row\">{$i}</th>
                   <td>{$deduct["stu_id"]}</td>
-                  <td>{$deduct["deduct_year"]}</td>
-                  <td class=\"text-danger\">{$deduct_tuition_1}</td>
-                  <td class=\"text-danger\">{$deduct_tuition_2}</td>
-                  <td class=\"text-danger\">{$deduct_tuition_3}</td>
-                  <td>{$deduct["check_datetime"]}</td>
+                  <td>{$deduct["stu_name"]}</td>
+                  <td>{$deduct["dept_code"]}</td>
+                  <td>{$deduct["stu_grade"]}</td>
+                  <td>{$str}</td>
                   <td><a href=\"{$this->baseUrl("/tuition/charging/list/id/" . $deduct["stu_id"])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>查看流水</a></td>
                 </tr>";
               }

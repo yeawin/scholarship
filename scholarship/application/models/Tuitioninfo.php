@@ -20,7 +20,9 @@ class Application_Model_Tuitioninfo extends Zend_Db_Table_Abstract
         $select->from(array("t"=>$this->_name));
         $select->joinLeft(array("d"=>"tb_dept_info"), "t.dept_code = d.dept_code", array("dept_name", "dept_full_name", "parent_code", "deptcode04"));
         $select->joinLeft(array("s"=>"tb_stu_type"), "t.stu_type = s.stu_type_code");
+        $select->order("d.dept_name asc");
         $select->order("t.grade asc");
+        $select->order("t.year desc");
         $result = $this->fetchAll($select);
         if ($result) {
             $result = $result->toArray();

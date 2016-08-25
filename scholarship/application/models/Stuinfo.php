@@ -14,7 +14,7 @@ class Application_Model_Stuinfo extends Zend_Db_Table_Abstract
         parent::__construct();
     }
 
-    public function get_stu_list($where_array = null)
+    public function get_stu_list($where_array = null, $order_array = null)
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("i"=>$this->_name), array("stu_no"=>"stu_id", "stu_name", "stu_sex", "stu_type", "stu_grade"))->setIntegrityCheck(false);
@@ -24,6 +24,11 @@ class Application_Model_Stuinfo extends Zend_Db_Table_Abstract
         if (null !== $where_array) {
             foreach ($where_array as $key=>$value) {
                 $select->where("{$key} = ?", $value);
+            }
+        }
+        if (null !== $order_array) {
+            foreach ($order_array as $key=>$value) {
+                $select->order("{$key} {$value}");
             }
         }
         $result = $this->fetchAll($select);
