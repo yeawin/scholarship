@@ -54,6 +54,7 @@ class Bursary_InfoController extends Zend_Controller_Action
             $data["scholarship_name"] = $Params["scholarship_name"];
             $data["num"] = $Params["num"];
             $data["scholarship_type_code"] = $Params["scholarship_type_code"];
+            $data["money"] = floatval($Params["money"]);
             $data["scholarship_year"] = $Params["scholarship_year"];
             $data["start_time"] = ("" == $Params["start_time"]) ? null : $Params["start_time"];
             $data["end_time"] = ("" == $Params["end_time"]) ? null : $Params["end_time"];
@@ -120,6 +121,7 @@ class Bursary_InfoController extends Zend_Controller_Action
             $data["num"] = $Params["num"];
             $data["scholarship_type_code"] = $Params["scholarship_type_code"];
             $data["scholarship_year"] = $Params["scholarship_year"];
+            $data["money"] = floatval($Params["money"]);
             $data["start_time"] = ("" == $Params["start_time"]) ? null : $Params["start_time"];
             $data["end_time"] = ("" == $Params["end_time"]) ? null : $Params["end_time"];
             $data["is_visible"] = $Params["is_visible"];

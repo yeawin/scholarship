@@ -9,6 +9,7 @@
                   <th>名称</th>
                   <th>名额</th>
                   <th>学年</th>
+                  <th>金额</th>
                   <th>开始时间</th>
                   <th>结束时间</th>
                   <th>是否隐藏</th>
@@ -29,6 +30,7 @@
                       <td>{$scholarship['scholarship_name']}</td>
                       <td><a href=\"{$this->baseUrl('/bursary/dept/list/id/' . $scholarship['scholarship_id'])}\" title=\"名额分配\">{$scholarship['num']}</a></td>
                       <td>{$scholarship['scholarship_year']}</td>
+                      <td>￥" . number_format(floatval($scholarship['money']), 2) . "</td>
                       <td>{$scholarship['start_time']}</td>  
                       <td>{$scholarship['end_time']}</td>  
                       <td>{$scholarship['is_visible']}</td>  

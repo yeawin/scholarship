@@ -32,7 +32,7 @@ class Bursary_PayController extends Zend_Controller_Action
         
         //申请人
         $Apply = new Application_Model_Bursaryapply();
-        $where_array = array("a.is_paid !"=>"1", "a.is_pass"=> "1", "a.scholarship_id"=>$scholarship_id);
+        $where_array = array("a.is_paid != '1'", "a.is_pass = '1'", "a.scholarship_id='$scholarship_id'");
         $order_array = array("a.scholarship_id", "a.apply_time");
         $apply_list = $Apply->get_apply_list($where_array, $order_array);
         $this->view->apply_list = $apply_list;
@@ -43,7 +43,7 @@ class Bursary_PayController extends Zend_Controller_Action
         // action body
         $scholarship_id = $this->getParam("id");
         $Apply = new Application_Model_Bursaryapply();
-        $where_array = array("a.is_paid !"=>"1", "a.is_pass"=> "1", "a.scholarship_id"=>$scholarship_id);
+        $where_array = array("a.is_paid != '1'", "a.is_pass = '1'", "a.scholarship_id='$scholarship_id'");
         $order_array = array("a.scholarship_id", "a.apply_time");
         $apply_list = $Apply->get_apply_list($where_array, $order_array);
         var_dump($apply_list);
