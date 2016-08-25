@@ -63,12 +63,12 @@ class Tuition_InfoController extends Zend_Controller_Action
             $identity = $auth->getIdentity();
             $data["user_id"] = isset($identity->user_id) ? $identity->user_id : "admin";
             $Tuition = new Application_Model_Tuitioninfo();
-            if ($Tuition->is_tuition_exist(null, $data["grade"], $data["year"], $data["stu_type"])) {
+            if ($Tuition->is_tuition_exist(null, $data["dept_code"], $data["grade"], $data["year"], $data["stu_type"])) {
+                $this->view->message = "存在" . $data["grade"] . "级该类型学生的" . $data["year"] . "年学费记录";
+                return false;
+            } else {
                 $Tuition->insert_record($data);
                 $this->redirect("/tuition/info/list");
-            } else {
-                $this->view->message = "存在" . $data["grade"] . "级该类型学生的" . $data["year"] . "学费记录";
-                return false;
             }
         } catch (Exception $e) {
             $this->view->message = $e->getMessage(); 
@@ -179,8 +179,39 @@ class Tuition_InfoController extends Zend_Controller_Action
         }
     }
 
+    public function copyOkAction()
+    {
+        // action body
+        try {
+            $Params = $this->getAllParams();
+            $data["tuition_id"] = md5(microtime());
+            $data["dept_code"] = $Params["dept_code"];
+            $data["grade"] = $Params["grade"];
+            $data["year"] = $Params["year"];
+            $data["stu_type"] = $Params["stu_type"];
+            $data["tuition_1"] = floatval($Params["tuition_1"]);
+            $data["tuition_2"] = floatval($Params["tuition_2"]);
+            $data["tuition_3"] = floatval($Params["tuition_3"]);
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+            $data["user_id"] = isset($identity->user_id) ? $identity->user_id : "admin";
+            $Tuition = new Application_Model_Tuitioninfo();
+            if ($Tuition->is_tuition_exist(null, $data["dept_code"], $data["grade"], $data["year"], $data["stu_type"])) {
+                $this->view->message = "存在 该学院 " . $data["grade"] . "级 该类型学生的" . $data["year"] . "年学费记录";
+                return false;
+            } else {
+                $Tuition->insert_record($data);
+                $this->redirect("/tuition/info/list");
+            }
+        } catch (Exception $e) {
+            $this->view->message = $e->getMessage();
+        }
+    }
+
 
 }
+
+
 
 
 

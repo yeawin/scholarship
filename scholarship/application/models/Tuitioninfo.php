@@ -42,12 +42,15 @@ class Application_Model_Tuitioninfo extends Zend_Db_Table_Abstract
         return $result;
     }
     
-    public function is_tuition_exist($tuition_id = null, $grade = null, $year = null, $stu_type = null)
+    public function is_tuition_exist($tuition_id = null, $dept_code = null, $grade = null, $year = null, $stu_type = null)
     {
         $select = $this->select();
         $select->from($this->_name);
         if (null !== $tuition_id) {
             $select->where("tuition_id = ?", $tuition_id);
+        }
+        if (null !== $dept_code) {
+            $select->where("dept_code = ?", $dept_code);
         }
         if (null !== $grade) {
             $select->where("grade = ?", $grade);
