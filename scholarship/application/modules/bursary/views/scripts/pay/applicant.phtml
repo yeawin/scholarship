@@ -24,9 +24,15 @@
                   if ('1' === $apply['is_paid']) {
                       $pay_info = "<span class=\"text-success\">已发放</apan>";
                       $link = $this->baseUrl("/tuition/charging/list/id/" . $apply['apply_id']);
-                  } else {
+                  } else if ('2' === $apply['is_paid']) {
+                      $pay_info = "<span class=\"text-danger\">不发放</apan>";
+                      $link = $this->baseUrl("/bursary/check/view/id/" . $apply['apply_id']);
+                  } else if ('0' ===  $apply['is_paid']) {
                       $pay_info = "<span class=\"text-warnig\">未发放</apan>";
                       $link = $this->baseUrl("/bursary/check/view/id/" . $apply['apply_id']);
+                  } else {
+                      $pay_info = "";
+                      $link = "";
                   }
                   echo 
                     "<tr>

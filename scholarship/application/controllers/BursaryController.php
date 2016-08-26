@@ -170,7 +170,7 @@ class BursaryController extends Zend_Controller_Action
         $identity = $auth->getIdentity();
         $user_id = $identity->user_id;
         $BursaryApply = new Application_Model_Bursaryapply();
-        $bursary_list = $BursaryApply->get_apply_list(array("a.stu_id"=>$user_id));
+        $bursary_list = $BursaryApply->get_apply_list(array("a.stu_id = '$user_id'"));
         $this->view->bursary_list = $bursary_list;
     }
 
