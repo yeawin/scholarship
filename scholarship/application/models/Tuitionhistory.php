@@ -14,7 +14,7 @@ class Application_Model_Tuitionhistory extends Zend_Db_Table_Abstract
         parent::__construct();
     }
     
-    public function get_history_list($where_array = null)
+    public function get_history_list($where_array = null, $order_array = null)
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("h"=>$this->_name));
@@ -22,8 +22,13 @@ class Application_Model_Tuitionhistory extends Zend_Db_Table_Abstract
         $select->joinLeft(array("s"=>"tb_stu_info"), "s.stu_id = h.stu_id");
         $select->order("h.datetime desc");
         if (null !== $where_array) {
-            foreach ($where_array as $key=>$value) {
-                $select->where("{$key} = ?", $value);
+            foreach ($where_array as $where) {
+                $select->where($where);
+            }
+        }
+        if (null !== $order_array) {
+            foreach ($order_array as $order) {
+                $select->order($order);
             }
         }
         $result = $this->fetchAll($select);

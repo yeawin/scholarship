@@ -29,7 +29,9 @@ class Tuition_FeeController extends Zend_Controller_Action
         $time = date("Y-m-d H:i:s");
         $Stu = new Application_Model_Stuinfo();
         $stu_list = $Stu->get_stu_list();
+//         var_dump($stu_list);
         foreach ($stu_list as $stu) {
+            if ($stu["stu_no"] !== '2012100001') continue;
             //每个学生的每年应交费用
             $stu_grade = $stu["stu_grade"];
             $dept_code = $stu["dept_code"];
@@ -41,8 +43,9 @@ class Tuition_FeeController extends Zend_Controller_Action
             //每个学生的缴费流水
             $stu_id = $stu["stu_no"];
             $History = new Application_Model_Tuitionhistory();
-            $where_array = array("h.stu_id"=>$stu_id);
+            $where_array = array("h.stu_id= '$stu_id'");
             $history_list = $History->get_history_list($where_array);
+//             var_dump($history_list);return;
             
             //遍历每一年的学费
             $data["stu_id"] = $stu["stu_no"];
@@ -57,15 +60,15 @@ class Tuition_FeeController extends Zend_Controller_Action
                 foreach ($history_list as $history) {
                     if ($history["tuition_id"] === $tuition_id) {
                         switch ($history["tuition_key"]) {
-                            case "tuition_1": {
+                            case "tuition_" . $index . "1": {
                                 $data["tuition_" . $index . "1"] -= $history["amount"]; 
                                 break;
                             }
-                            case "tuition_2": {
+                            case "tuition_" . $index . "2": {
                                 $data["tuition_" . $index . "2"] -= $history["amount"]; 
                                 break;
                             }
-                            case "tuition_3":{
+                            case "tuition_" . $index . "3":{
                                 $data["tuition_" . $index . "3"] -= $history["amount"]; 
                                 break;
                             }
@@ -73,6 +76,7 @@ class Tuition_FeeController extends Zend_Controller_Action
                     }
                 }
             }
+//             var_dump($data);
             $Deduct = new Application_Model_Tuitiondeduct();
             if ($Deduct->is_stu_exist($stu_id)) {
                 $Deduct->update_record($data, $stu_id);
@@ -80,6 +84,7 @@ class Tuition_FeeController extends Zend_Controller_Action
                 $Deduct->insert_record($data);
             }
         }
+//         return false;
         $this->redirect("/tuition/fee/list");
     }
 

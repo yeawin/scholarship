@@ -19,10 +19,14 @@ class Tuition_ChargingController extends Zend_Controller_Action
         $Params = $this->getAllParams();
         $stu_id = isset($Params["id"]) ? $Params["id"] : null;
         $where_array = array(
-            "s.stu_id"=>$stu_id,    
+            "s.stu_id = '$stu_id'"   
+        );
+        $order_array = array(
+            "s.stu_id asc",
+            "h.tuition_key desc",
         );
         $History = new Application_Model_Tuitionhistory();
-        $history_list = $History->get_history_list($where_array);
+        $history_list = $History->get_history_list($where_array, $order_array);
         $this->view->history_list = $history_list;
     }
 

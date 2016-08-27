@@ -36,11 +36,15 @@ class Application_Model_Tuitioninfo extends Zend_Db_Table_Abstract
         return $result;
     }
     
-    public function get_tuition_record($tuition_id)
+    public function get_tuition_record($where_array = null)
     {
         $select = $this->select();
         $select->from(array("t"=>$this->_name));
-        $select->where("tuition_id = ?", $tuition_id);
+        if (null !== $where_array) {
+            foreach ($where_array as $where) {
+                $select->where($where);
+            }
+        }
         $result = $this->fetchRow($select);
         if ($result) {
             $result = $result->toArray();

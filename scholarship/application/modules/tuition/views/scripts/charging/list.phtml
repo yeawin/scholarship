@@ -19,14 +19,24 @@
               <tbody>
               <?php 
               foreach ($this->history_list as $index=>$history) {
-                  $amount = number_format(floatval($history["amount"]), 2);
+                  $amount = "￥" . number_format(floatval($history["amount"]), 2);
+                  $key = $history["tuition_key"];
+                  $flag = strripos($key, "_");
+                  $year = substr($key, $flag + 1, 1);
+                  $type = substr($key, $flag + 2, 1);
+                  $str = "第" . $year ."年";
+                  switch ($type) {
+                      case '1': $str .= "学费 &nbsp;&nbsp;"; break;
+                      case '2': $str .= "学杂费"; break;
+                      case '3': $str .= "住宿费"; break;
+                  }
                   echo "
 		        <tr>
                   <th scope=\"row\">{$history["history_id"]}</th>
                   <td>{$history["stu_id"]}</td>
                   <td>{$history["tuition_id"]}</td>
-                  <td>{$history["tuition_key"]}</td>
-                  <td>{$history["amount"]}</td>
+                  <td>{$str}</td>
+                  <td>{$amount}</td>
                   <td>{$history["cardno"]}</td>
                   <td>{$history["datetime"]}</td>
                   <td><a href=\"{$this->baseUrl("/tuition/charging/detail/id/" . $history["history_id"])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>查看详细</a></td>

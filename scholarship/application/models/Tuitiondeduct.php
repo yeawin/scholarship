@@ -24,6 +24,7 @@ class Application_Model_Tuitiondeduct extends Zend_Db_Table_Abstract
         $select->from(array("d"=>$this->_name));
 //         $select->joinLeft(array("i"=>"tb_tuition_info"), "i.tuition_id = d.tuition_id");
         $select->joinLeft(array("s"=>"tb_stu_info"), "s.stu_id = d.stu_id");
+        $select->joinLeft(array("dept"=>"tb_dept_info"), "s.dept_code = dept.dept_code");
         $select->order("d.check_datetime desc");
         if (null !== $where_array) {
             foreach ($where_array as $where) {
