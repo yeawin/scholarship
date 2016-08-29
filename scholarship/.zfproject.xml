@@ -62,60 +62,6 @@
         <modelFile modelName="StuBank"/>
       </modelsDirectory>
       <modulesDirectory>
-        <moduleDirectory moduleName="course">
-          <configsDirectory enabled="false"/>
-          <controllersDirectory>
-            <controllerFile controllerName="Couman">
-              <actionMethod actionName="index"/>
-              <actionMethod actionName="add"/>
-              <actionMethod actionName="addOk"/>
-            </controllerFile>
-          </controllersDirectory>
-          <formsDirectory enabled="false"/>
-          <layoutsDirectory enabled="false">
-            <layoutScriptsDirectory enabled="false"/>
-          </layoutsDirectory>
-          <modelsDirectory/>
-          <servicesDirectory enabled="false"/>
-          <viewsDirectory>
-            <viewScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Couman">
-                <viewScriptFile forActionName="index"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Couman">
-                <viewScriptFile forActionName="add"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Couman">
-                <viewScriptFile forActionName="addOk"/>
-              </viewControllerScriptsDirectory>
-            </viewScriptsDirectory>
-            <viewHelpersDirectory/>
-            <viewFiltersDirectory/>
-          </viewsDirectory>
-        </moduleDirectory>
-        <moduleDirectory moduleName="college">
-          <configsDirectory enabled="false"/>
-          <controllersDirectory>
-            <controllerFile controllerName="Colman">
-              <actionMethod actionName="index"/>
-            </controllerFile>
-          </controllersDirectory>
-          <formsDirectory enabled="false"/>
-          <layoutsDirectory enabled="false">
-            <layoutScriptsDirectory enabled="false"/>
-          </layoutsDirectory>
-          <modelsDirectory/>
-          <servicesDirectory enabled="false"/>
-          <viewsDirectory>
-            <viewScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Colman">
-                <viewScriptFile forActionName="index"/>
-              </viewControllerScriptsDirectory>
-            </viewScriptsDirectory>
-            <viewHelpersDirectory/>
-            <viewFiltersDirectory/>
-          </viewsDirectory>
-        </moduleDirectory>
         <moduleDirectory moduleName="student">
           <configsDirectory enabled="false"/>
           <controllersDirectory>

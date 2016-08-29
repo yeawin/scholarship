@@ -162,7 +162,8 @@ class Tuition_InfoController extends Zend_Controller_Action
         try {
             //学费记录
             $Tuition = new Application_Model_Tuitioninfo();
-            $tuition = $Tuition->get_tuition_record($Params["id"]);
+            $where_array = array("t.tuition_id='".$Params["id"]."'");
+            $tuition = $Tuition->get_tuition_record($where_array);
             $this->view->tuition = $tuition;
 //             var_dump($tuition);exit();
             //院系列表
@@ -175,7 +176,7 @@ class Tuition_InfoController extends Zend_Controller_Action
             $stu_type_list = $Stutype->get_stu_type_list();
             $this->view->stu_type_list = $stu_type_list;
         } catch (Exception $e) {
-            throwException($e);
+            throw ($e);
         }
     }
 
