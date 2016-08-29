@@ -60,6 +60,7 @@
         <modelFile modelName="Bursaryreview"/>
         <modelFile modelName="Tuitiondeduct"/>
         <modelFile modelName="StuBank"/>
+        <modelFile modelName="Facultyinfo"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="student">
@@ -474,6 +475,13 @@
               <actionMethod actionName="resetOk"/>
               <actionMethod actionName="list"/>
             </controllerFile>
+            <controllerFile controllerName="Manager">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="add"/>
+              <actionMethod actionName="addOk"/>
+              <actionMethod actionName="edit"/>
+              <actionMethod actionName="editOk"/>
+            </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
           <layoutsDirectory enabled="false">
@@ -517,6 +525,64 @@
                 <viewScriptFile forActionName="resetOk"/>
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Account">
+                <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Manager">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Manager">
+                <viewScriptFile forActionName="add"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Manager">
+                <viewScriptFile forActionName="addOk"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Manager">
+                <viewScriptFile forActionName="edit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Manager">
+                <viewScriptFile forActionName="editOk"/>
+              </viewControllerScriptsDirectory>
+            </viewScriptsDirectory>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory/>
+          </viewsDirectory>
+        </moduleDirectory>
+        <moduleDirectory moduleName="faculty">
+          <configsDirectory enabled="false"/>
+          <controllersDirectory>
+            <controllerFile controllerName="Info">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="add"/>
+              <actionMethod actionName="addOk"/>
+              <actionMethod actionName="edit"/>
+              <actionMethod actionName="editOk"/>
+              <actionMethod actionName="list"/>
+            </controllerFile>
+          </controllersDirectory>
+          <formsDirectory enabled="false"/>
+          <layoutsDirectory enabled="false">
+            <layoutScriptsDirectory enabled="false"/>
+          </layoutsDirectory>
+          <modelsDirectory/>
+          <servicesDirectory enabled="false"/>
+          <viewsDirectory>
+            <viewScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Info">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Info">
+                <viewScriptFile forActionName="add"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Info">
+                <viewScriptFile forActionName="addOk"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Info">
+                <viewScriptFile forActionName="edit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Info">
+                <viewScriptFile forActionName="editOk"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Info">
                 <viewScriptFile forActionName="list"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>

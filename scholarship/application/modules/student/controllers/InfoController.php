@@ -86,6 +86,8 @@ class Student_InfoController extends Zend_Controller_Action
                     "user_id"=>$Params["stu_id"], 
                     "password"=>md5('123456'),
                     "type_code"=>'1',
+                    "email"=>$Params["email"],
+                    "phone"=>$Params["phone"],
 //                     "type_code"=>'1',
                  );
                 $User->insert_record($data);
