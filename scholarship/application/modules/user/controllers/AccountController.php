@@ -12,7 +12,7 @@ class User_AccountController extends Zend_Controller_Action
     {
         // action body
     }
-    
+
     public function searchAction()
     {
         // action body
@@ -72,8 +72,24 @@ class User_AccountController extends Zend_Controller_Action
         }
     }
 
+    public function listAction()
+    {
+        // 用户列表
+        $Params = $this->getAllParams();
+        $type = (isset($Params["type"]) && $Params["type"] !== "")? $Params["type"] : null;
+        $where_array = null;
+        if (null !== $type) {
+            $where_array = array("u.type_code = '$type'");
+        }
+        $User = new Application_Model_User();
+        $user_list = $User->get_user_list($where_array);
+        $this->view->user_list = $user_list;
+    }
+
 
 }
+
+
 
 
 

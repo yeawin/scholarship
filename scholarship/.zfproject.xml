@@ -526,6 +526,7 @@
               <actionMethod actionName="reset"/>
               <actionMethod actionName="search"/>
               <actionMethod actionName="resetOk"/>
+              <actionMethod actionName="list"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -568,6 +569,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Account">
                 <viewScriptFile forActionName="resetOk"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Account">
+                <viewScriptFile forActionName="list"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

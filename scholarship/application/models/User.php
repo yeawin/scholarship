@@ -25,6 +25,23 @@ class Application_Model_User extends Zend_Db_Table_Abstract
         return $result;
     }
     
+    public function get_user_list($where_array = null)
+    {
+        $select = $this->select()->setIntegrityCheck(false);
+        $select->from(array("u"=>$this->_name));
+        $select->joinLeft(array("t"=>"tb_user_type"), "u.type_code = t.type_code");
+        if (null !== $where_array) {
+            foreach ($where_array as $where) {
+                $select->where($where);
+            }
+        }
+        $result = $this->fetchAll($select);
+        if ($result) {
+            $result = $result->toArray();
+        }
+        return $result;
+    }
+    
     public function get_stu_info($stu_id)
     {
         $select = $this->select()->setIntegrityCheck(false);
