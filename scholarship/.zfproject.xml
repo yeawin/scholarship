@@ -214,6 +214,7 @@
               <actionMethod actionName="list"/>
               <actionMethod actionName="applicant"/>
               <actionMethod actionName="grant"/>
+              <actionMethod actionName="print"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -343,6 +344,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Pay">
                 <viewScriptFile forActionName="grant"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Pay">
+                <viewScriptFile forActionName="print"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
