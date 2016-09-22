@@ -11,7 +11,8 @@
                   <th>费用编号</th>
                   <th>扣费项目</th>
                   <th>扣费金额</th>
-                  <th>扣费卡号</th>
+                  <th>银行卡扣费</th>
+                  <th>奖学金抵扣</th>
                   <th>扣费时间</th>
                   <th>操作</th>
                 </tr>
@@ -38,6 +39,7 @@
                   <td>{$str}</td>
                   <td>{$amount}</td>
                   <td>{$history["cardno"]}</td>
+                  <td>{$history["scholarship_id"]}</td>
                   <td>{$history["datetime"]}</td>
                   <td><a href=\"{$this->baseUrl("/tuition/charging/detail/id/" . $history["history_id"])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>查看详细</a></td>
                 </tr>";
