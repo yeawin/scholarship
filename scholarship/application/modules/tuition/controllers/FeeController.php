@@ -31,15 +31,16 @@ class Tuition_FeeController extends Zend_Controller_Action
         $stu_list = $Stu->get_stu_list();
 //         var_dump($stu_list);
         foreach ($stu_list as $stu) {
-            if ($stu["stu_no"] !== '2012100001') continue;
+//             if ($stu["stu_no"] !== '2013100001') continue;
             //每个学生的每年应交费用
             $stu_grade = $stu["stu_grade"];
             $dept_code = $stu["dept_code"];
             $stu_type = $stu["stu_type"];
             $Tuition = new Application_Model_Tuitioninfo();
-            $where_array = array("t.dept_code"=>$dept_code, "t.stu_type"=>$stu_type, "t.grade"=>$stu_grade);
-            $tuition_list = $Tuition->get_tuition_list($where_array);
-//             var_dump($tuition_list);
+            $where_array = array("t.dept_code='$dept_code'", "t.stu_type='$stu_type'", "t.grade='$stu_grade'");
+            $order_array = array("d.dept_name asc", "t.grade asc", "t.year asc");
+            $tuition_list = $Tuition->get_tuition_list($where_array, $order_array);
+//             var_dump($tuition_list);exit();
             //每个学生的缴费流水
             $stu_id = $stu["stu_no"];
             $History = new Application_Model_Tuitionhistory();
@@ -51,7 +52,7 @@ class Tuition_FeeController extends Zend_Controller_Action
             $data["stu_id"] = $stu["stu_no"];
             $data["check_datetime"] = $time;
             foreach ($tuition_list as $tuition) {
-                $flag = false;
+//                 $flag = false;
                 $index = $tuition["year"] - $tuition["grade"] + 1;
                 $data["tuition_" . $index . "1"] = $tuition["tuition_1"];
                 $data["tuition_" . $index . "2"] = $tuition["tuition_2"];

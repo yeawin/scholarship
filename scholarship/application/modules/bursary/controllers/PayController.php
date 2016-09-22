@@ -40,16 +40,19 @@ class Bursary_PayController extends Zend_Controller_Action
 
     public function grantAction()
     {
-        // action body
+        // 奖学金发放
         $scholarship_id = $this->getParam("id");
         $Apply = new Application_Model_Bursaryapply();
         $where_array = array("a.is_paid != '1'", "a.is_pass = '1'", "a.scholarship_id = '$scholarship_id'");
         $order_array = array("a.scholarship_id", "a.apply_time");
         $apply_list = $Apply->get_apply_list($where_array, $order_array);
+//         var_dump($apply_list);return false;
         $table = "";
         foreach ($apply_list as $apply) {
             $table .= $this->grant_detail($apply);
         }
+        $this->redirect("/bursary/pay/applicant/id/{$scholarship_id}");
+//         echo ($table);exit();
         $this->view->table = $table;
     }
     
@@ -57,9 +60,9 @@ class Bursary_PayController extends Zend_Controller_Action
     {
         date_default_timezone_set("PRC");
         $time = date("Y-m-d H:i:s");
-        $stu_id = '2012100001';
+        $stu_id = $apply["stu_id"];
         $table = "";
-        if ($stu_id === $apply["stu_id"]) {
+//         if ($stu_id === $apply["stu_id"]) {
             $money = $money_ = floatval($apply["money"]);   //初始化奖金总金额、剩余金额
             $table .= "<h4>发放" . $stu_id ."的奖学金".$apply["scholarship_name"] . $money . "元</b></h4>";
             $Deduct = new Application_Model_Tuitiondeduct();
@@ -109,17 +112,15 @@ class Bursary_PayController extends Zend_Controller_Action
                                 "stu_type='".$apply["stu_type"]."'",
                             );
                             $tuition_info = $Tuition->get_tuition_record($where_array);
-//                             var_dump($tuition_info);
                             $data = array(
                                 "history_id"=>$this->udate("YmdHisu"),
                                 "stu_id"=>$stu_id,
                                 "tuition_id"=>$tuition_info["tuition_id"],
                                 "tuition_key"=>$key,
                                 "amount"=>min($deduct, $money),
-                                "cardno"=>$apply["scholarship_id"], //由于奖学金抵扣，记录奖学金id
+                                "scholarship_id"=>$apply["scholarship_id"], //由于奖学金抵扣，记录奖学金id
                                 "datetime"=>$time,
                             );
-//                             var_dump($data);
                             //记录下缴费信息（奖学金抵扣的）
                             $History = new Application_Model_Tuitionhistory();
                             $History->insert_record($data);
@@ -136,12 +137,13 @@ class Bursary_PayController extends Zend_Controller_Action
                         }
                     }
                 }
-            }
+//             }
             $table .=     "</tbody>";
             $table .=  "</table>";
         }
         return $table;
     }
+    
     private function udate($format = 'u', $utimestamp = null) {
         if (is_null($utimestamp))
             $utimestamp = microtime(true);

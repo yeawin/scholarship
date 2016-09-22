@@ -24,6 +24,7 @@ class Application_Model_Bursaryapply extends Zend_Db_Table_Abstract
         $select->from(array("a"=>$this->_name));
         $select->joinLeft(array("i"=>"tb_scholarship_info"), "a.scholarship_id = i.scholarship_id");
         $select->joinLeft(array("s"=>"tb_stu_info"), "a.stu_id = s.stu_id");
+        $select->joinLeft(array("u"=>"tb_users"), "u.user_id = s.stu_id", array("email", "phone"));
         $select->joinLeft(array("d"=>"tb_dept_info"), "s.dept_code = d.dept_code");
         if (null !== $where_array) {
             foreach ($where_array as $where) {

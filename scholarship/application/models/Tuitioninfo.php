@@ -14,21 +14,22 @@ class Application_Model_Tuitioninfo extends Zend_Db_Table_Abstract
         parent::__construct();
     }
     
-    public function get_tuition_list($where_array = null)
+    public function get_tuition_list($where_array = null, $order_array = null)
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("t"=>$this->_name));
         $select->joinLeft(array("d"=>"tb_dept_info"), "t.dept_code = d.dept_code", array("dept_name", "dept_full_name", "parent_code", "deptcode04"));
         $select->joinLeft(array("s"=>"tb_stu_type"), "t.stu_type = s.stu_type_code");
-        $select->order("d.dept_name asc");
-        $select->order("t.grade asc");
-        $select->order("t.year desc");
-       if (null !== $where_array) {
-            foreach ($where_array as $key=>$value) {
-                $select->where("{$key} = ?", $value);
+        if (null !== $where_array) {
+            foreach ($where_array as $where) {
+                $select->where($where);
             }
         }
-
+        if (null !== $order_array) {
+            foreach ($order_array as $order) {
+                $select->order($order);
+            }
+        }
         $result = $this->fetchAll($select);
         if ($result) {
             $result = $result->toArray();

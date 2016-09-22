@@ -17,10 +17,12 @@ class Tuition_ChargingController extends Zend_Controller_Action
     {
         // action body
         $Params = $this->getAllParams();
-        $stu_id = isset($Params["id"]) ? $Params["id"] : null;
-        $where_array = array(
-            "s.stu_id = '$stu_id'"   
-        );
+        $where_array = null;
+        if (isset($Params["id"])) {
+            $where_array = array(
+                "s.stu_id = '" . $Params["id"] . "'"
+            );
+        }
         $order_array = array(
             "s.stu_id asc",
             "h.tuition_key desc",
