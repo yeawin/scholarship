@@ -65,6 +65,11 @@ class Application_Model_Usertype extends Zend_Db_Table_Abstract
         return $this->insert($data);
     }
     
+    /**
+     * 更新父级角色
+     * @param unknown $data
+     * @param unknown $type_code
+     */
     public function update_record($data, $type_code)
     {
         $db = $this->getDefaultAdapter();

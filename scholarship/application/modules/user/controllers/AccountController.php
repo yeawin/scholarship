@@ -86,8 +86,36 @@ class User_AccountController extends Zend_Controller_Action
         $this->view->user_list = $user_list;
     }
 
+    public function setAuthAction()
+    {
+        // action body
+        $Params = $this->getAllParams();
+        if (!isset($Params["id"])) {
+            die("没有设定用户id");
+        }
+        $this->view->user_id = $Params["id"];
+        $Usertype = new Application_Model_Usertype();
+        $user_type_list = $Usertype->get_type_list();
+        $this->view->user_type_list = $user_type_list;
+        
+    }
+
+    public function setAuthOkAction()
+    {
+        // action body
+        $Params = $this->getAllParams();
+        $data["type_code"] = $Params["type_code"];
+        $User = new Application_Model_User();
+        $User->update_record($data, $Params["user_id"]);
+        $this->redirect("/user/account/list");
+    }
+
 
 }
+
+
+
+
 
 
 

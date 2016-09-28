@@ -1,0 +1,40 @@
+<div id="view-content" class="row">
+	<div class="col-md-12">
+	<h3>费用详情</h3>
+		<div class="table-responsive">
+    		<table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>年级</th>
+                  <th>学年</th>
+                  <th>院系（专业）</th>
+                  <th>学生类型</th>
+                  <th>学费</th>
+                  <th>学杂费</th>
+                  <th>住宿费</th>
+
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+              $tuition = $this->tuition_info;
+                  $tuition_1 = number_format(floatval($tuition["tuition_1"]), 2);
+                  $tuition_2 = number_format(floatval($tuition["tuition_2"]), 2);
+                  $tuition_3 = number_format(floatval($tuition["tuition_3"]), 2);
+                  echo "
+		        <tr>
+                  <td>{$tuition["grade"]}</td>
+                  <td>{$tuition["year"]}</td>
+                  <td>{$tuition["dept_name"]}</td>
+                  <td>{$tuition["stu_type_name"]}</td>
+                  <td>{$tuition_1}</td>
+                  <td>{$tuition_2}</td>
+                  <td>{$tuition_3}</td>
+                </tr>";
+                ?>
+              </tbody>
+            </table>
+		</div>
+	</div>
+</div>
+

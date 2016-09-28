@@ -482,6 +482,8 @@
               <actionMethod actionName="search"/>
               <actionMethod actionName="resetOk"/>
               <actionMethod actionName="list"/>
+              <actionMethod actionName="setAuth"/>
+              <actionMethod actionName="setAuthOk"/>
             </controllerFile>
             <controllerFile controllerName="Manager">
               <actionMethod actionName="index"/>
@@ -549,6 +551,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Manager">
                 <viewScriptFile forActionName="editOk"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Account">
+                <viewScriptFile forActionName="setAuth"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Account">
+                <viewScriptFile forActionName="setAuthOk"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

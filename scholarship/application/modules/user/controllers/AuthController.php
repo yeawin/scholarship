@@ -1,5 +1,5 @@
 <?php
-
+//角色管理
 class User_AuthController extends Zend_Controller_Action
 {
 
