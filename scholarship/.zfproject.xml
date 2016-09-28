@@ -366,6 +366,7 @@
               <actionMethod actionName="del"/>
               <actionMethod actionName="copy"/>
               <actionMethod actionName="copyOk"/>
+              <actionMethod actionName="detail"/>
             </controllerFile>
             <controllerFile controllerName="Charging">
               <actionMethod actionName="index"/>
@@ -454,6 +455,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Info">
                 <viewScriptFile forActionName="copyOk"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Info">
+                <viewScriptFile forActionName="detail"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

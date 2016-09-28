@@ -209,8 +209,20 @@ class Tuition_InfoController extends Zend_Controller_Action
         }
     }
 
+    public function detailAction()
+    {
+        // action body
+        $Tuition = new Application_Model_Tuitioninfo();
+        $tuition_id = $this->getParam("id");
+        $where_array = array("t.tuition_id = '$tuition_id'");
+        $tuition_info = $Tuition->get_tuition_record();
+        $this->view->tuition_info = $tuition_info;
+    }
+
 
 }
+
+
 
 
 

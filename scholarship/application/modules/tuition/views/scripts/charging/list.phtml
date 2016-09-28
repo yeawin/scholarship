@@ -35,7 +35,7 @@
 		        <tr>
                   <th scope=\"row\">{$history["history_id"]}</th>
                   <td>{$history["stu_id"]}</td>
-                  <td>{$history["tuition_id"]}</td>
+                  <td><a href=\"{$this->baseUrl("/tuition/info/detail/id/".$history["tuition_id"])}\">{$history["tuition_id"]}</a></td>
                   <td>{$str}</td>
                   <td>{$amount}</td>
                   <td>{$history["cardno"]}</td>

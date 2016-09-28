@@ -11,6 +11,7 @@
                   <th>学生姓名</th>
                   <th>学生年级</th>
                   <th>奖学金名</th>
+                  <th>是否通过</th>
                   <th>是否发放</th>
                   <th>审核信息</th>
                 </tr>
@@ -34,6 +35,13 @@
                       $pay_info = "";
                       $link = "";
                   }
+                  if ('1' === $apply['is_pass']) {
+                      $pass_info = "<span class=\"text-success\">已通过</apan>";
+                  } else if ('0' === $apply['is_paid']) {
+                      $pass_info = "<span class=\"text-danger\">未通过</apan>";
+                  } else {
+                      $pay_info = "";
+                  }
                   echo 
                     "<tr>
                       <th scope=\"row\">{$index}</th>
@@ -42,6 +50,7 @@
                       <td>{$apply['stu_name']}</td>
                       <td>{$apply['stu_grade']}</td>
                       <td>{$apply['scholarship_name']}</td>
+                      <td>{$pass_info}</td>
                       <td>{$pay_info}</td>
                       <td><a href=\"{$link}\"><i class=\"glyphicon glyphicon-eye-open\"></i><a/></td>
                     </tr>";
