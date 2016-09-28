@@ -15,98 +15,61 @@ class Yeawin_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         $acl->addRole('3', '2');             //财务处
         $acl->addRole('3', '2');             //管理员
         $acl->addRole('3', '2');             //超级管理员
-        /*****添加后台角色*****/
-        //管理员，拥有一个系统的权限
-        $acl->addRole('admin-110000', 'regular');        //工资管理员salary
-        $acl->addRole('admin-101000', 'regular');        //证明管理员certify
-        $acl->addRole('admin-100100', 'regular');        //探亲管理员leave
-        $acl->addRole('admin-100010', 'regular');        //自聘管理员ykt
-        $acl->addRole('admin-100001', 'regular');        //工资导入管理员ykt
-        
-        //管理员，拥有两个系统权限，其中一个为salary
-        $acl->addRole('admin-111000', array('admin-110000', 'admin-101000'));//salary, certify
-        $acl->addRole('admin-110100', array('admin-110000', 'admin-100100'));//salary, leave
-        $acl->addRole('admin-110010', array('admin-110000', 'admin-100010'));//salary, ykt
-        $acl->addRole('admin-110001', array('admin-110000', 'admin-100001'));//salary, gzdr
-        //管理员，拥有两个系统权限，其中一个为certify
-        $acl->addRole('admin-101100', array('admin-101000', 'admin-100100')); //cerity, leave
-        $acl->addRole('admin-101010', array('admin-101000', 'admin-100010')); //cerity, ykt
-        $acl->addRole('admin-101001', array('admin-101000', 'admin-100001')); //cerity, gzdr
-        //管理员，拥有两个系统权限，其中一个为leave
-        $acl->addRole('admin-100110', array('admin-100100', 'admin-100010')); //leave, ykt
-        $acl->addRole('admin-100101', array('admin-100100', 'admin-100001')); //leave, gzdr
-        //管理员，拥有两个系统权限，其中一个为ykt
-        $acl->addRole('admin-100011', array('admin-100010', 'admin-100001')); //ykt, gzdr
-        
-        //管理员，拥有三个系统权限，其中salary, cetify
-        $acl->addRole('admin-111100', array('admin-111000', 'admin-100100'));//salary, certify, leave
-        $acl->addRole('admin-111010', array('admin-111000', 'admin-100010'));//salary, certify, ykt
-        $acl->addRole('admin-111001', array('admin-111000', 'admin-100001'));//salary, certify, gzdr
-        //管理员，拥有三个系统权限，其中salary, leave
-        $acl->addRole('admin-110110', array('admin-110100', 'admin-100010'));//salary, leave, ykt
-        $acl->addRole('admin-110101', array('admin-110100', 'admin-100001'));//salary, leave, gzdr
-        //管理员，拥有三个系统权限，其中salary, ykt
-        $acl->addRole('admin-110011', array('admin-110010', 'admin-100001'));//salary, ykt, gzdr
-        //管理员，拥有三个系统权限，其中certify, leave
-        $acl->addRole('admin-101110', array('admin-101100', 'admin-100010'));//certify, leave, ykt
-        $acl->addRole('admin-101101', array('admin-101100', 'admin-100001'));//certify, leave, gzdr
-        //管理员，拥有三个系统权限，其中certify, ykt
-        $acl->addRole('admin-101011', array('admin-101010', 'admin-100001'));//leave, ykt, gzdr
-        //管理员，拥有三个系统权限，其中leave, ykt
-        $acl->addRole('admin-100111', array('admin-100110', 'admin-100001'));//leave, ykt, gzdr
-        
-        //管理员，拥有四个系统权限
-        $acl->addRole('admin-111110', array('admin-111100', 'admin-100010'));//salary, cerify, leave, ykt
-        $acl->addRole('admin-111101', array('admin-111100', 'admin-100001'));//salary, cerify, leave, gzdr
-        $acl->addRole('admin-111011', array('admin-111010', 'admin-100001'));//salary, cerify, ykt, gzdr
-        $acl->addRole('admin-110111', array('admin-110110', 'admin-100001'));//salary, leave, ykt, gzdr
-        $acl->addRole('admin-101111', array('admin-101110', 'admin-100001'));//certify, leave, ykt, gzdr
-        
-        $acl->addRole('admin-111111', array('admin-111110', 'admin-100001'));
 
         
         //添加默认资源
         $acl->addResource('default-index');     //默认模块，默认控制器
         $acl->addResource('default-error');     //默认模块，错误控制器
-        $acl->addResource('default-salary');    //默认模块，工资控制器
-        $acl->addResource('default-certify');   //默认模块，证明控制器
-        $acl->addResource('default-leave');     //默认模块，探亲假控制器
-        $acl->addResource('default-staff');     //默认模块，教职工控制器
-        //添加工资模块资源
-        $acl->addResource('pay-index');         //工资模块，默认控制器
-        $acl->addResource('pay-regular');       //工资模块，在职控制器
-        $acl->addResource('pay-chart');         //工资模块，图表控制器
-        $acl->addResource('wage-regular');      //2016工资改革后工资模块，在职控制器
-        $acl->addResource('wage-retire');       //2016工资改革后工资模块，离休控制器
+        $acl->addResource('default-account');    //默认模块，账号控制器
+        $acl->addResource('default-bursary');    //默认模块，奖学金控制器
+        $acl->addResource('default-condition');  //默认模块，条件假控制器
+
+        //添加奖学金模块资源
+        $acl->addResource('bursary-check');      //奖学金模块，审核控制器
+        $acl->addResource('bursary-dept');       //奖学金模块，学院名额分配控制器
+        $acl->addResource('bursary-flow');       //奖学金模块，流程控制器
+        $acl->addResource('bursary-info');      //奖学金模块，基本信息控制器
+        $acl->addResource('bursary-pay');       //奖学金模块，发放控制器
+        $acl->addResource('bursary-type');       //奖学金模块，类型控制器
         
-        //添加管理员资源
-        $acl->addResource('admin-login');       //管理员模块，登陆控制器
-        $acl->addResource('admin-index');       //管理员模块，默认控制器
+        //添加教职工模块资源
+        $acl->addResource('faculty-info');       //教职工模块，基本信息控制器
         
-        $acl->addResource('admin-salary');      //管理员模块，工资控制器
-        $acl->addResource('admin-certify');     //管理员模块，证明控制器
-        $acl->addResource('admin-leave');       //管理员模块，探亲控制器
-        $acl->addResource('admin-ykt');         //管理员模块，自聘人员控制器
-        $acl->addResource('admin-gzdr');        //管理员模块，工资导入控制器
-        //$acl->addResource('admin-super');       //管理员模块，超级管理员控制器
-        $acl->addResource('admin-manager');       //管理员模块，超级管理员控制器
+        //添加学生模块资源
+        $acl->addResource('stutent-condition');   //学生模块，条件控制器
+        $acl->addResource('stutent-info');        //学生模块，基本信息控制器
+        $acl->addResource('stutent-type');       //学生模块，类型控制器
+        
+        //添加学费模块资源
+        $acl->addResource('tuition-bank');        //学费模块，银行控制器
+        $acl->addResource('tuition-charging');    //学费模块，工资导入控制器
+        $acl->addResource('tuition-expense');     
+        $acl->addResource('tuition-fee');         
+        $acl->addResource('tuition-info');        //学费模块，学费基本信息控制器
+        
+        //添加用户模块资源
+        $acl->addResource('user-account');        //用户模块，账号控制器
+        $acl->addResource('user-auth');           //用户模块，权限控制器
+        $acl->addResource('user-manager');        //用户模块，管理员控制器
+        
         
         //游客权限
-        $acl->deny('guest', null, null);
-        $acl->allow('guest', array('default-index', 'default-error', 'default-salary', 'default-certify', 'default-leave', 'pay-index', 'pay-regular'), 'index');       
-        $acl->allow('guest', 'default-error', null);
-        $acl->allow('guest', 'default-index', 'access-list');
-        $acl->allow('guest', 'admin-login', null);
-        $acl->allow('guest', 'admin-index', null);
-        $acl->allow('guest', array('default-salary', 'default-certify', 'default-leave'), array('teacher-checkin', 'teacher-logout'));
-        $acl->allow('guest', 'default-staff', null);
-        //$acl->deny('guest', 'default-staff', 'setting');
-        $acl->allow('guest', 'default-staff', 'setting');
+        $acl->deny('0', null, null);
+        $acl->allow('0', array('default-index', 'default-error', 'default-bursary'), 'index');  
+        
+        $acl->allow('0', 'default-error', null);
+        $acl->allow('0', 'default-index', 'access-list');
+        $acl->allow('0', 'admin-login', null);
+        $acl->allow('0', 'admin-index', null);
+        $acl->allow('0', array('default-salary', 'default-certify', 'default-leave'), array('teacher-checkin', 'teacher-logout'));
+        $acl->allow('0', 'default-staff', null);
+        //$acl->deny('0', 'default-staff', 'setting');
+        $acl->allow('0', 'default-staff', 'setting');
         
         //离退教职工用户权限
-        $acl->allow('retire', 'default-index', null);
-        $acl->allow('retire', array('default-salary', 'pay-regular', 'pay-chart', 'wage-regular', 'wage-retire'), null);
-        $acl->allow('retire', array('default-certify'), array("certify"));
+        $acl->allow('1', 'default-index', null);
+        $acl->allow('1', array('default-salary', 'pay-regular', 'pay-chart', 'wage-regular', 'wage-retire'), null);
+        $acl->allow('1', array('default-certify'), array("certify"));
        
         //派遣教职工权限
         $acl->allow('dispatch', 'default-index', null);
