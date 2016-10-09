@@ -212,8 +212,54 @@ class BursaryController extends Zend_Controller_Action
         
     }
 
+    public function progressAction()
+    {
+        // 奖学金申请进度
+        $Params = $this->getAllParams();
+        if (!(isset($Params["apply_id"]) && "" !== $Params["apply_id"])) {
+            $this->view->message = "参数apply_id不能为空";
+            $this->renderScript("/error/warning.phtml");
+            return false;
+        }
+        $apply_id = $Params["apply_id"];
+        $where_array = array("a.appLy_id"=>$apply_id);
+        $ScholarshipApply = new Application_Model_Bursaryapply();
+        $apply_record = $ScholarshipApply->get_apply_record($where_array);
+//         $stu_id = $apply_record["stu_id"];
+        $scholarship_id = $apply_record["scholarship_id"];
+        
+        //该奖学金的审核进度
+        $Review = new Application_Model_Bursaryreview();
+        $where_array = array("r.apply_id"=>$apply_id);
+        $order_array = array("f.flow_order DESC");
+        $reviewed_list = $Review->get_reviewed_list($where_array, $order_array);
+        
+        $Flow = new Application_Model_Bursaryflow();
+        $flow_list = $Flow->get_scholarship_flow_list($scholarship_id);
+        $len_flow = count($flow_list);
+        $len_review = count($reviewed_list);
+        for ($i = 0; $i < $len_flow; $i ++)
+        {
+            $flow_list[$i]["review_id"] = null;
+            for ($j = 0; $j < $len_review; $j ++)
+            {
+                if ($reviewed_list[$j]["flow_id"] === $flow_list[$i]["flow_id"]) {
+                    $flow_list[$i]["review_id"] = $reviewed_list[$j]["review_id"];
+                    $flow_list[$i]["review_pass"] = $reviewed_list[$j]["review_pass"];
+                    $flow_list[$i]["reviewer"] = $reviewed_list[$j]["reviewer"];
+                    $flow_list[$i]["review_time"] = $reviewed_list[$j]["review_time"];
+                    break;
+                }
+            }
+        }
+        $this->view->progress = $flow_list;
+
+    }
+
 
 }
+
+
 
 
 

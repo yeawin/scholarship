@@ -29,6 +29,7 @@
           <actionMethod actionName="applyOk"/>
           <actionMethod actionName="my"/>
           <actionMethod actionName="del"/>
+          <actionMethod actionName="progress"/>
         </controllerFile>
         <controllerFile controllerName="Condition">
           <actionMethod actionName="index"/>
@@ -663,6 +664,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Bursary">
             <viewScriptFile forActionName="del"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Bursary">
+            <viewScriptFile forActionName="progress"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
