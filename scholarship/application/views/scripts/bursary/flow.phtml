@@ -1,37 +1,20 @@
 <div id="view-content" class="row">
 	<div class="col-md-12">
 	<h3><b><?php echo $this->scholarshipinfo["scholarship_name"];?></b>申请发放流程</h3>
-		<div class="table-responsive">
-    		<table class="table table-bordered table-condensed">
-              <thead>
-                <tr>
-                  <th>流程顺序</th>
-                  <th>流程名称</th>
-                  <th>上级流程</th>
-                  <th>审核人</th>
-                </tr>
-              </thead>
-              <tbody>
-              <?php 
-              foreach ($this->flow_list as $index=>$flow) {
-                  $index ++;
-                  echo 
-                    "<tr>
-                      <td>{$flow['flow_order']}</td>
-                      <td>{$flow['flow_name']}</td>
-                      <td>{$flow['parent_flow_name']}</td>
-                      <td>{$flow['check_role_id']}</td>
-                    </tr>";
-              }
-                ?>
-              </tbody>
-            </table>
-		</div>
+	<br><br>
+	<p class="lead">
+	<?php 
+	   $flow = $this->flow_list;
+	   $len = count($flow);
+	   for ($i = 0; $i < $len; $i ++)
+	   {
+	       echo $flow[$i]['flow_name'] . "<small>[" . $flow[$i]['check_role_id'] . "]</small>";
+	       if ($i < $len - 1) 
+	           echo "-->";
+	   }
+
+ ?>
+	</p>
+	
 	</div>
 </div>
-
-<?php 
-$this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/dist/css/bootstrap-dialog.min.css"));
-$this->headScript()->appendFile($this->baseUrl("/plugins/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"));
-$this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
-?>
