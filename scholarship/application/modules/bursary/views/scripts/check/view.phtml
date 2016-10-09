@@ -11,19 +11,19 @@
 		        //还没有表决
 		        echo "<li>" . $progress["flow_name"] . "<i class=\"glyphicon glyphicon-time text-warning\"></i>&nbsp;" ;
 		        if (!$rejected && $vote) {
-		            echo "<a class=\"btn btn-xs btn-success\" href=\"" . $this->baseUrl("/bursary/check/review/id/" . $this->apply_id . "/pass/1/") . "\">同意</a>";
-		            echo "<a class=\"btn btn-xs btn-danger\" href=\"" . $this->baseUrl("/bursary/check/review/id/" . $this->apply_id . "/pass/0/") . "\">不同意</a>";
+		            echo "<a class=\"btn btn-xs btn-success\" href=\"javascript:agree_confirm('{$this->apply_id}');\">同意</a>";
+		            echo "<a class=\"btn btn-xs btn-danger\" href=\"javascript:disagree_confirm('{$this->apply_id}');\">不同意</a>";
 		            $vote = false;
 		        }
                 "</li>";
 		    } else {
 		        if ('1' === $progress["review_pass"]) {
-		            echo "<li>" . $progress["flow_name"] . "<i class=\"glyphicon glyphicon-ok text-success\"></i></li>";
+		            echo "<li>" . $progress["flow_name"] . "<i class=\"glyphicon glyphicon-ok text-success\"></i>[<small>{$progress["comment"]}</small>]</li>";
 		        } else if ('0' === $progress["review_pass"]) {
 		            $rejected = true;
-		            echo "<li>" . $progress["flow_name"] . "<i class=\"glyphicon glyphicon-remove text-danger\"></i></li>";
+		            echo "<li>" . $progress["flow_name"] . "<i class=\"glyphicon glyphicon-remove text-danger\"></i>[<small>{$progress["comment"]}</small>]</li>";
 		        } else {
-		            echo "<li>" . $progress["flow_name"] . "</li>";
+		            echo "<li>" . $progress["flow_name"] . "[]</li>";
 		        }
 
 		    }
@@ -148,20 +148,55 @@ $this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
 $this->headScript()->appendScript("
     
     var Public = new PublicClass();
-    function delete_confirm(code)
+    function agree_confirm(id)
     {
         BootstrapDialog.show({
-    		title: '警告',
-    	    message: '<h3>删除不可撤销</h3>',
-    	    type: BootstrapDialog.TYPE_WARNING,
+    		title: '同意',
+    	    message: $('<textarea name=\"comment\" class=\"form-control\" placeholder=\"同意\">同意</textarea>'),
+    	    type: BootstrapDialog.TYPE_SUCCESS,
     	    closable: true,
     	    closeByBackdrop: false,
     	    closeByKeyboard: false,
     	    buttons: [{
                 label: '确定',
-    	        cssClass: 'btn-warning',
+    	        cssClass: 'btn-success',
     	        action: function(dialogRef){
-                    window.location.href = Public.getBaseUrl('/default/user/stu-del/code/' + code);
+                     var comment = dialogRef.getModalBody().find('textarea').val();
+                     if ('' == comment) {
+                        alert(' 请填写意见');
+                        return false;
+                     }
+                     window.location.href = '" . $this->baseUrl('/bursary/check/review/pass/1/id/') . "'+id+'/comment/'+encodeURI(comment)
+    	        }
+    	    },{
+    	        label: '取消',
+    	        cssClass: 'btn-default',
+    	        action: function(dialogRef){
+    	            dialogRef.close();
+    	        }
+    	    }]
+	    });
+    }
+    
+   function disagree_confirm(id)
+    {
+        BootstrapDialog.show({
+    		title: '同意',
+    	    message: $('<textarea name=\"comment\" class=\"form-control\" placeholder=\"不同意\">不同意</textarea>'),
+    	    type: BootstrapDialog.TYPE_DANGER,
+    	    closable: true,
+    	    closeByBackdrop: false,
+    	    closeByKeyboard: false,
+    	    buttons: [{
+                label: '确定',
+    	        cssClass: 'btn-danger',
+    	        action: function(dialogRef){
+                    var comment = dialogRef.getModalBody().find('textarea').val();
+                    if ('' == comment) {
+                        alert(' 请填写意见');
+                        return false;
+                    }
+                    window.location.href = '" . $this->baseUrl('/bursary/check/review/pass/1/id/') ."'+id+'/comment/'+encodeURI(comment)
     	        }
     	    },{
     	        label: '取消',

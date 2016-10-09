@@ -71,11 +71,12 @@ class Bursary_CheckController extends Zend_Controller_Action
                     $flow_list[$i]["review_pass"] = $reviewed_list[$j]["review_pass"];
                     $flow_list[$i]["reviewer"] = $reviewed_list[$j]["reviewer"];
                     $flow_list[$i]["review_time"] = $reviewed_list[$j]["review_time"];
+                    $flow_list[$i]["comment"] = $reviewed_list[$j]["comment"];
                     break;
                 }
             }
         }
-//         var_dump($flow_list);
+//         var_dump($flow_list);exit();
         $this->view->progress = $flow_list;
 //         var_dump($flow_list);
         
@@ -120,7 +121,7 @@ class Bursary_CheckController extends Zend_Controller_Action
         $Params = $this->getAllParams();
         $apply_id = $Params["id"];
         $pass = $Params["pass"];
-        
+        $comment = $Params["comment"];
         //该奖学金的审核进度
         $Review = new Application_Model_Bursaryreview();
         $where_array = array("r.apply_id"=>$apply_id);
@@ -152,6 +153,7 @@ class Bursary_CheckController extends Zend_Controller_Action
         $data["review_time"] = date('Y-m-d H:i:s', time());
         $data["review_pass"] = $pass;
         $data["reviewer"] = $user_id;
+        $data["comment"] = $comment;
         $Review = new Application_Model_Bursaryreview();
         $Review->insert_record($data);
         

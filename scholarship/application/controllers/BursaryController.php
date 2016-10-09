@@ -248,6 +248,7 @@ class BursaryController extends Zend_Controller_Action
                     $flow_list[$i]["review_pass"] = $reviewed_list[$j]["review_pass"];
                     $flow_list[$i]["reviewer"] = $reviewed_list[$j]["reviewer"];
                     $flow_list[$i]["review_time"] = $reviewed_list[$j]["review_time"];
+                    $flow_list[$i]["comment"] = $reviewed_list[$j]["comment"];
                     break;
                 }
             }

@@ -1,6 +1,7 @@
 <div id="view-content" class="row">
 	<div class="col-md-12">
 		<h3>审核进度</h3>
+		<br><br>
 		<p class="lead">
 		<?php 
 		$progress = $this->progress;
@@ -11,9 +12,10 @@
 		        echo "<span title=\"待审核\">" . $progress[$i]["flow_name"] . "<i class=\"glyphicon glyphicon-time text-warning\"></i>&nbsp;</span>";
 		    } else {
 		        if ('1' === $progress[$i]["review_pass"]) {
-		            echo "<span  title=\"已通过\">" . $progress[$i]["flow_name"] . "<i class=\"glyphicon glyphicon-ok text-success\"></i></span>";
+		            echo "<span  title=\"已通过\">" . $progress[$i]["flow_name"] . "<i class=\"glyphicon glyphicon-ok text-success\"></i>[<small>{$progress[$i]["comment"]}</small>]</span>";
 		        } else if ('0' === $progress[$i]["review_pass"]) {
-		            echo "<span  title=\"不通过\">" . $progress[$i]["flow_name"] . "<i class=\"glyphicon glyphicon-remove text-danger\"></i></span>";
+		            echo "<span  title=\"不通过\">" . $progress[$i]["flow_name"] . "<i class=\"glyphicon glyphicon-remove text-danger\"></i>[<small>{$progress[$i]["comment"]}</small>]</span>";
+		            break;
 		        } else {
 		            echo "<span  title=\"待审核\">" . $progress[$i]["flow_name"] . "</span>";
 		        }
@@ -24,7 +26,6 @@
 		    
 		}
 		?>
-			
-			</p>
+		</p>
 </div>
 </div>
