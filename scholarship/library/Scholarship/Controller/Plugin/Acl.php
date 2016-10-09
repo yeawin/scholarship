@@ -1,6 +1,5 @@
 <?php
-include 'Yeawin/Staff.php';
-class Yeawin_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
+class Scholarship_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 {
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
@@ -9,12 +8,12 @@ class Yeawin_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         //添加前台角色
         $acl->addRole('0');                  //游客
         $acl->addRole('1', '0');             //学生
-        $acl->addRole('2', '1');             //辅导员
-        $acl->addRole('3', '2');             //教学秘书
-        $acl->addRole('9', '3');             //学生处
-        $acl->addRole('3', '2');             //财务处
-        $acl->addRole('3', '2');             //管理员
-        $acl->addRole('3', '2');             //超级管理员
+        $acl->addRole('2', '0');             //辅导员
+        $acl->addRole('3', '0');             //教学秘书
+        $acl->addRole('4', '0');             //学生处
+        $acl->addRole('3', '0');             //财务处
+        $acl->addRole('3', '0');             //管理员
+        $acl->addRole('3', array('1','2', '3'));             //超级管理员
 
         
         //添加默认资源

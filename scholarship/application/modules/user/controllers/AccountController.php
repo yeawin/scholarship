@@ -97,7 +97,6 @@ class User_AccountController extends Zend_Controller_Action
         $Usertype = new Application_Model_Usertype();
         $user_type_list = $Usertype->get_type_list();
         $this->view->user_type_list = $user_type_list;
-        
     }
 
     public function setAuthOkAction()

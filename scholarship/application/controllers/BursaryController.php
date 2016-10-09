@@ -100,19 +100,28 @@ class BursaryController extends Zend_Controller_Action
         $scholarship_id = $Params["id"];
         $ScholarshipInfo = new Application_Model_Bursaryinfo();
         $scholarshipinfo = $ScholarshipInfo->get_scholarship_record($scholarship_id);
+        $this->view->bursary = $scholarshipinfo;
+        
         if (intval($scholarshipinfo["is_start"]) !== 1) {
             $this->view->message = "还没有开始";
             $this->renderScript("/error/warning.phtml");
             return false;
         }
-        $this->view->bursary = $scholarshipinfo;
         
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
         $user_id = $identity->user_id;
+        
         $Condition = new Application_Model_Stucondition();
         $condition = $Condition->get_condition_record($user_id);
         $this->view->condition = $condition;
+        
+
+        
+        $where_array = array("a.stu_id"=>$user_id, "a.scholarship_id"=>$scholarship_id);
+        $ScholarshipApply = new Application_Model_Bursaryapply();
+        $scholarship_apply_record = $ScholarshipApply->get_apply_record($where_array);
+        $this->view->scholarship_apply_record = $scholarship_apply_record;
     }
 
     public function applyOkAction()

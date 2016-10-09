@@ -8,12 +8,25 @@
 			<p class="col-md-3">违纪情况：<b><?php echo $this->condition["discipline"];?></b></p>
 		</div>
 		<hr class="col-md-12">
-		<div class="col-md-12">
+		<?php 
+		if (isset($this->scholarship_apply_record["apply_id"])) {
+		?>
+		 <div class="col-md-12">
+		 	<a href="<?php echo $this->baseUrl("/default/bursary/view/id/" . $this->scholarship_apply_record["apply_id"])?>" class="btn btn-success">已申请</a>
+		 </div>
+		<?php 
+		}  else { 
+		?>
+		 <div class="col-md-12">
 			<h3><?php echo $this->bursary["scholarship_name"];?></h3>
 			<form class="form" method="post" action="<?php echo $this->baseUrl("/default/bursary/apply-ok");?>">
 				<input type="hidden" name="id" value="<?php echo $this->bursary["scholarship_id"];?>">
 				<button type="submit" class="btn btn-primary">确定申请</button>
 			</form> 
 		</div>
+	<?php 
+		}
+		?>
+
 	</div>
 </div>
