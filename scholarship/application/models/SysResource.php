@@ -59,5 +59,15 @@ class Application_Model_SysResource extends Zend_Db_Table_Abstract
         $result = $this->fetchAll($select);
         return (count($result) > 0);
     }
+    
+    public function is_resource_exist($resource_id, $resource_name)
+    {
+        $select = $this->select();
+        $select->from($this->_name);
+        $select->where("resource_name = ?", $resource_name);
+        $select->where("resource_id = ?", $resource_id);
+        $result = $this->fetchAll($select);
+        return (count($result) > 0);
+    }
 }
 

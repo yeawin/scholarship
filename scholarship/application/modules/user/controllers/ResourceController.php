@@ -51,11 +51,30 @@ class User_ResourceController extends Zend_Controller_Action
     public function resourceEditAction()
     {
         // action body
+        $Params = $this->getAllParams();
+        $Resource = new Application_Model_SysResource();
+        $resource_info = $Resource->get_resource_record($Params["resource_id"]);
+        $this->view->resource_info = $resource_info;
     }
 
     public function resourceEditOkAction()
     {
         // action body
+        $Params = $this->getAllParams();
+        $resource_comment = $Params["resource_comment"];
+        $resource_name = $Params["resource_name"];
+        $resource_id = $Params["resource_id"];
+        $Resource = new Application_Model_SysResource();
+        $data["resource_comment"] = $Params["resource_comment"];
+        $data["resource_name"] = $Params["resource_name"];
+        $Resource->update_record($data, $resource_id);
+        $this->redirect("/user/resource/list/");
+        
+//         if ($Resource->is_resource_exist($resource_id, $resource_name)) {
+//             $this->view->message = "已经存在该系统资源名称:" . $resource_name;
+//         } else {
+
+//         }
     }
 
     public function resourceDelAction()

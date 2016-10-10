@@ -511,6 +511,9 @@
               <actionMethod actionName="list"/>
               <actionMethod actionName="actionList"/>
             </controllerFile>
+            <controllerFile controllerName="Acl">
+              <actionMethod actionName="index"/>
+            </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
           <layoutsDirectory enabled="false">
@@ -615,6 +618,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Resource">
                 <viewScriptFile forActionName="actionList"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Acl">
+                <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
