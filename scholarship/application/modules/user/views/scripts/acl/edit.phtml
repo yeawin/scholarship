@@ -1,0 +1,88 @@
+<div id="view-content">
+	<div class="col-md-12">
+	<h3><b><?php echo $this->type_record["type_name"]?></b>系统资源访问列表</h3>
+	<form action="<?php echo $this->baseUrl("/user/acl/edit-ok")?>" method="post">
+		<div class="table-responsive">
+    		<table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>资源名[资源功能解释]</th>
+                  <th>是否全选</th>
+                  <th>资源方法列表</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+              $len = count($this->resource_list);
+              for ($i = 0; $i < $len; $i ++) {
+                  $resource = $this->resource_list[$i];
+                  $action_list_html = "";
+                  if (count($resource["action_list"]) > 0) {
+                      foreach ($resource["action_list"] as $action) {
+                          $checked = in_array($action['action_id'], $this->resource_list[$i]["privilege_list"]) ? "checked" : "";
+                          $action_list_html .= 
+                              "<label class=\"checkbox-inline\">
+                			    <input type=\"checkbox\" id=\"action_id_\" name=\"action_{$resource["resource_id"]}[]\" value=\"{$action['action_id']}\" {$checked}>{$action["action_name"]}
+                			   </label>";
+                      }
+                  }
+                  $select_all =
+                  "<label class=\"checkbox-inline\">
+                    <input type=\"checkbox\" id=\"resource_all\" name=\"resource_{$resource["resource_id"]}\" value=\"all\">全部
+                  </label>";
+                  echo 
+                    "<tr>
+                      <th scope=\"row\">{$i}</th>
+                      <td>" . $resource["resource_name"] . "[<small>".$resource["resource_comment"] ."</small>]</td>
+                      <td>{$select_all}</td>
+                      <td>{$action_list_html}</td>
+                    </tr>";
+              }
+                ?>
+              </tbody>
+            </table>
+		</div>
+		<div class="form-group">
+			<input type="hidden" value="<?php echo $this->type_record["type_code"];?>" name="type_code" >
+		 <button class="btn btn-success" type="submit"><b>确定</b></button>
+		</div>
+		</form>
+	</div>
+</div>
+
+<?php 
+// $this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/dist/css/bootstrap-dialog.min.css"));
+$this->headScript()->appendFile($this->baseUrl("/static/js/user.acl.js"));
+// $this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
+// $this->headScript()->appendScript("
+    
+//     var Public = new PublicClass();
+//     function delete_confirm(resource_id)
+//     {
+//         BootstrapDialog.show({
+//     		title: '警告',
+//     	    message: '<h3>删除不可撤销，并确保该资源没有被分配出去</h3>',
+//     	    type: BootstrapDialog.TYPE_WARNING,
+//     	    closable: true,
+//     	    closeByBackdrop: false,
+//     	    closeByKeyboard: false,
+//     	    buttons: [{
+//                 label: '确定',
+//     	        cssClass: 'btn-warning',
+//     	        action: function(dialogRef){
+//                     window.location.href = '" . $this->baseUrl('/user/resource/resource-del/resource_id/') . "'+resource_id;
+//     	        }
+//     	    },{
+//     	        label: '取消',
+//     	        cssClass: 'btn-default',
+//     	        action: function(dialogRef){
+//     	            dialogRef.close();
+//     	        }
+//     	    }]
+// 	    });
+//     }
+
+// ", $type = 'text/javascript');
+
+?>

@@ -133,7 +133,7 @@ class User_ResourceController extends Zend_Controller_Action
             $data["action_name"] = $Params["action_name"];
             $data["action_comment"] = $Params["action_comment"];
             $ResourceAction->insert_record($data);
-            $this->redirect("/user/resource/list");
+            $this->redirect("/user/resource/action-list/resource_id/".$resource_id);
         }
     }
 

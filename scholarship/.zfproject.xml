@@ -513,6 +513,8 @@
             </controllerFile>
             <controllerFile controllerName="Acl">
               <actionMethod actionName="index"/>
+              <actionMethod actionName="edit"/>
+              <actionMethod actionName="editOk"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -621,6 +623,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Acl">
                 <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Acl">
+                <viewScriptFile forActionName="edit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Acl">
+                <viewScriptFile forActionName="editOk"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
