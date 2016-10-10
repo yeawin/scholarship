@@ -62,6 +62,9 @@
         <modelFile modelName="Tuitiondeduct"/>
         <modelFile modelName="StuBank"/>
         <modelFile modelName="Facultyinfo"/>
+        <modelFile modelName="SysResource"/>
+        <modelFile modelName="SysResourcePrivilege"/>
+        <modelFile modelName="SysResourceAction"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="student">
