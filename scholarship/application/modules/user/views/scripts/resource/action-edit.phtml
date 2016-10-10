@@ -1,0 +1,18 @@
+<div id="view-content">
+	<h3><b><?php echo $this->action_info["resource_name"] . "-". $this->action_info["action_name"];?></b>方法修改</h3>
+	<div class="col-md-12">
+		<form role="form" class="form form-horizontal" method="post" action="<?php echo $this->baseUrl("/user/resource/action-edit-ok");?>">
+			<div class="form-group">
+				<label for="college_name">方法名（action belongs to controller）</label>
+				<input type="text" class="form-control" name="action_name" value="<?php echo $this->action_info["action_name"];?>" required>
+			</div>
+			<div class="form-group">
+				<label for="college_name">方法功能解释</label>
+				<textarea class="form-control" name="action_comment" maxlength=50 placeholder="50个字符内，解释方法的功能" required><?php echo $this->action_info["action_comment"];?></textarea>
+			</div>
+			<input type="hidden" name="action_id" value="<?php echo $this->action_info["action_id"];?>">
+			<input type="hidden" name="resource_id" value="<?php echo $this->action_info["resource_id"];?>">
+			<button type="submit" class="btn btn-primary">提交</button>
+		</form>
+	</div>
+</div>

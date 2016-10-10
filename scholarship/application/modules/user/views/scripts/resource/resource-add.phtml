@@ -1,0 +1,17 @@
+<div id="view-content">
+	<h3>资源添加</h3>
+	<div class="col-md-12">
+		<form role="form" class="form form-horizontal" method="post" action="<?php echo $this->baseUrl("/user/resource/resource-add-ok");?>">
+			<div class="form-group">
+				<label for="college_name">资源名（module-controller）</label>
+				<input type="text" class="form-control" name="resource_name" required>
+			</div>
+			<div class="form-group">
+				<label for="college_name">资源功能解释</label>
+				<textarea type="text" class="form-control" name="resource_comment" maxlength=50 placeholder="50个字符内，解释资源的功能" required></textarea>
+			</div>
+			
+			<button type="submit" class="btn btn-primary">提交</button>
+		</form>
+	</div>
+</div>

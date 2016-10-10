@@ -18,7 +18,17 @@ class Application_Model_SysResource extends Zend_Db_Table_Abstract
     {
         $select = $this->select()->distinct(true);
         $select->from(array("r"=>$this->_name));
+        $select->order("r.resource_name asc");
         $result = $this->fetchAll($select)->toArray();
+        return $result;
+    }
+    
+    public function get_resource_record($resource_id)
+    {
+        $select = $this->select()->distinct(true);
+        $select->from(array("a"=>$this->_name));
+        $select->where("a.resource_id = ?", $resource_id);
+        $result = $this->fetchRow($select)->toArray();
         return $result;
     }
     
@@ -41,5 +51,13 @@ class Application_Model_SysResource extends Zend_Db_Table_Abstract
         return $this->delete($where);
     }
 
+    public function is_resource_name_exist($resource_name)
+    {
+        $select = $this->select();
+        $select->from($this->_name);
+        $select->where("resource_name = ?", $resource_name);
+        $result = $this->fetchAll($select);
+        return (count($result) > 0);
+    }
 }
 

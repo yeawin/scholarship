@@ -1,0 +1,83 @@
+<div id="view-content">
+	<div class="col-md-12">
+	<h3>系统资源列表</h3>
+		<div class="table-responsive">
+    		<table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>资源名</th>
+                  <th>资源功能解释</th>
+                  <th>资源方法列表</th>
+                  <th>资源操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+              foreach ($this->resource_list as $index=>$resource) {
+                  $action_list_html = "";
+                  if (count($resource["action_list"]) > 0) {
+                      foreach ($resource["action_list"] as $action) {
+                          $action_list_html .= "<span class=\"label label-default\" title=\"" . $action["action_comment"] . "\">" . $action["action_name"] . "</span>";
+                      }
+                      
+                  }
+//                   $action_list_html .= "<a href=\"" . $this->baseUrl("/user/resource/action-add/resource_id/" . $resource["resource_id"]) . "\" class=\"btn btn-success btn-xs\"><i class=\"glyphicon glyphicon-plus\"></i>添加方法</a>";
+                  $index ++;
+                  echo 
+                    "<tr>
+                      <th scope=\"row\">{$index}</th>
+                      <td><a href=\"" . $this->baseUrl("/user/resource/action-list/resource_id/" . $resource["resource_id"]) . "\">{$resource["resource_name"]}</a></td>
+                      <td>{$resource["resource_comment"]}</td>
+                      <td>{$action_list_html}</td>
+                      <td>
+                        <a href=\"{$this->baseUrl("/user/resource/resource-edit/resource_id/" . $resource["resource_id"])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>修改</a>
+                        <a href=\"javascript:delete_confirm('{$resource["resource_id"]}');\" class=\"btn btn-danger btn-xs\"><i class=\"glyphicon glyphicon-trash\"></i> 删除</a>
+                      </td>
+                    </tr>";
+              }
+                ?>
+              </tbody>
+            </table>
+		</div>
+		<div>
+		 <a class="btn btn-success" href="<?php echo $this->baseUrl("/user/resource/resource-add")?>"><i class="glyphicon glyphicon-plus"></i><b>添加资源</b></a>
+		</div>
+	</div>
+</div>
+
+<?php 
+$this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/dist/css/bootstrap-dialog.min.css"));
+$this->headScript()->appendFile($this->baseUrl("/plugins/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"));
+$this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
+$this->headScript()->appendScript("
+    
+    var Public = new PublicClass();
+    function delete_confirm(resource_id)
+    {
+        BootstrapDialog.show({
+    		title: '警告',
+    	    message: '<h3>删除不可撤销，并确保该资源没有被分配出去</h3>',
+    	    type: BootstrapDialog.TYPE_WARNING,
+    	    closable: true,
+    	    closeByBackdrop: false,
+    	    closeByKeyboard: false,
+    	    buttons: [{
+                label: '确定',
+    	        cssClass: 'btn-warning',
+    	        action: function(dialogRef){
+                    window.location.href = '" . $this->baseUrl('/user/resource/resource-del/resource_id/') . "'+resource_id;
+    	        }
+    	    },{
+    	        label: '取消',
+    	        cssClass: 'btn-default',
+    	        action: function(dialogRef){
+    	            dialogRef.close();
+    	        }
+    	    }]
+	    });
+    }
+
+", $type = 'text/javascript');
+
+?>

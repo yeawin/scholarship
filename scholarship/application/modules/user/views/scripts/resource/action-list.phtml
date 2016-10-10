@@ -1,0 +1,74 @@
+<div id="view-content">
+	<div class="col-md-12">
+	<h3><b><?php echo $this->resource_info["resource_name"];?></b>资源方法列表</h3>
+		<div class="table-responsive">
+    		<table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>方法名</th>
+                  <th>方法功能解释</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+              foreach ($this->action_list as $index=>$action) {
+
+                  $index ++;
+                  echo 
+                    "<tr>
+                      <th scope=\"row\">{$index}</th>
+                      <td>{$action["action_name"]}</td>
+                      <td>{$action["action_comment"]}</td>
+                      <td>
+                        <a href=\"{$this->baseUrl("/user/resource/action-edit/action_id/" . $action["action_id"])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>修改</a>
+                        <a href=\"javascript:delete_confirm('{$action["action_id"]}');\" class=\"btn btn-danger btn-xs\"><i class=\"glyphicon glyphicon-trash\"></i> 删除</a>
+                      </td>
+                    </tr>";
+              }
+                ?>
+              </tbody>
+            </table>
+		</div>
+		<div>
+		 <a class="btn btn-success" href="<?php echo $this->baseUrl("/user/resource/action-add/resource_id/" . $this->resource_info["resource_id"])?>"><i class="glyphicon glyphicon-plus"></i><b>添加方法</b></a>
+		</div>
+	</div>
+</div>
+
+<?php 
+$this->headLink()->appendStylesheet($this->baseUrl("/plugins/bootstrap-dialog/dist/css/bootstrap-dialog.min.css"));
+$this->headScript()->appendFile($this->baseUrl("/plugins/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"));
+$this->headScript()->appendFile($this->baseUrl("/static/js/public.js"));
+$this->headScript()->appendScript("
+    
+    var Public = new PublicClass();
+    function delete_confirm(action_id)
+    {
+        BootstrapDialog.show({
+    		title: '警告',
+    	    message: '<h3>删除不可撤销，并确保该方法没有被分配出去</h3>',
+    	    type: BootstrapDialog.TYPE_WARNING,
+    	    closable: true,
+    	    closeByBackdrop: false,
+    	    closeByKeyboard: false,
+    	    buttons: [{
+                label: '确定',
+    	        cssClass: 'btn-warning',
+    	        action: function(dialogRef){
+                    window.location.href = '" . $this->baseUrl('/user/resource/action-del/action_id/') . "'+action_id;
+    	        }
+    	    },{
+    	        label: '取消',
+    	        cssClass: 'btn-default',
+    	        action: function(dialogRef){
+    	            dialogRef.close();
+    	        }
+    	    }]
+	    });
+    }
+
+", $type = 'text/javascript');
+
+?>

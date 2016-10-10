@@ -109,3 +109,7 @@ body {
 .glyphicon{
 	margin-right:8px;
 }
+.label {
+	margin-right:6px;
+	display: inline-block;
+}

@@ -49,5 +49,20 @@ class Application_Model_SysResourcePrivilege extends Zend_Db_Table_Abstract
         $where = $db->quoteInto("privilege_id = ?", $privilege_id);
         return $this->delete($where);
     }
+    
+    public function is_action_privilege_exist($action_id = null, $resource_id = null)
+    {
+        $select = $this->select();
+        $select->from(array("p"=>$this->_name));
+        $select->joinLeft(array("a"=>"tb_sys_resource_action"), "a.action_id = p.action_id", array("action_name", "action_comment", "resource_id"));
+        if (null != $action_id) {
+            $select->where("p.action_id = ?", $action_id);
+        }
+        if (null != $resource_id) {
+            $select->where("a.resource_id = ?", $resource_id);
+        }
+        $result = $this->fetchAll($select);
+        return (count($result) > 0);
+    }
 }
 

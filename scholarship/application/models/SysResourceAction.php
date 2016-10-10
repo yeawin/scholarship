@@ -16,12 +16,25 @@ class Application_Model_SysResourceAction extends Zend_Db_Table_Abstract
     
     public function get_action_list($resource_id = null)
     {
-        $select = $this->select()->distinct(true);
+        $select = $this->select()->setIntegrityCheck(false)->distinct(true);
         $select->from(array("a"=>$this->_name));
+        $select->joinLeft(array("r"=>"tb_sys_resource"), "a.resource_id = r.resource_id", array("resource_name", "resource_comment"));
         if (null !== $resource_id) {
-            $select->where("rescource_id = ?", $resource_id);
+            $select->where("a.resource_id = ?", $resource_id);
         }
+        $select->order("a.resource_id");
+        $select->order("a.action_name asc");
         $result = $this->fetchAll($select)->toArray();
+        return $result;
+    }
+    
+    public function get_action_record($action_id)
+    {
+        $select = $this->select()->setIntegrityCheck(false)->distinct(true);
+        $select->from(array("a"=>$this->_name));
+        $select->joinLeft(array("r"=>"tb_sys_resource"), "a.resource_id = r.resource_id", array("resource_name", "resource_comment"));
+        $select->where("a.action_id = ?", $action_id);
+        $result = $this->fetchRow($select)->toArray();
         return $result;
     }
     
@@ -44,5 +57,14 @@ class Application_Model_SysResourceAction extends Zend_Db_Table_Abstract
         return $this->delete($where);
     }
 
+    public function is_action_name_exist($resource_id, $action_name)
+    {
+        $select = $this->select();
+        $select->from($this->_name);
+        $select->where("resource_id = ?", $resource_id);
+        $select->where("action_name = ?", $action_name);
+        $result = $this->fetchAll($select);
+        return (count($result) > 0);
+    }
 }
 

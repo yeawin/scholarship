@@ -496,6 +496,21 @@
               <actionMethod actionName="edit"/>
               <actionMethod actionName="editOk"/>
             </controllerFile>
+            <controllerFile controllerName="Resource">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="resourceAdd"/>
+              <actionMethod actionName="resourceAddOk"/>
+              <actionMethod actionName="resourceEdit"/>
+              <actionMethod actionName="resourceEditOk"/>
+              <actionMethod actionName="resourceDel"/>
+              <actionMethod actionName="actionAdd"/>
+              <actionMethod actionName="actionAddOk"/>
+              <actionMethod actionName="actionEdit"/>
+              <actionMethod actionName="actionEditOk"/>
+              <actionMethod actionName="actionDel"/>
+              <actionMethod actionName="list"/>
+              <actionMethod actionName="actionList"/>
+            </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
           <layoutsDirectory enabled="false">
@@ -561,6 +576,45 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Account">
                 <viewScriptFile forActionName="setAuthOk"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="resourceAdd"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="resourceAddOk"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="resourceEdit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="resourceEditOk"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="resourceDel"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="actionAdd"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="actionAddOk"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="actionEdit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="actionEditOk"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="actionDel"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Resource">
+                <viewScriptFile forActionName="actionList"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
