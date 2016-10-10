@@ -17,7 +17,7 @@ class Application_Model_Usertype extends Zend_Db_Table_Abstract
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("t"=>$this->_name));
-        $select->joinLeft(array("p"=>$this->_name), "t.parent_code = p.type_code", array("parent_name"=>"type_name"));
+        $select->joinLeft(array("p"=>$this->_name), "t.parent_code = p.type_code", null);
         if (null !== $except_type_code) {
             $select->where("t.type_code != ?", $except_type_code);
         }

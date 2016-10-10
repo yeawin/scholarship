@@ -20,7 +20,8 @@
     			$parent_code = null;
     			$len = count($type_list);
     			for ($i = 0; $i < $len; $i ++) {
-    			    $checked = ($type_list[$i]['type_code'] == $this->type_record["parent_code"]) ? "checked" : "";
+    			    $parent_code_array = explode("_", $this->type_record["parent_code"]);
+    			    $checked = in_array($type_list[$i]['type_code'], $parent_code_array) ? "checked" : "";
     			    $j = $i + 1;
     			    //     			    echo "<option value=\"{$flow_list[$i]['flow_id']}\">" . $flow_list[$i]["flow_name"] . "</option>";
     			    echo "<label class=\"checkbox-inline\">

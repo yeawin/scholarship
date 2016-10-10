@@ -16,12 +16,16 @@
               <?php 
               foreach ($this->type_list as $index=>$type) {
                   $index ++;
+                  $parent_name = "";
+                  foreach ($type["parent"] as $parent) {
+                      $parent_name .= "<span class=\"label label-default\">" . $parent["parent_name"] . "</span>";
+                  }
                   echo 
                     "<tr>
                       <!--<th scope=\"row\">{$index}</th> -->
                       <td>{$type["type_code"]}</td>
-                      <td>{$type["type_name"]}</td>
-                      <td>{$type["parent_name"]}</td>
+                      <td><span class=\"label label-primary\">{$type["type_name"]}</span></td>
+                      <td>{$parent_name}</td>
                       <td><a href=\"{$this->baseUrl("/user/auth/edit/code/" . $type['type_code'])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>修改</a><a href=\"javascript:delete_confirm('{$type['type_code']}');\" class=\"btn btn-danger btn-xs\"><i class=\"glyphicon glyphicon-trash\"></i>删除</a></td>
                     </tr>";
               }

@@ -18,6 +18,20 @@ class User_AuthController extends Zend_Controller_Action
         // action body
         $Usertype = new Application_Model_Usertype();
         $type_list = $Usertype->get_type_list();
+        $len = count($type_list);
+        for($i = 0; $i < $len; $i ++) {
+            $parent_code_array = explode('_', $type_list[$i]["parent_code"]);
+            $length = count($parent_code_array);
+            $parent_array = array();
+            for($j = 0; $j < $length; $j ++)
+            {
+                $user_type_info = $Usertype->get_type_record($parent_code_array[$j]);
+                $parent_array[$j]["parent_code"] = $user_type_info["type_code"];
+                $parent_array[$j]["parent_name"] = $user_type_info["type_name"];
+            }
+            $type_list[$i]["parent"] = $parent_array;
+        }
+
         $this->view->type_list = $type_list;
     }
 
@@ -48,15 +62,25 @@ class User_AuthController extends Zend_Controller_Action
         try {
             $data["type_code"] = $Params["type_code"];
             $data["type_name"] = $Params["type_name"];
-            foreach ($Params["parent_code"] as $parent_code) {
-                $data["parent_code"] = $parent_code;
-                $Usertype = new Application_Model_Usertype();
-                if ($Usertype->is_user_type_exist($data["type_code"])) {
-                    $this->view->message = "角色代码：{$data["type_code"]} 已经存在";
-                    return false;
-                } 
-                $Usertype->insert_record($data);
+            $data["parent_code"] = "";
+            $len = count($Params["parent_code"]);
+            for ($i = 0; $i < $len; $i ++)
+            {
+                $data["parent_code"] .= $Params["parent_code"][$i];
+                if ($i + 1 < $len) {
+                    $data["parent_code"] .= "_";
+                }
             }
+            
+//             foreach ($Params["parent_code"] as $parent_code) {
+//                 $data["parent_code"] = $parent_code;
+//                 $Usertype = new Application_Model_Usertype();
+//                 if ($Usertype->is_user_type_exist($data["type_code"])) {
+//                     $this->view->message = "角色代码：{$data["type_code"]} 已经存在";
+//                     return false;
+//                 } 
+//                 $Usertype->insert_record($data);
+//             }
             $this->redirect("/user/auth/list");
         } catch (Exception $e) {
             $this->view->message = $e->getMessage();
@@ -73,7 +97,6 @@ class User_AuthController extends Zend_Controller_Action
         try {
             $Usertype = new Application_Model_Usertype();
             $type_record = $Usertype->get_type_record($Params["code"]);
-            //             var_dump($scholarship_flow);exit();
             $this->view->type_record = $type_record;
         
             $type_list = $Usertype->get_type_list($Params["code"]);
@@ -87,6 +110,7 @@ class User_AuthController extends Zend_Controller_Action
     {
         // action body
         $Params = $this->getAllParams();
+        
         if (!(isset($Params["type_code"]) && "" !== $Params["type_code"])) {
             $this->view->message = "角色代码不能为空";
             return false;
@@ -102,11 +126,17 @@ class User_AuthController extends Zend_Controller_Action
         try {
             $data["type_code"] = $Params["type_code"];
             $data["type_name"] = $Params["type_name"];
-            foreach ($Params["parent_code"] as $parent_code) {
-                $data["parent_code"] = $parent_code;
-                $Usertype = new Application_Model_Usertype();
-                $Usertype->update_record($data, $Params["type_code"]);
+            $data["parent_code"] = "";
+            $len = count($Params["parent_code"]);
+            for ($i = 0; $i < $len; $i ++)
+            {
+                 $data["parent_code"] .= $Params["parent_code"][$i]; 
+                 if ($i + 1 < $len) {
+                     $data["parent_code"] .= "_";
+                }
             }
+            $Usertype = new Application_Model_Usertype();
+            $Usertype->update_record($data, $Params["type_code"]);
             $this->redirect("/user/auth/list");
         } catch (Exception $e) {
             $this->view->message = $e->getMessage();

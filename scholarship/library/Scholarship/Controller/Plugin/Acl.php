@@ -3,18 +3,32 @@ class Scholarship_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 {
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
+        $User_Type = new Application_Model_Usertype();
+        $user_type_list = $User_Type->get_type_list();
         //实例化Zend_Acl
         $acl = new Zend_Acl();
-        //添加前台角色
-        $acl->addRole('0');                  //游客
-        $acl->addRole('1', '0');             //学生
-        $acl->addRole('2', '0');             //辅导员
-        $acl->addRole('3', '0');             //教学秘书
-        $acl->addRole('4', '0');             //学生处
-        $acl->addRole('3', '0');             //财务处
-        $acl->addRole('3', '0');             //管理员
-        $acl->addRole('3', array('1','2', '3'));             //超级管理员
-
+        foreach ($user_type_list as $user_type)
+        {
+            if (null == $user_type["parent_code"]) {
+                $acl->addRole($user_type["type_code"]);                  //游客
+            } else {
+                $role_array = explode('_', $user_type["parent_code"]);
+                if (count($role_array) > 1) {
+                    $acl->addRole($user_type["type_code"], $role_array);                //组合用户
+                } else {
+                    $acl->addRole($user_type["type_code"], $user_type["parent_code"]);
+                }
+            }
+        }
+        //当前用户
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $identity = $auth->getIdentity();
+            $role = isset($identity->role) ? $identity->role : "guest";
+        } else {
+            $role = 'guest';
+        }
+        exit();
         
         //添加默认资源
         $acl->addResource('default-index');     //默认模块，默认控制器
