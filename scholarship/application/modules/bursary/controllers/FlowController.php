@@ -45,6 +45,11 @@ class Bursary_FlowController extends Zend_Controller_Action
         $ScholarshipFlow = new Application_Model_Bursaryflow();
         $flow_list = $ScholarshipFlow->get_scholarship_flow_list($scholarship_id);
         $this->view->flow_list = $flow_list;
+        
+        //用户类型列表
+        $Usertype = new Application_Model_Usertype();
+        $user_type_list = $Usertype->get_type_list();
+        $this->view->user_type_list = $user_type_list;
     }
 
     public function addOkAction()
@@ -55,14 +60,14 @@ class Bursary_FlowController extends Zend_Controller_Action
             $this->view->message = "流程名称不能为空";
             return false;
         }
-        if (!(isset($Params["check_role_id"]) && "" !== $Params["check_role_id"])) {
+        if (!(isset($Params["type_code"]) && "" !== $Params["type_code"])) {
             $this->view->message = "审核对象不能为空";
             return false;
         }
         try {
             $data["flow_name"] = $Params["flow_name"];
             $data["scholarship_id"] = $Params["scholarship_id"];
-            $data["check_role_id"] = $Params["check_role_id"];
+            $data["type_code"] = $Params["type_code"];
             $data["flow_order"] = 1;
             foreach ($Params["parent_id"] as $parent_id) {
                 $data["flow_id"] = md5(microtime() + rand());
@@ -120,6 +125,11 @@ class Bursary_FlowController extends Zend_Controller_Action
             $ScholarshipFlow = new Application_Model_Bursaryflow();
             $flow_list = $ScholarshipFlow->get_scholarship_flow_list($scholarship_flow["scholarship_id"], $Params["id"]);
             $this->view->flow_list = $flow_list;
+            
+            //用户类型列表
+            $Usertype = new Application_Model_Usertype();
+            $user_type_list = $Usertype->get_type_list();
+            $this->view->user_type_list = $user_type_list;
 //             $ScholarshipType = new Application_Model_Bursarytype();
 //             $scholarship_type_list = $ScholarshipType->get_scholarship_type_list();
 //             $this->view->scholar_type_list = $scholarship_type_list;
@@ -137,14 +147,14 @@ class Bursary_FlowController extends Zend_Controller_Action
             $this->view->message = "流程名称不能为空";
             return false;
         }
-        if (!(isset($Params["check_role_id"]) && "" !== $Params["check_role_id"])) {
+        if (!(isset($Params["type_code"]) && "" !== $Params["type_code"])) {
             $this->view->message = "审核对象不能为空";
             return false;
         }
         try {
             $data["flow_name"] = $Params["flow_name"];
 //             $data["scholarship_id"] = $Params["scholarship_id"];
-            $data["check_role_id"] = $Params["check_role_id"];
+            $data["type_code"] = $Params["type_code"];
             $data["flow_order"] = 1;
             foreach ($Params["parent_id"] as $parent_id) {
                 $data["flow_id"] = $Params["flow_id"];

@@ -1,0 +1,29 @@
+<div id="view-content">
+	<h3><b><?php echo $this->scholarshipinfo["scholarship_name"];?></b>申请条件</h3>
+	<div class="col-md-12">
+		<div class="table-responsive">
+    		<table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>条件表达式</th>
+                  <th>是否满足</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+              foreach ($this->condition_list as $index=>$condition) {
+                  $index ++;
+                  echo 
+                    "<tr>
+                      <td>{$index}</td>
+                      <td>{$condition['expression']}</td>
+                      <td></td>
+                    </tr>";
+              }
+                ?>
+              </tbody>
+            </table>
+		</div>
+	</div>
+</div>

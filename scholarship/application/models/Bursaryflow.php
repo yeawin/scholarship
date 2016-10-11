@@ -31,6 +31,7 @@ class Application_Model_Bursaryflow extends Zend_Db_Table_Abstract
         $select->from(array("f"=>$this->_name));
         $select->joinLeft(array("p"=>$this->_name), "f.parent_id = p.flow_id", array("parent_flow_name"=>"flow_name"));
         $select->joinLeft(array("i"=>"tb_scholarship_info"), "i.scholarship_id = f.scholarship_id");
+        $select->joinLeft(array("u"=>"tb_user_type"), "u.type_code = f.type_code");
         $select->where("f.scholarship_id = ?", $scholarship_id);
         $select->order("f.flow_order");
         if (null !== $except_flow_id) {

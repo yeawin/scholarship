@@ -33,10 +33,19 @@
 				<label for="college_name">当前流程名</label>
 				<input type="text" class="form-control" name="flow_name" required>
 			</div>
-			<div class="form-group">
-				<label for="college_name">审核对象</label>
-				<input type="text" class="form-control" name="check_role_id" required>
-			</div>
+				<div class="form-group">
+				<label for="check_role_id">审核对象</label>
+                	<?php 
+                    $user_type_list = $this->user_type_list;
+                    $len = count($user_type_list);
+                    for($i = 0; $i < $len; $i ++) {
+                    	echo "<label class=\"checkbox-inline\">
+                    			 <input type=\"radio\" name=\"type_code\" value=\"{$user_type_list[$i]['type_code']}\" required>{$user_type_list[$i]["type_name"]}
+                    		</label>";
+                    }
+                  ?>
+                  </div>
+
 			<input type="hidden" name="scholarship_id" value="<?php echo $this->scholarshipinfo["scholarship_id"];?>">
 			<button type="submit" class="btn btn-primary">提交</button>
 		</form>

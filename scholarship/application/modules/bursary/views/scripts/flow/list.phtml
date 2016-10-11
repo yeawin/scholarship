@@ -7,7 +7,7 @@
 	   $len = count($flow);
 	   for ($i = 0; $i < $len; $i ++)
 	   {
-	       echo $flow[$i]['flow_name'] . "<small>[" . $flow[$i]['check_role_id'] . "]</small>";
+	       echo $flow[$i]['flow_name'] . "<small>[" . $flow[$i]['type_name'] . "]</small>";
 	       if ($i < $len - 1) 
 	           echo "-->";
 	   }
@@ -36,7 +36,7 @@
                       <td>{$flow['flow_order']}</td>
                       <td>{$flow['flow_name']}</td>
                       <td>{$flow['parent_flow_name']}</td>
-                      <td>{$flow['check_role_id']}</td>
+                      <td>{$flow['type_name']}</td>
                       <td><a href=\"{$this->baseUrl("/bursary/flow/edit/id/" . $flow['flow_id'])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>修改</a><a href=\"javascript:delete_confirm('{$flow['flow_id']}');\" class=\"btn btn-danger btn-xs\"><i class=\"glyphicon glyphicon-trash\"></i>删除</a></td>
                     </tr>";
               }

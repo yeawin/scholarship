@@ -14,6 +14,7 @@
                   <th>结束时间</th>
                   <th>发放时间</th>
                   <th>流程</th>
+                  <th>条件</th>
                   <th>操作</th>
                 </tr>
               </thead>
@@ -32,6 +33,7 @@
                       <td>{$scholarship['end_time']}</td>  
                       <td>{$scholarship['pay_time']}</td> 
                       <td><a href=\"{$this->baseUrl("/default/bursary/flow/id/" . $scholarship["scholarship_id"])}\">查看流程</a></td> 
+                      <td><a href=\"{$this->baseUrl("/default/bursary/condition/id/" . $scholarship["scholarship_id"])}\">评比条件</a></td> 
                       <td><a href=\"{$this->baseUrl("/default/bursary/apply/id/" . $scholarship["scholarship_id"])}\">申请</a></td> 
                     </tr>";
               }

@@ -257,8 +257,30 @@ class BursaryController extends Zend_Controller_Action
 
     }
 
+    public function conditionAction()
+    {
+        // action body
+        $Params = $this->getAllParams();
+        if (!(isset($Params["id"]) && "" !== $Params["id"])) {
+            die("参数id不能为空");
+        }
+        $scholarship_id = $Params["id"];
+        $ScholarshipInfo = new Application_Model_Bursaryinfo();
+        $scholarshipinfo = $ScholarshipInfo->get_scholarship_record($scholarship_id);
+        $this->view->scholarshipinfo = $scholarshipinfo;
+        
+        $Condition = new Application_Model_Bursarycondition();
+        $condition_list = $Condition->get_scholarship_condition_list($scholarship_id);
+ 
+        $this->view->condition_list = $condition_list;
+    }
+
 
 }
+
+
+
+
 
 
 
