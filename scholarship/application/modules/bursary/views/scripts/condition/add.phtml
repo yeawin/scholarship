@@ -1,0 +1,39 @@
+<div id="view-content">
+	<h3><b><?php echo $this->scholarshipinfo["scholarship_name"];?></b>条件添加</h3>
+	<div class="col-md-12">
+		<form role="form" class="form form-horizontal" method="post" action="<?php echo $this->baseUrl("/bursary/condition/add-ok");?>">
+			<div class="form-group">
+				<label for="college_name">奖学金名称</label>
+				<input type="text" class="form-control" value="<?php echo $this->scholarshipinfo["scholarship_name"];?>" readonly>
+			</div>
+			<div class="form-group">
+				<label for="college_name">奖学金等级</label>
+				<input type="text" class="form-control" value="<?php echo $this->scholarshipinfo["scholarship_type_name"];?>" readonly>
+			</div>
+			<div class="form-group">
+				<p for="expression"><b>条件表达式</b></p>
+				<div class="form-inline">
+					<div class="col-md-12">
+    					<select class="form-control col-md-4" name="expression_1" >
+    					<option value="course_grade">成绩排名</option>
+    					<option value="escape_time">逃课次数</option>
+    					<option value="course_no_passed">挂科门数</option>
+    					<option value="discipline">不良记录</option>
+    					</select>
+    					<select class="form-control col-md-4" name="expression_2" >
+        					<option value="&lt;">&lt;</option>
+        					<option value="&lt;=">&lt;=</option>
+        					<option value="&gt;">&gt;</option>
+        					<option value="&gt;=">&gt;=</option>
+        					<option value="=">=</option>
+    					</select>
+    					<input class="form-control col-md-4" name="expression_3" type="text" placeholder="请输入条件值" value="15" required>
+    				</div>
+					<p class="help-block">参考写法：成绩排名 &lt 15 (15%内); 逃课次数  &lt 1 (不能逃课); 挂科门数 &lt 1(不能挂科); 不良记录 &lt 1（不能有不良记录）</p>
+				</div>
+			</div>
+			<input type="hidden" name="scholarship_id" value="<?php echo $this->scholarshipinfo["scholarship_id"];?>">
+			<button type="submit" class="btn btn-primary">提交</button>
+		</form>
+	</div>
+</div>
