@@ -119,12 +119,12 @@ class Bursary_FlowController extends Zend_Controller_Action
         try {
             $ScholarshipFlow = new Application_Model_Bursaryflow();
             $scholarship_flow = $ScholarshipFlow->get_scholarship_flow_record($Params["id"]);
-//             var_dump($scholarship_flow);exit();
             $this->view->scholarship_flow = $scholarship_flow;
         
             $ScholarshipFlow = new Application_Model_Bursaryflow();
-            $flow_list = $ScholarshipFlow->get_scholarship_flow_list($scholarship_flow["scholarship_id"], $Params["id"]);
+            $flow_list = $ScholarshipFlow->get_scholarship_flow_list($scholarship_flow["scholarship_id"], null);
             $this->view->flow_list = $flow_list;
+
             
             //用户类型列表
             $Usertype = new Application_Model_Usertype();
