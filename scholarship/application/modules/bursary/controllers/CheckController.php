@@ -18,23 +18,32 @@ class Bursary_CheckController extends Zend_Controller_Action
     {
         // action body
         $Params = $this->getAllParams();
+        $i = 0;
+        $role = $GLOBALS["role"] ;
+        $where_array =array();
+        if ($role != '9') {
+            $user_id = $GLOBALS["user_id"];
+            $Faculty  = new Application_Model_Facultyinfo();
+            $faculty_info = $Faculty->get_faculty_info($user_id);
+            $where_array[$i++] = "s.dept_code = '" . $faculty_info["dept_code"] . "'";
+        }
+
         if (!isset($Params["type"])) {
             $Apply = new Application_Model_Bursaryapply();
-            $where_array = array("a.is_pass is null");
+            $where_array[$i++] = "a.is_pass is null";
             $order_array = array("a.scholarship_id", "a.apply_time");
             $review_list = $Apply->get_apply_list($where_array, $order_array);
             $this->view->review_list = $review_list;
-            
         } else if ("agree" == $Params["type"]) {
             $Apply = new Application_Model_Bursaryapply();
-            $where_array = array("a.is_pass = '1'");
+            $where_array[$i++] = "a.is_pass = '1'";
             $order_array = array("a.scholarship_id", "a.apply_time");
             $review_list = $Apply->get_apply_list($where_array, $order_array);
             $this->view->review_list = $review_list;
             $this->render("agree");
         } else if ("disagree" == $Params["type"]) {
             $Apply = new Application_Model_Bursaryapply();
-            $where_array = array("a.is_pass = '0'");
+            $where_array[$i++] = "a.is_pass = '0'";
             $order_array = array("a.scholarship_id", "a.apply_time");
             $review_list = $Apply->get_apply_list($where_array, $order_array);
             $this->view->review_list = $review_list;

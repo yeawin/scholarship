@@ -22,8 +22,8 @@ class Application_Model_Stucondition extends Zend_Db_Table_Abstract
         $select->joinLeft(array("t"=>"tb_stu_type"), "i.stu_type = t.stu_type_code");
         $select->joinLeft(array("d"=>"tb_dept_info"), "i.dept_code = d.dept_code", array("dept_name", "dept_full_name", "parent_code", "deptcode04"));
         if (null !== $array) {
-            foreach ($array as $key=>$value) {
-                $select->where("{$key} = ?", $value);
+            foreach ($array as $where) {
+                $select->where($where);
             }
         }
         $result = $this->fetchAll($select);

@@ -16,8 +16,16 @@ class Student_ConditionController extends Zend_Controller_Action
     public function listAction()
     {
         // action body
+        $i = 0;
+        $role = $GLOBALS["role"] ;
+        if ($role != '9') {
+            $user_id = $GLOBALS["user_id"];
+            $Faculty  = new Application_Model_Facultyinfo();
+            $faculty_info = $Faculty->get_faculty_info($user_id);
+            $where_array[$i++] = "i.dept_code = '" . $faculty_info["dept_code"] . "'";
+        }
         $Condition = new Application_Model_Stucondition();
-        $condition_list = $Condition->get_condition_list();
+        $condition_list = $Condition->get_condition_list($where_array);
         $this->view->condition_list = $condition_list;
     }
 

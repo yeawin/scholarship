@@ -40,7 +40,8 @@ class Application_Model_Facultyinfo extends Zend_Db_Table_Abstract
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array("i"=>$this->_name), array("faculty_id", "faculty_name", "faculty_sex"))->setIntegrityCheck(false);
-        $select->joinLeft(array("d"=>"tb_dept_info"), "i.dept_code = d.dept_code", array("dept_name", "dept_full_name", "parent_code", "deptcode04"));
+        $select->joinLeft(array("d"=>"tb_dept_info"), "i.dept_code = d.dept_code", array("dept_code", "dept_name", "dept_full_name", "parent_code", "deptcode04"));
+        $select->where("i.faculty_id = ?", $faculty_id);
         $result = $this->fetchRow($select);
         if ($result) {
             $result = $result->toArray();
