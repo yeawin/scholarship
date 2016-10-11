@@ -1,6 +1,6 @@
 <div id="view-content" class="row">
 	<div class="col-md-12">
-		<h3>待审核申请列表</h3>
+		<h3 class="text-success">已经审核通过列表</h3>
 		<div class="table-responsive">
     		<table class="table table-bordered table-condensed">
               <thead>
@@ -16,29 +16,27 @@
               </thead>
               <tbody>
               <?php 
-              foreach ($this->review_list as $index=>$reviewing) {
+              foreach ($this->review_list as $index=>$reviewed) {
                   $index ++;
                   echo 
                     "<tr>
                       <th scope=\"row\">{$index}</th>
-                      <td>{$reviewing['dept_name']}</td>
-                      <td>{$reviewing['stu_id']}</td>
-                      <td>{$reviewing['stu_name']}</td>
-                      <td>{$reviewing['stu_grade']}</td>
-                      <td>{$reviewing['scholarship_name']}</td>
-                      <td><a href=\"{$this->baseUrl("/bursary/check/view/id/" . $reviewing['apply_id'])}\"><i class=\"glyphicon glyphicon-eye-open\"></i>查看<a/></td>
+                      <td>{$reviewed['dept_name']}</td>
+                      <td>{$reviewed['stu_id']}</td>
+                      <td>{$reviewed['stu_name']}</td>
+                      <td>{$reviewed['stu_grade']}</td>
+                      <td>{$reviewed['scholarship_name']}</td>
+                      <td><a href=\"{$this->baseUrl("/bursary/check/view/id/" . $reviewed['apply_id'])}\"><i class=\"glyphicon glyphicon-eye-open\"></i>查看<a/></td>
                     </tr>";
               }
                 ?>
               </tbody>
             </table>
 		</div>
-		<div class="col-md-12">
-			<p><a class="btn btn-success" href="<?php echo $this->baseUrl("/bursary/check/list/type/agree");?>">审核通过列表</a><a class="btn btn-warning" href="<?php echo $this->baseUrl("/bursary/check/list/type/disagree");?>">审核不通过列表</a></p>
-		</div>
 	</div>
-	
-	
+	<div class="col-md-12">
+			<p><a class="btn btn-info" href="<?php echo $this->baseUrl("/bursary/check/list/");?>">待审核列表</a><a class="btn btn-warning" href="<?php echo $this->baseUrl("/bursary/check/list/type/disagree");?>">审核不通过列表</a></p>
+	</div>
 </div>
 
 <?php 

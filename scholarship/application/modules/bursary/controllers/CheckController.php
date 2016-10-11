@@ -17,12 +17,30 @@ class Bursary_CheckController extends Zend_Controller_Action
     public function listAction()
     {
         // action body
-        $Apply = new Application_Model_Bursaryapply();
-        $where_array = array("a.is_pass is null");
-        $order_array = array("a.scholarship_id", "a.apply_time");
-        $apply_list = $Apply->get_apply_list($where_array, $order_array);
-//         var_dump($apply_list);
-        $this->view->apply_list = $apply_list;
+        $Params = $this->getAllParams();
+        if (!isset($Params["type"])) {
+            $Apply = new Application_Model_Bursaryapply();
+            $where_array = array("a.is_pass is null");
+            $order_array = array("a.scholarship_id", "a.apply_time");
+            $review_list = $Apply->get_apply_list($where_array, $order_array);
+            $this->view->review_list = $review_list;
+            
+        } else if ("agree" == $Params["type"]) {
+            $Apply = new Application_Model_Bursaryapply();
+            $where_array = array("a.is_pass = '1'");
+            $order_array = array("a.scholarship_id", "a.apply_time");
+            $review_list = $Apply->get_apply_list($where_array, $order_array);
+            $this->view->review_list = $review_list;
+            $this->render("agree");
+        } else if ("disagree" == $Params["type"]) {
+            $Apply = new Application_Model_Bursaryapply();
+            $where_array = array("a.is_pass = '0'");
+            $order_array = array("a.scholarship_id", "a.apply_time");
+            $review_list = $Apply->get_apply_list($where_array, $order_array);
+            $this->view->review_list = $review_list;
+            $this->render("disagree");
+        }
+
     }
 
     public function viewAction()
