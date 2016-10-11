@@ -10,7 +10,9 @@
         <controllerFile controllerName="Index">
           <actionMethod actionName="index"/>
         </controllerFile>
-        <controllerFile controllerName="Error"/>
+        <controllerFile controllerName="Error">
+          <actionMethod actionName="deny"/>
+        </controllerFile>
         <controllerFile controllerName="Account">
           <actionMethod actionName="index"/>
           <actionMethod actionName="login"/>
@@ -769,6 +771,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Bursary">
             <viewScriptFile forActionName="progress"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Error">
+            <viewScriptFile forActionName="deny"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

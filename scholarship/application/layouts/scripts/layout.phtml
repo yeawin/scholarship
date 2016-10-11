@@ -44,14 +44,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <?php 
-            $auth = Zend_Auth::getInstance();
-            $identity = $auth->getIdentity();
-            if (isset($identity->user_id)) {
-            ?>
+    <?php 
+	$acl = new Zend_Acl();
+	$acl = $GLOBALS["acl"];
+	?>
+
             <li role="presentation" class="dropdown">
                 <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i class="glyphicon glyphicon-user"></i><?php echo $identity->user_id?>
+                  <i class="glyphicon glyphicon-user"></i><?php echo  $GLOBALS["user_id"];?>
                   <span class="caret"></span>
                 </a>
                 <ul id="menu1" class="dropdown-menu" aria-labelledby="drop1">
@@ -59,45 +59,68 @@
                   <li><a href="<?php echo $this->baseUrl("/default/account/logout");?>">注销</a></li>
                 </ul>
            </li>
-			<?php }?>
+
           </ul>
         </div>
       </div>
     </nav>
-
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
+         <?php if ($acl->isAllowed($GLOBALS["role"], "default-bursary", "index")) {?>
           <ul class="nav nav-sidebar">
             <li><a href="<?php echo $this->baseUrl("/default/bursary/index");?>">所有奖学金 <span class="sr-only">(current)</span></a></li>
             <li><a href="<?php echo $this->baseUrl("/default/bursary/my");?>">我的奖学金</a></li>
           </ul>
+          <?php }?>
+          
           <ul class="nav nav-sidebar">
-            <li><a href="<?php echo $this->baseUrl("/student/type/list");?>">学生类型</a></li>
-            <li><a href="<?php echo $this->baseUrl("/student/info/list");?>">学生信息</a></li>
-            <li><a href="<?php echo $this->baseUrl("/student/condition/list");?>">资格审查</a></li>
+           <?php if ($acl->isAllowed($GLOBALS["role"], "student-type", "index")) {?>
+            <li><a href="<?php echo $this->baseUrl("/student/type/list");?>">学生类型</a></li><?php }?>
+            <?php if ($acl->isAllowed($GLOBALS["role"], "student-info", "index")) {?>
+            <li><a href="<?php echo $this->baseUrl("/student/info/list");?>">学生信息</a></li><?php }?>
+            <?php if ($acl->isAllowed($GLOBALS["role"], "student-condition", "index")) {?>
+            <li><a href="<?php echo $this->baseUrl("/student/condition/list");?>">资格审查</a></li><?php }?>
+          </ul>
+    
+          <ul class="nav nav-sidebar">
+           <?php if ($acl->isAllowed($GLOBALS["role"], "student-type", "index")) {?>
+            <li><a href="<?php echo $this->baseUrl("/faculty/info/list");?>">教师信息</a></li><?php }?>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="<?php echo $this->baseUrl("/faculty/info/list");?>">教师信息</a></li>
+            <?php if ($acl->isAllowed($GLOBALS["role"], "bursary-type", "index")) {?>
+            <li><a href="<?php echo $this->baseUrl("/bursary/type/list");?>">奖学金类型</a></li><?php }?>
+            <?php if ($acl->isAllowed($GLOBALS["role"], "bursary-info", "index")) {?>
+            <li><a href="<?php echo $this->baseUrl("/bursary/info/list");?>">奖学金信息</a></li><?php }?>
+             <?php if ($acl->isAllowed($GLOBALS["role"], "bursary-check", "index")) {?>
+            <li><a href="<?php echo $this->baseUrl("/bursary/check/list");?>">奖学金审核</a></li><?php }?>
+             <?php if ($acl->isAllowed($GLOBALS["role"], "bursary-pay", "index")) {?>
+            <li><a href="<?php echo $this->baseUrl("/bursary/pay/list");?>">奖学金发放</a></li><?php }?>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="<?php echo $this->baseUrl("/bursary/type/list");?>">奖学金类型</a></li>
-            <li><a href="<?php echo $this->baseUrl("/bursary/info/list");?>">奖学金信息</a></li>
-            <li><a href="<?php echo $this->baseUrl("/bursary/check/list");?>">奖学金审核</a></li>
-            <li><a href="<?php echo $this->baseUrl("/bursary/pay/list");?>">奖学金发放</a></li>
+            <?php if ($acl->isAllowed($GLOBALS["role"], "tuition-info", "index")) {?>
+          	<li><a href="<?php echo $this->baseUrl("/tuition/info/list");?>">费用管理</a></li><?php }?>
+          	<?php if ($acl->isAllowed($GLOBALS["role"], "tuition-fee", "index")) {?>
+          	<li><a href="<?php echo $this->baseUrl("/tuition/fee/list");?>">欠费管理</a></li><?php }?>
+          	<?php if ($acl->isAllowed($GLOBALS["role"], "tuition-charging", "index")) {?>
+            <li><a href="<?php echo $this->baseUrl("/tuition/charging/list");?>">扣费管理</a></li><?php }?>
+            <?php if ($acl->isAllowed($GLOBALS["role"], "tuition-bank", "index")) {?>
+            <li><a href="<?php echo $this->baseUrl("/tuition/bank/list");?>">银行卡管理</a></li><?php }?>
           </ul>
           <ul class="nav nav-sidebar">
-          	<li><a href="<?php echo $this->baseUrl("/tuition/info/list");?>">费用管理</a></li>
-          	<li><a href="<?php echo $this->baseUrl("/tuition/fee/list");?>">欠费管理</a></li>
-            <li><a href="<?php echo $this->baseUrl("/tuition/charging/list");?>">扣费管理</a></li>
-            <li><a href="<?php echo $this->baseUrl("/tuition/bank/list");?>">银行卡管理</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-          	<li><a href="<?php echo $this->baseUrl("/user/resource/list");?>">资源管理</a></li>
-          	<li><a href="<?php echo $this->baseUrl("/user/auth/list");?>">角色管理</a></li>
-          	<li><a href="<?php echo $this->baseUrl("/user/acl/index");?>">访问控制</a></li>
-          	<li><a href="<?php echo $this->baseUrl("/user/account/list");?>">用户管理</a></li>
-          	<li><a href="<?php echo $this->baseUrl("/user/account/search");?>">密码重置</a></li>
+          	<?php if ($acl->isAllowed($GLOBALS["role"], "user-resource", "index")) {?>
+          	<li><a href="<?php echo $this->baseUrl("/user/resource/list");?>">资源管理</a></li><?php }?>
+          	<?php if ($acl->isAllowed($GLOBALS["role"], "user-auth", "index")) {?>
+          	<li><a href="<?php echo $this->baseUrl("/user/auth/list");?>">角色管理</a></li><?php }?>
+          	<?php if ($acl->isAllowed($GLOBALS["role"], "user-acl", "index")) {?>
+          	<li><a href="<?php echo $this->baseUrl("/user/acl/index");?>">访问控制</a></li><?php }?>
+
+          	          	
+          	<?php if ($acl->isAllowed($GLOBALS["role"], "user-account", "list")) {?>
+          	<li><a href="<?php echo $this->baseUrl("/user/account/list");?>">用户管理</a></li><?php }?>
+          	<?php if ($acl->isAllowed($GLOBALS["role"], "user-account", "search")) {?>
+          	<li><a href="<?php echo $this->baseUrl("/user/account/search");?>">密码重置</a></li><?php }?>
+
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

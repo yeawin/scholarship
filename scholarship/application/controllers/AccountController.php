@@ -49,7 +49,7 @@ class AccountController extends Zend_Controller_Action
             //判断教职工的类型
             $auth_array = array(
                 "user_id"=>$user_id,
-                "user_type"=>isset($user_info["user_type"]) ? $user_info["user_type"] : null,
+                "type_code"=>isset($user_info["type_code"]) ? $user_info["type_code"] : null,
             );
             //获得getInstance实例
             $auth = Zend_Auth::getInstance();
@@ -66,6 +66,7 @@ class AccountController extends Zend_Controller_Action
     public function forgetAction()
     {
         // action body
+        $this->_helper->layout()->disableLayout();
     }
 
     public function resetAction()

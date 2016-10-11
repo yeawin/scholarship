@@ -16,7 +16,7 @@ $paths[] = get_include_path();
 set_include_path(implode(PATH_SEPARATOR, $paths));
 
 //自定义
-const STUDENT_DEPT ='103';
+const STUDENT_DEPT = '103';
 
 
 /** Zend_Application */

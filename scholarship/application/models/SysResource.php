@@ -23,6 +23,15 @@ class Application_Model_SysResource extends Zend_Db_Table_Abstract
         return $result;
     }
     
+    public function get_resource_name_list()
+    {
+        $select = $this->select()->distinct(true);
+        $select->from(array("r"=>$this->_name), array("resource_name"));
+        $select->order("r.resource_name asc");
+        $result = $this->fetchAll($select)->toArray();
+        return $result;
+    }
+    
     public function get_resource_record($resource_id)
     {
         $select = $this->select()->distinct(true);
