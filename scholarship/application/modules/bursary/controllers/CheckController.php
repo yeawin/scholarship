@@ -21,7 +21,7 @@ class Bursary_CheckController extends Zend_Controller_Action
         $i = 0;
         $role = $GLOBALS["role"] ;
         $where_array =array();
-        if ($role != '9') {
+        if (intval($role) < 5) {
             $user_id = $GLOBALS["user_id"];
             $Faculty  = new Application_Model_Facultyinfo();
             $faculty_info = $Faculty->get_faculty_info($user_id);

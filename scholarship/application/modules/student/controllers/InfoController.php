@@ -18,7 +18,7 @@ class Student_InfoController extends Zend_Controller_Action
         // action body
         $i = 0;
         $role = $GLOBALS["role"] ;
-        if ($role != '9') {
+        if (intval($role) < 5) {
             $user_id = $GLOBALS["user_id"];
             $Faculty  = new Application_Model_Facultyinfo();
             $faculty_info = $Faculty->get_faculty_info($user_id);
