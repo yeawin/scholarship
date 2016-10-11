@@ -50,7 +50,9 @@ class Bursary_ConditionController extends Zend_Controller_Action
         try {
             $data["condition_id"] = md5(microtime() + rand());
             $data["scholarship_id"] = $Params["scholarship_id"];
-            $data["expression"] = $Params["expression_1"] . " ".  $Params["expression_2"] . " '". $Params["expression_3"] . " '";
+            $data["key"] = $Params["key"];
+            $data["symbol"] = $Params["symbol"];
+            $data["value"] = $Params["value"];
             $Condition = new Application_Model_Bursarycondition();
             $Condition->insert_record($data);
             $this->redirect("/bursary/condition/list/id/" . $Params["scholarship_id"]);
@@ -80,7 +82,9 @@ class Bursary_ConditionController extends Zend_Controller_Action
         // action body
         $Params = $this->getAllParams();
         try {
-            $data["expression"] = $Params["expression_1"] . " ".  $Params["expression_2"] . " '". $Params["expression_3"] . " '";
+            $data["key"] = $Params["key"];
+            $data["symbol"] = $Params["symbol"];
+            $data["value"] = $Params["value"];
             $Condition = new Application_Model_Bursarycondition();
             $Condition->update_record($data, $Params["condition_id"]);
             $this->redirect("/bursary/condition/list/id/" . $Params["scholarship_id"]);

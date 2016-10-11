@@ -13,11 +13,18 @@
               <tbody>
               <?php 
               foreach ($this->condition_list as $index=>$condition) {
+                  switch ($condition['key']) {
+                      case "course_grade": $condition['key'] = "成绩排名"; break;
+                      case "escape_time": $condition['key'] = "逃课次数"; break;
+                      case "course_no_passed": $condition['key'] = "挂科门数"; break;
+                      case "discipline": $condition['key'] = "不良记录"; break;
+                  }
+                  $expression = $condition['key'] . $condition['symbol'] .$condition['value'];
                   $index ++;
                   echo 
                     "<tr>
                       <td>{$index}</td>
-                      <td>{$condition['expression']}</td>
+                      <td>{$expression}</td>
                        <td><a href=\"{$this->baseUrl("/bursary/condition/edit/id/" . $condition["condition_id"])}\" class=\"btn btn-warning btn-xs\"><i class=\"glyphicon glyphicon-edit\"></i>修改</a><a href=\"javascript:delete_confirm('{$condition["condition_id"]}');\" class=\"btn btn-danger btn-xs\"><i class=\"glyphicon glyphicon-trash\"></i>删除</a></td>
                     </tr>";
               }
