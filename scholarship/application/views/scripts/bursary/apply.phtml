@@ -3,7 +3,9 @@
 		<div class="col-md-12">
 			<h3><?php echo $this->bursary["scholarship_name"];?>评比条件</h3>
 			<?php 
+			$i = 0;
 			foreach ($this->bursary_condition_list as $condition) {
+			    $i ++;
 			      switch ($condition['key']) {
                       case "course_grade": $condition['key'] = "成绩排名"; break;
                       case "escape_time": $condition['key'] = "逃课次数"; break;
@@ -12,7 +14,12 @@
                   }
                   $expression = $condition['key'] . $condition['symbol'] .$condition['value'];
                   echo "<p class=\"col-md-3\"><b>$expression</b></p>";
-			}?>
+			}
+			if ($i == 0) {
+			    echo "<p class=\"col-md-3\"><b>无</b></p>";
+			}
+			
+			?>
 
 		</div>
 		<div class="col-md-12">
