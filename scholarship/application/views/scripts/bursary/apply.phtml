@@ -1,11 +1,26 @@
 <div id="view-content">
 	<div class="row">
 		<div class="col-md-12">
+			<h3><?php echo $this->bursary["scholarship_name"];?>评比条件</h3>
+			<?php 
+			foreach ($this->bursary_condition_list as $condition) {
+			      switch ($condition['key']) {
+                      case "course_grade": $condition['key'] = "成绩排名"; break;
+                      case "escape_time": $condition['key'] = "逃课次数"; break;
+                      case "course_no_passed": $condition['key'] = "挂科门数"; break;
+                      case "discipline": $condition['key'] = "不良记录"; break;
+                  }
+                  $expression = $condition['key'] . $condition['symbol'] .$condition['value'];
+                  echo "<p class=\"col-md-3\"><b>$expression</b></p>";
+			}?>
+
+		</div>
+		<div class="col-md-12">
 			<h3>我的条件</h3>
-			<p class="col-md-3">成绩排名：<b><?php echo $this->condition["course_grade"];?></b></p>
-			<p class="col-md-3">不及格科目数：<b><?php echo $this->condition["course_no_passed"];?></b></p>
-			<p class="col-md-3">逃课次数：<b><?php echo $this->condition["escape_time"];?></b></p>
-			<p class="col-md-3">违纪情况：<b><?php echo $this->condition["discipline"];?></b></p>
+			<p class="col-md-3">成绩排名：<b><?php echo $this->student_condition["course_grade"];?></b></p>
+			<p class="col-md-3">不及格科目数：<b><?php echo $this->student_condition["course_no_passed"];?></b></p>
+			<p class="col-md-3">逃课次数：<b><?php echo $this->student_condition["escape_time"];?></b></p>
+			<p class="col-md-3">违纪情况：<b><?php echo $this->student_condition["discipline"];?></b></p>
 		</div>
 		<hr class="col-md-12">
 		<?php 
@@ -16,14 +31,34 @@
 		 </div>
 		<?php 
 		}  else { 
-		?>
-		 <div class="col-md-12">
+		    $flag = true;
+		    foreach ($this->bursary_condition_list as $condition) {
+		        $expression =  " return (" . $this->student_condition[$condition['key']] . $condition['symbol'] . $condition['value'] . ");";
+		        $result = eval ($expression);
+		        if ($result) {
+		            $flag = true;
+		        } else {
+		            $flag = false;
+		        }
+		        
+		    }
+		    if ($flag) {
+		
+		 ?>
+		<div class="col-md-12">
 			<h3><?php echo $this->bursary["scholarship_name"];?></h3>
 			<form class="form" method="post" action="<?php echo $this->baseUrl("/default/bursary/apply-ok");?>">
 				<input type="hidden" name="id" value="<?php echo $this->bursary["scholarship_id"];?>">
 				<button type="submit" class="btn btn-primary">确定申请</button>
 			</form> 
-		</div>
+		</div> 
+		   <?php  } else { ?>
+		 <div class="col-md-12">
+			<h3 class="text-danger">你不符合条件，不能申请</h3>
+		</div> 
+		        
+		 <?php    }?>
+
 	<?php 
 		}
 		?>

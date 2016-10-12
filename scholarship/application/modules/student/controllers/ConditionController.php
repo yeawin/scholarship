@@ -18,6 +18,7 @@ class Student_ConditionController extends Zend_Controller_Action
         // action body
         $i = 0;
         $role = $GLOBALS["role"] ;
+        $where_array = array();
         if (intval($role) < 5) {
             $user_id = $GLOBALS["user_id"];
             $Faculty  = new Application_Model_Facultyinfo();

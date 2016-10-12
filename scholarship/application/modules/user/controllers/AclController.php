@@ -59,6 +59,8 @@ class User_AclController extends Zend_Controller_Action
         // action body
         $Params = $this->getAllParams();
         $type_code = $Params["type_code"];
+        $Privilege = new Application_Model_SysResourcePrivilege();
+        $Privilege->delete_record(null, null, $type_code);
         foreach ($Params as $key=>$val)
         {
             if ($key == "module" || $key == "controller" || $key == "action") {
@@ -67,8 +69,6 @@ class User_AclController extends Zend_Controller_Action
                 if(strpos($key, "action") !== false) {  //找到了资源变量
                     $resource_id = substr($key, 7);
                     $action_list = $Params["action_" . $resource_id];
-                    $Privilege = new Application_Model_SysResourcePrivilege();
-                    $Privilege->delete_record(null, $resource_id, $type_code);
                     foreach ($action_list as $action) {
                         $data["privilege_id"] = md5(microtime() + rand());
                         $data["type_code"] = $type_code;

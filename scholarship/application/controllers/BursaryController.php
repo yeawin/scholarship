@@ -14,7 +14,6 @@ class BursaryController extends Zend_Controller_Action
         $Bursary = new Application_Model_Bursaryinfo();
         $bursary_list = $Bursary->get_scholarship_list();
         $this->view->bursary_list = $bursary_list;
-        
     }
 
     public function flowAction()
@@ -97,10 +96,17 @@ class BursaryController extends Zend_Controller_Action
             $this->renderScript("/error/warning.phtml");
             return false;
         }
+        
+        //奖学金基本信息
         $scholarship_id = $Params["id"];
         $ScholarshipInfo = new Application_Model_Bursaryinfo();
         $scholarshipinfo = $ScholarshipInfo->get_scholarship_record($scholarship_id);
         $this->view->bursary = $scholarshipinfo;
+        
+        //奖学金申请条件
+        $BursaryCondition = new Application_Model_Bursarycondition();
+        $bursary_condition_list = $BursaryCondition->get_scholarship_condition_list($scholarship_id);
+        $this->view->bursary_condition_list = $bursary_condition_list;
         
         if (intval($scholarshipinfo["is_start"]) !== 1) {
             $this->view->message = "还没有开始";
@@ -112,12 +118,12 @@ class BursaryController extends Zend_Controller_Action
         $identity = $auth->getIdentity();
         $user_id = $identity->user_id;
         
-        $Condition = new Application_Model_Stucondition();
-        $condition = $Condition->get_condition_record($user_id);
-        $this->view->condition = $condition;
+        //学生信息，条件
+        $StuCondition = new Application_Model_Stucondition();
+        $stu_condition = $StuCondition->get_condition_record($user_id);
+        $this->view->student_condition = $stu_condition;
         
-
-        
+        //奖学金申请记录
         $where_array = array("a.stu_id"=>$user_id, "a.scholarship_id"=>$scholarship_id);
         $ScholarshipApply = new Application_Model_Bursaryapply();
         $scholarship_apply_record = $ScholarshipApply->get_apply_record($where_array);
